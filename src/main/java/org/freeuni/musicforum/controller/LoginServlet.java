@@ -14,4 +14,11 @@ public class LoginServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/login.jsp")
                 .forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username");
+        // Hash this password later
+        String passwordHash = req.getParameter("password");
+    }
 }
