@@ -9,5 +9,5 @@ public record User(
         Gender gender,
         String username,
         String passwordHash,
-        boolean isModerator
+        Badge badge
 ) {}
