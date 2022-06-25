@@ -1,49 +1,105 @@
 .background {
-    height: 100%;
-    width: 100%;
+    margin:0%;
+
     background-image: url("/images/background_image.jpg");
-    background-position: center;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
 }
 
 .login_image {
+    margin: 0%;
+
     float: left;
-    margin-right: 10px;
-    width: 425px;
-    height: 725px;
+    width: 35%;
+    height: 98%;
 }
 
 .outer_rectangle {
-    width:1025px;
-    height:725px;
+    margin: 0%;
+
+    width:60%;
+    height:98%;
     float:left;
     text-align:center;
 }
 
 .page_label_box {
-    width:975px;
-    height:100px;
+    margin-top:0%;
+    margin-bottom:0%;
+
+    width:98%;
+    height:10%;
     float:top;
 }
 
 .page_label {
     color:#81d8d0;
     font-family:"Times New Roman", Times, serif;
-    font-size: 350%;
+    font-size: 3.4vw;
     font-weight: bolder;
 }
 
 .big_text {
+    margin-top:0%;
+    margin-bottom:0%;
+
     font-family:"Verdana", Verdana, serif;
-    font-size: 150%;
+    font-size: 2.1vw;
     font-weight: bold;
 }
 
 .text {
+    margin-top:0%;
+    margin-bottom:0%;
+
     font-family:"Verdana", Verdana, serif;
-    font-size: 120%;
+    font-size: 1.4vw;
 }
 
 .small_text {
+    margin-top:0%;
+    margin-bottom:0%;
+
     font-family:"Verdana", Verdana, serif;
+    font-size: 1vw;
+}
+
+.textbox {
+    padding: 0%;
+    margin-top:0%;
+    margin-bottom:0%;
+
+    width: 15%;
+    height: 3.5%;
+    font-size: 1.4vw;
+}
+
+.space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 4%;
+}
+
+.big_space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 8%;
+}
+
+.huge_space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 16%;
+}
+
+.button {
+    margin: 0%;
+    border: 1vw;
+    padding: 0%;
+
+    width: 8%;
+    height: 4%;
 }
