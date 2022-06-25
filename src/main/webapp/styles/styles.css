@@ -1,26 +1,49 @@
+.background {
+    height: 100%;
+    width: 100%;
+    background-image: url("/images/background_image.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .login_image {
     float: left;
     margin-right: 10px;
-    width: 300px;
-    height: 500px;
+    width: 425px;
+    height: 725px;
 }
 
 .outer_rectangle {
-    width:500px;
-    height:500px;
-    background-color:#ffffff;
+    width:1025px;
+    height:725px;
     float:left;
     text-align:center;
 }
 
 .page_label_box {
-    width:500px;
-    height:50px;
-    float:top
+    width:975px;
+    height:100px;
+    float:top;
 }
 
 .page_label {
     color:#81d8d0;
     font-family:"Times New Roman", Times, serif;
-    font-weight:bolder;
+    font-size: 350%;
+    font-weight: bolder;
+}
+
+.big_text {
+    font-family:"Verdana", Verdana, serif;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.text {
+    font-family:"Verdana", Verdana, serif;
+    font-size: 120%;
+}
+
+.small_text {
+    font-family:"Verdana", Verdana, serif;
 }

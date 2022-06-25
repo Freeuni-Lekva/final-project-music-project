@@ -4,7 +4,7 @@
     <title>Log In</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
-<body style="background-color: #e4f2ff">
+<body class="background">
 
     <img src="image.jpg" alt="Company Logo And Design Should Be Here"
          class="login_image">
@@ -14,21 +14,21 @@
         <div class="page_label_box">
             <h1 class="page_label">Music Forum</h1>
         </div>
-        <h3>Express your wildest musical opinions here!</h3><br>
+        <h3 class="big_text">Express your wildest musical opinions here!</h3><br>
 
         <form action="/" method="post">
-            <label for="username">Username:</label>
+            <label for="username" class="text">Username:</label>
             <input type="text" id="username" name="username">
-            <br>
-            <label for="password">Password:</label>
+            <br><br>
+            <label for="password" class="text">Password: </label>
             <input type="password" id="password" name="password">
-            <br>
-            <input type="submit" value="Login">
+            <br><br>
+            <input type="submit" value="Login" class="text">
         </form>
 
-        <hr/>
-        <p>Don't have an account?</p>
-        <a href="/register">Sign Up</a>
+        <br>
+        <p class="text">Don't have an account?</p>
+        <a href="/register" class="text">Sign Up</a>
 
     </div>
 
