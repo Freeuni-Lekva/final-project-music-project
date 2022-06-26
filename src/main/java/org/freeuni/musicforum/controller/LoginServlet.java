@@ -1,5 +1,7 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.util.UserUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +19,9 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         String username = req.getParameter("username");
-        // Hash this password later
-        String passwordHash = req.getParameter("password");
+        String passwordHash = UserUtils.hashPassword(req.getParameter("password"));
     }
 }

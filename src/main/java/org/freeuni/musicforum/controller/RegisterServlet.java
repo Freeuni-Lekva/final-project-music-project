@@ -6,6 +6,7 @@ import org.freeuni.musicforum.model.Badge;
 import org.freeuni.musicforum.model.Gender;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.service.UserService;
+import org.freeuni.musicforum.util.UserUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date birthDate = null;
         try {
             birthDate = dateFormat.parse(req.getParameter("birthDate"));
@@ -40,9 +41,9 @@ public class RegisterServlet extends HttpServlet {
         }
         Gender gender = Gender.valueOf(req.getParameter("gender"));
         String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        String passwordHash = UserUtils.hashPassword(req.getParameter("password"));
         User newUser = new User(
-                firstName, lastName, birthDate, gender, username, password, Badge.NEWCOMER
+                firstName, lastName, birthDate, gender, username, passwordHash, Badge.NEWCOMER
         );
 
         UserService userService = new UserService(new InMemoryUserDAO()); //will be changed to sql
