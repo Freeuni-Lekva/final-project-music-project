@@ -6,8 +6,10 @@
 </head>
 <body class="background">
 
-    <img src="image.jpg" alt="Company Logo And Design Should Be Here"
-         class="login_image">
+    <div class="login_image">
+        <p class="huge_space"></p>
+        <img src="/images/logo_big.png" alt="logo_pic">
+    </div>
 
     <div class="outer_rectangle">
 
@@ -29,7 +31,7 @@
             <input type="submit" value="Login" class="text" class="button">
         </form>
 
-        <% boolean incorrect_login = (boolean) request.getAttribute("incorrect_login");%>
+        <% boolean incorrect_login = (boolean) request.getAttribute("incorrect_login"); %>
         <% if (incorrect_login) { %>
         <p class="space"></p>
             <p class="small_text">Your username or password was incorrect, please try again.</p>
