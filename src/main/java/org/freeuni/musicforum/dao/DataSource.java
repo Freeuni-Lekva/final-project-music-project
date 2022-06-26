@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public enum DataSource {
     INSTANCE;
@@ -32,6 +33,7 @@ public enum DataSource {
                         con = DriverManager.getConnection(
                                 "jdbc:mysql://127.0.0.1:3306/freeuni",
                                 "root", "root");
+                        timer.cancel();
                     }
                     catch(SQLException e) {
                         System.out.println(e.getMessage());
