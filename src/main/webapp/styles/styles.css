@@ -76,6 +76,10 @@
     font-size: 1.4vw;
 }
 
+.longer_textbox_width {
+    width: 20%;
+}
+
 .space {
     margin-top:0%;
     margin-bottom:0%;
@@ -104,4 +108,8 @@
 
     width: 8%;
     height: 4%;
+}
+
+.selection_width {
+    width: 10%;
 }
