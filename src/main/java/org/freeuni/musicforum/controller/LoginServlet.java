@@ -1,5 +1,7 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.service.ServiceFactory;
+import org.freeuni.musicforum.service.UserService;
 import org.freeuni.musicforum.util.UserUtils;
 
 import javax.servlet.ServletException;
@@ -13,7 +15,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.setAttribute("incorrect_login", false);
         req.getRequestDispatcher("/WEB-INF/login.jsp")
                 .forward(req, resp);
     }
@@ -23,5 +24,16 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = req.getParameter("username");
         String passwordHash = UserUtils.hashPassword(req.getParameter("password"));
+
+        UserService userService = ServiceFactory.getUserService();
+        if(userService.login(username, passwordHash)) {
+            req.getRequestDispatcher("/WEB-INF/feed.jsp")
+                    .forward(req, resp);
+        }
+        else {
+            req.setAttribute("incorrectLogin", true);
+            req.getRequestDispatcher("/WEB-INF/login.jsp")
+                    .forward(req, resp);
+        }
     }
 }

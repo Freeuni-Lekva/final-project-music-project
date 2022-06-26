@@ -1,15 +1,21 @@
 package org.freeuni.musicforum.dao;
 
+import org.freeuni.musicforum.model.Badge;
+import org.freeuni.musicforum.model.Gender;
 import org.freeuni.musicforum.model.User;
+import org.freeuni.musicforum.util.UserUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryUserDAO implements UserDAO {
     private final List<User> users;
 
     public InMemoryUserDAO() {
-        this.users = new ArrayList<>();
+        this.users = new ArrayList<>(List.of(
+                new User("guri", "getsadze", null, Gender.MAN,
+                        "guri", UserUtils.hashPassword("guri"), Badge.NEWCOMER)));
     }
 
     @Override
@@ -18,7 +24,19 @@ public class InMemoryUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean doesExist() {
-        return false;
+    public boolean doesExist(String username) {
+        return getByUsername(username).isPresent();
+    }
+
+    private Optional<User> getByUsername(String username) {
+        return users.stream()
+                .filter(user -> user.username().equals(username))
+                .findFirst();
+    }
+
+    @Override
+    public boolean correctCredentials(String username, String passwordHash) {
+        var user = getByUsername(username);
+        return user.isPresent() && user.get().passwordHash().equals(passwordHash);
     }
 }

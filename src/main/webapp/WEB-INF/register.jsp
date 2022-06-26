@@ -54,8 +54,12 @@
         <input type="submit" value="Sign Up" class="text" class="button">
     </form>
 
+    <% if (request.getAttribute("incorrectRegister") != null) { %>
     <p class="space"></p>
+    <p class="small_text">User with this username already exists. Please try different</p>
+    <% } %>
 
+    <p class="space"></p>
     <p class="text">Already have an account?</p>
     <a href="/" class="text">Login</a>
 

@@ -18,7 +18,12 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean doesExist() {
+    public boolean doesExist(String username) {
+        return false;
+    }
+
+    @Override
+    public boolean correctCredentials(String username, String passwordHash) {
         return false;
     }
 }

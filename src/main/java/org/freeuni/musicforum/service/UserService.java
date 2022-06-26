@@ -12,8 +12,12 @@ public class UserService {
     }
 
     public void signUp(User newUser) {
-        if(dao.doesExist()) throw new UserAlreadyExistsException();
+        if(dao.doesExist(newUser.username())) throw new UserAlreadyExistsException();
 
         dao.add(newUser);
+    }
+
+    public boolean login(String username, String passwordHash) {
+        return dao.correctCredentials(username, passwordHash);
     }
 }

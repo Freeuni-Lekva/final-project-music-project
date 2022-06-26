@@ -32,8 +32,7 @@
             <input type="submit" value="Login" class="text" class="button">
         </form>
 
-        <% boolean incorrect_login = (boolean) request.getAttribute("incorrect_login"); %>
-        <% if (incorrect_login) { %>
+        <% if (request.getAttribute("incorrectLogin") != null) { %>
         <p class="space"></p>
             <p class="small_text">Your username or password was incorrect, please try again.</p>
         <% } %>

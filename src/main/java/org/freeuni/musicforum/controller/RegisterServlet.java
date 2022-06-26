@@ -5,6 +5,7 @@ import org.freeuni.musicforum.exception.UserAlreadyExistsException;
 import org.freeuni.musicforum.model.Badge;
 import org.freeuni.musicforum.model.Gender;
 import org.freeuni.musicforum.model.User;
+import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
 import org.freeuni.musicforum.util.UserUtils;
 
@@ -46,7 +47,8 @@ public class RegisterServlet extends HttpServlet {
                 firstName, lastName, birthDate, gender, username, passwordHash, Badge.NEWCOMER
         );
 
-        UserService userService = new UserService(new InMemoryUserDAO()); //will be changed to sql
+        UserService userService = ServiceFactory.getUserService();
+
         try {
             userService.signUp(newUser);
             System.out.println(newUser);
@@ -54,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
                     .forward(req, resp);
         }
         catch(UserAlreadyExistsException e) {
-            //req.setAttribute("incorrectRegister", true);
+            req.setAttribute("incorrectRegister", true);
             doGet(req, resp);
         }
 
