@@ -8,6 +8,6 @@ public record User(
         Date birthDate,
         Gender gender,
         String username,
-        String passwordHash,
+        Password password,
         Badge badge
 ) {}
