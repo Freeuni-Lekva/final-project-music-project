@@ -1,7 +1,6 @@
 package org.freeuni.musicforum.controller;
 
-import org.freeuni.musicforum.dao.InMemoryUserDAO;
-import org.freeuni.musicforum.exception.UserAlreadyExistsException;
+import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
 import org.freeuni.musicforum.model.Badge;
 import org.freeuni.musicforum.model.Gender;
 import org.freeuni.musicforum.model.User;
@@ -42,9 +41,9 @@ public class RegisterServlet extends HttpServlet {
         }
         Gender gender = Gender.valueOf(req.getParameter("gender"));
         String username = req.getParameter("username");
-        String passwordHash = UserUtils.hashPassword(req.getParameter("password"));
+        String password = req.getParameter("password");
         User newUser = new User(
-                firstName, lastName, birthDate, gender, username, passwordHash, Badge.NEWCOMER
+                firstName, lastName, birthDate, gender, username, password, Badge.NEWCOMER
         );
 
         UserService userService = ServiceFactory.getUserService();
@@ -55,8 +54,8 @@ public class RegisterServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/feed.jsp")
                     .forward(req, resp);
         }
-        catch(UserAlreadyExistsException e) {
-            req.setAttribute("incorrectRegister", true);
+        catch(UnsuccessfulSignupException e) {
+            req.setAttribute("incorrectRegister", e.getMessage());
             doGet(req, resp);
         }
 

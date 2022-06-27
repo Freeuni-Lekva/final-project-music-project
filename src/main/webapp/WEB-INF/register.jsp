@@ -56,7 +56,7 @@
 
     <% if (request.getAttribute("incorrectRegister") != null) { %>
     <p class="space"></p>
-    <p class="small_text">User with this username already exists. Please try different</p>
+    <p class="small_text"><%= request.getAttribute("incorrectRegister") %></p>
     <% } %>
 
     <p class="space"></p>
