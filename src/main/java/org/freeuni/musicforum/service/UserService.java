@@ -8,24 +8,21 @@ import org.freeuni.musicforum.util.UserUtils;
 public class UserService {
     private final UserDAO dao;
 
-    public UserService(UserDAO dao) {
+    UserService(UserDAO dao) {
         this.dao = dao;
     }
 
     public void signUp(User newUser) {
         if(dao.doesExist(newUser.username()))
             throw new UnsuccessfulSignupException("User with this username already exists");
-        // passwordHash is misleading, it is just password.
-        if(newUser.username().length() < 3 || newUser.passwordHash().length() < 3) {
-            throw new UnsuccessfulSignupException("Username/Password must be longer than 2 characters");
+
+        if(newUser.username().length() < 3 || newUser.password().getPasswordSize() < 3) {
+            throw new UnsuccessfulSignupException("Username/password must be longer than 2 characters");
         }
-        User secureUser = new User(newUser.firstName(), newUser.lastName(),
-                newUser.birthDate(), newUser.gender(), newUser.username(),
-                UserUtils.hashPassword(newUser.passwordHash()), newUser.badge());
-        dao.add(secureUser);
+        dao.add(newUser);
     }
 
-    public boolean login(String username, String passwordHash) {
-        return dao.correctCredentials(username, passwordHash);
+    public boolean login(String username, String password) {
+        return dao.correctCredentials(username, UserUtils.hashPassword(password));
     }
 }
