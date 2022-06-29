@@ -1,6 +1,5 @@
 package service;
 
-import org.freeuni.musicforum.dao.InMemoryUserDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
 import org.freeuni.musicforum.model.Badge;
 import org.freeuni.musicforum.model.Gender;
@@ -14,11 +13,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
+    private final UserService service = ServiceFactory.getUserService();
 
     @Test
     void testCorrectSignups() {
-        UserService service = ServiceFactory.getUserService();
-
         User u1 = new User("Robin", "Fenty", null, Gender.WOMAN,
                 "Rihanna", new Password("123"), Badge.NEWCOMER);
         User u2 = new User("Mikhail", "Gorbachev", null, Gender.MAN,
@@ -30,8 +28,6 @@ class UserServiceTest {
 
     @Test
     void testShortParameterSignups() {
-        UserService service = ServiceFactory.getUserService();
-
         User u1 = new User("Sandra", "Diaz-Twine", null, Gender.WOMAN,
                 "iQueen", new Password("a2"), Badge.ENTHUSIAST);
         User u2 = new User("Parvati", "Shallow", null, Gender.WOMAN,
@@ -50,8 +46,6 @@ class UserServiceTest {
 
     @Test
     void testUsernameExistsSignups() {
-        UserService service = ServiceFactory.getUserService();
-
         // A user with username "guri" and password "guri" already exists.
         User u1 = new User("Guri", "Waters", null, Gender.MAN,
                 "guri", new Password("guri"), Badge.MODERATOR);
@@ -67,8 +61,6 @@ class UserServiceTest {
 
     @Test
     void testCorrectLogins() {
-        UserService service = ServiceFactory.getUserService();
-
         assertTrue(service.login("guri", "guri"));
         assertTrue(service.login("eva", "2000"));
         assertTrue(service.login("u#700", "ushi"));
@@ -77,8 +69,6 @@ class UserServiceTest {
 
     @Test
     void testWrongUsernameLogins() {
-        UserService service = ServiceFactory.getUserService();
-
         assertFalse(service.login("evangelina", "2000"));
         assertFalse(service.login("smith", "2000"));
         assertFalse(service.login("2000", "2000"));
@@ -87,8 +77,6 @@ class UserServiceTest {
 
     @Test
     void testWrongMissedPasswordLogins() {
-        UserService service = ServiceFactory.getUserService();
-
         assertFalse(service.login("u#700", "A_B_C*"));
         assertFalse(service.login("guri", "namibia"));
         assertFalse(service.login("eva", "fahrenheit"));
@@ -97,8 +85,6 @@ class UserServiceTest {
 
     @Test
     void testWrongHashedPasswordLogins() {
-        UserService service = ServiceFactory.getUserService();
-
         assertFalse(service.login("u#700", UserUtils.hashPassword("ushi")));
         assertFalse(service.login("guri", UserUtils.hashPassword("guri")));
         assertFalse(service.login("melanie1996", UserUtils.hashPassword("A_B_C*")));
