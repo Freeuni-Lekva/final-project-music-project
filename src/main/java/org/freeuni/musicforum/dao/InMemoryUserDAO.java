@@ -16,7 +16,13 @@ public class InMemoryUserDAO implements UserDAO {
     public InMemoryUserDAO() {
         this.users = new ArrayList<>(List.of(
                 new User("guri", "getsadze", null, Gender.MAN,
-                        "guri", new Password("guri"), Badge.NEWCOMER)));
+                        "guri", new Password("guri"), Badge.NEWCOMER),
+                new User("evangelina", "smith", null, Gender.WOMAN,
+                        "eva", new Password("2000"), Badge.NEWCOMER),
+                new User("melanie", "dorkus", null, Gender.WOMAN,
+                        "melanie1996", new Password("A_B_C*"), Badge.NEWCOMER),
+                new User("ushi", "hagayana", null, Gender.OTHER,
+                        "u#700", new Password("ushi"), Badge.NEWCOMER)));
     }
 
     @Override

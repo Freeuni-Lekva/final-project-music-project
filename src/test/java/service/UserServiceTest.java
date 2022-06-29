@@ -1,8 +1,10 @@
 package service;
 
+import org.freeuni.musicforum.dao.InMemoryUserDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
 import org.freeuni.musicforum.model.Badge;
 import org.freeuni.musicforum.model.Gender;
+import org.freeuni.musicforum.model.Password;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
@@ -11,86 +13,95 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserServiceTest {
+class UserServiceTest {
 
     @Test
-    public void testService1() {
+    void testCorrectSignups() {
         UserService service = ServiceFactory.getUserService();
 
-        /***************************** Test Correct Signups ****************************/
         User u1 = new User("Robin", "Fenty", null, Gender.WOMAN,
-                "Rihanna", "123", Badge.NEWCOMER);
+                "Rihanna", new Password("123"), Badge.NEWCOMER);
         User u2 = new User("Mikhail", "Gorbachev", null, Gender.MAN,
-                "MikGor", "1984", Badge.NEWCOMER);
-        service.signUp(u1);
-        service.signUp(u2);
+                "MikGor", new Password("1984"), Badge.NEWCOMER);
 
-        /***************************** Test Correct Logins *****************************/
-        assertTrue(service.login("Rihanna", UserUtils.hashPassword("123")));
-        assertTrue(service.login("MikGor", UserUtils.hashPassword("1984")));
+        assertDoesNotThrow(() -> service.signUp(u1));
+        assertDoesNotThrow(() -> service.signUp(u2));
     }
 
     @Test
-    public void testService2() {
+    void testShortParameterSignups() {
         UserService service = ServiceFactory.getUserService();
 
-        /*************************** Test Incorrect Signups ****************************/
-        User u1 = new User("Empress", "Lion", null, Gender.WOMAN,
-                "Empress", "lion", Badge.NEWCOMER);
-        User u2 = new User("Avian", "Tiger", null, Gender.OTHER,
-                "Empress", "tiger", Badge.NEWCOMER);
-        User u3 = new User("Chanel", "Oberlin", null, Gender.WOMAN,
-                "Queen", "cotton", Badge.NEWCOMER);
-        service.signUp(u1);
-        String expectedErrorMessage = "User with this username already exists";
-        Exception ex1 = assertThrows(UnsuccessfulSignupException.class,
-                ()->{ service.signUp(u2);
-                });
-        assertEquals(expectedErrorMessage, ex1.getMessage());
-        service.signUp(u3);
-        Exception ex2 = assertThrows(UnsuccessfulSignupException.class,
-                () ->{ service.signUp(u1);
-                });
-        assertEquals(expectedErrorMessage, ex2.getMessage());
-
-        /**************************** Test Incorrect Logins ****************************/
-        // User that shouldn't have been added.
-        assertFalse(service.login("Empress", UserUtils.hashPassword("tiger")));
-        // First name instead of username.
-        assertFalse(service.login("Chanel", UserUtils.hashPassword("cotton")));
-        // Not hashed password.
-        assertFalse(service.login("Queen", "cotton"));
-
-        /***************************** Test Correct Logins *****************************/
-        assertTrue(service.login("Empress", UserUtils.hashPassword("lion")));
-        assertTrue(service.login("Queen", UserUtils.hashPassword("cotton")));
-
-    }
-
-    @Test
-    public void testService3() {
-        UserService service = ServiceFactory.getUserService();
-
-        /******************** Test Short Username/Password Signups *********************/
         User u1 = new User("Sandra", "Diaz-Twine", null, Gender.WOMAN,
-                "iQueen", "a2", Badge.ENTHUSIAST);
+                "iQueen", new Password("a2"), Badge.ENTHUSIAST);
         User u2 = new User("Parvati", "Shallow", null, Gender.WOMAN,
-                "xo", "xoxo", Badge.CONTRIBUTOR);
+                "xo", new Password("xoxo"), Badge.CONTRIBUTOR);
         User u3 = new User("", "", null, Gender.MAN, "",
-                "", Badge.NEWCOMER);
-        String expectedErrorMessage = "Username/Password must be longer than 2 characters";
-        Exception ex1 = assertThrows(UnsuccessfulSignupException.class,
-                ()->{ service.signUp(u1);
-                });
+                new Password(""), Badge.NEWCOMER);
+        String expectedErrorMessage = "Username/password must be longer than 2 characters";
+
+        Exception ex1 = assertThrows(UnsuccessfulSignupException.class, (()-> service.signUp(u1)));
         assertEquals(expectedErrorMessage, ex1.getMessage());
-        Exception ex2 = assertThrows(UnsuccessfulSignupException.class,
-                ()->{ service.signUp(u2);
-                });
+        Exception ex2 = assertThrows(UnsuccessfulSignupException.class, (()-> service.signUp(u2)));
         assertEquals(expectedErrorMessage, ex2.getMessage());
-        Exception ex3 = assertThrows(UnsuccessfulSignupException.class,
-                ()->{ service.signUp(u3);
-                });
+        Exception ex3 = assertThrows(UnsuccessfulSignupException.class, (()-> service.signUp(u3)));
         assertEquals(expectedErrorMessage, ex3.getMessage());
     }
 
+    @Test
+    void testUsernameExistsSignups() {
+        UserService service = ServiceFactory.getUserService();
+
+        // A user with username "guri" and password "guri" already exists.
+        User u1 = new User("Guri", "Waters", null, Gender.MAN,
+                "guri", new Password("guri"), Badge.MODERATOR);
+        User u2 = new User("Guri", "Waters", null, Gender.MAN,
+                "guri", new Password("1234"), Badge.MODERATOR);
+        String expectedErrorMessage = "User with this username already exists";
+
+        Exception ex1 = assertThrows(UnsuccessfulSignupException.class, (()-> service.signUp(u1)));
+        assertEquals(expectedErrorMessage, ex1.getMessage());
+        Exception ex2 = assertThrows(UnsuccessfulSignupException.class, (()-> service.signUp(u2)));
+        assertEquals(expectedErrorMessage, ex2.getMessage());
+    }
+
+    @Test
+    void testCorrectLogins() {
+        UserService service = ServiceFactory.getUserService();
+
+        assertTrue(service.login("guri", "guri"));
+        assertTrue(service.login("eva", "2000"));
+        assertTrue(service.login("u#700", "ushi"));
+        assertTrue(service.login("melanie1996", "A_B_C*"));
+    }
+
+    @Test
+    void testWrongUsernameLogins() {
+        UserService service = ServiceFactory.getUserService();
+
+        assertFalse(service.login("evangelina", "2000"));
+        assertFalse(service.login("smith", "2000"));
+        assertFalse(service.login("2000", "2000"));
+        assertFalse(service.login("ushi", "ushi"));
+    }
+
+    @Test
+    void testWrongMissedPasswordLogins() {
+        UserService service = ServiceFactory.getUserService();
+
+        assertFalse(service.login("u#700", "A_B_C*"));
+        assertFalse(service.login("guri", "namibia"));
+        assertFalse(service.login("eva", "fahrenheit"));
+        assertFalse(service.login("melanie1996", "guri"));
+    }
+
+    @Test
+    void testWrongHashedPasswordLogins() {
+        UserService service = ServiceFactory.getUserService();
+
+        assertFalse(service.login("u#700", UserUtils.hashPassword("ushi")));
+        assertFalse(service.login("guri", UserUtils.hashPassword("guri")));
+        assertFalse(service.login("melanie1996", UserUtils.hashPassword("A_B_C*")));
+        assertFalse(service.login("eva", UserUtils.hashPassword("2000")));
+    }
 }
