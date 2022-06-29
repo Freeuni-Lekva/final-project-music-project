@@ -4,8 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public final class UserUtils {
-    private UserUtils() {}
+public final class Utils {
+    private Utils() {}
 
     private static final String HASH_ALGORITHM = "SHA-256";
 
@@ -20,11 +20,11 @@ public final class UserUtils {
         return builder.toString();
     }
 
-    public static String hashPassword(String password) {
+    public static String hashText(String text) {
         String hashed = null;
         try {
             MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
-            hashed = hexToString(digest.digest(password.getBytes(StandardCharsets.UTF_8)));
+            hashed = hexToString(digest.digest(text.getBytes(StandardCharsets.UTF_8)));
         }
         catch(NoSuchAlgorithmException e) {
             System.out.println(e.getMessage());

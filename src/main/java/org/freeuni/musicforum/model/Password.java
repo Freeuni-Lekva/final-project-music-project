@@ -1,6 +1,6 @@
 package org.freeuni.musicforum.model;
 
-import org.freeuni.musicforum.util.UserUtils;
+import org.freeuni.musicforum.util.Utils;
 
 public class Password {
     private final int clearTextLen;
@@ -8,7 +8,7 @@ public class Password {
 
     public Password(String clearText) {
         this.clearTextLen = clearText.length();
-        this.hashed = UserUtils.hashPassword(clearText);
+        this.hashed = Utils.hashText(clearText);
     }
 
     public String hashed() {

@@ -7,7 +7,6 @@ import org.freeuni.musicforum.model.Password;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
-import org.freeuni.musicforum.util.UserUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
