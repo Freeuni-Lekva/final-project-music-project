@@ -1,0 +1,115 @@
+.background {
+    margin:0%;
+
+    background-image: url("/images/background_image.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.login_image {
+    margin: 0%;
+
+    text-align: center;
+    float: left;
+    width: 35%;
+    height: 98%;
+
+}
+
+.outer_rectangle {
+    margin: 0%;
+
+    width:60%;
+    height:98%;
+    float:left;
+    text-align:center;
+}
+
+.page_label_box {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    width:98%;
+    height:10%;
+    float:top;
+}
+
+.page_label {
+    color:#81d8d0;
+    font-family:"Times New Roman", Times, serif;
+    font-size: 3.4vw;
+    font-weight: bolder;
+}
+
+.big_text {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 2.1vw;
+    font-weight: bold;
+}
+
+.text {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.4vw;
+}
+
+.small_text {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1vw;
+}
+
+.textbox {
+    padding: 0%;
+    margin-top:0%;
+    margin-bottom:0%;
+
+    width: 15%;
+    height: 3.5%;
+    font-size: 1.4vw;
+}
+
+.longer_textbox_width {
+    width: 20%;
+}
+
+.space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 4%;
+}
+
+.big_space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 8%;
+}
+
+.huge_space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 16%;
+}
+
+.button {
+    margin: 0%;
+    border: 1vw;
+    padding: 0%;
+
+    width: 8%;
+    height: 4%;
+}
+
+.selection_width {
+    width: 10%;
+}
