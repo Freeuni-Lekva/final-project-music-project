@@ -21,7 +21,7 @@
     <h2 style="text-align: center" class="big_text"> Add New Album </h2>
     <p class="big_space"></p>
 
-    <form action="/addAlbum" method="post">
+    <form action="/addAlbum" method="post" enctype="multipart/form-data">
         <label for="albumName" class="text"> Name Of New Album </label>
         <br/>
         <input type="text" id="albumName" name="albumName" class="textbox">
@@ -34,7 +34,7 @@
 
         <label for="coverImage" class="text"> Choose Album Cover</label>
         <p class="space"></p>
-        <input type="file" id="coverImage" accept="image/*" class="small_text" class="button">
+        <input type="file" id="coverImage" name="coverImage" accept="image/*" class="small_text" class="button">
         <p class="space"></p>
 
         <input type="submit" value="Add New Album" class="text" class="button">
