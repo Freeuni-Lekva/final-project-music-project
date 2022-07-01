@@ -27,7 +27,17 @@
     </div>
 
     <div class = "profile_bottom">
-        <%-- Albums added by user and/or Reviews should go here --%>
+        <div class = "profile_filter">
+            <div class = "profile_full_button">
+                <input type="button" value="Albums" class="profile_part_button" class="text">
+                <form action="/profile_reviews" method="post">
+                    <input type="button" value="Reviews" class="profile_part_button" class="text" >
+                </form>
+            </div>
+        </div>
+        <div class = "profile_scroll">
+
+        </div>
     </div>
 </body>
 </html>

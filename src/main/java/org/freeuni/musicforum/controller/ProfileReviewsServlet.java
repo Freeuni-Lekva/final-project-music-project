@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ProfileServlet extends HttpServlet {
+public class ProfileReviewsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // No direct access to url "/profile" should later be allowed.
-        req.getRequestDispatcher("WEB-INF/profile.jsp").forward(req, resp);
+        // No direct access to url "/profile_reviews" should later be allowed.
+        req.getRequestDispatcher("WEB-INF/profile_reviews.jsp").forward(req, resp);
     }
 
     @Override
