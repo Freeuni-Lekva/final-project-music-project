@@ -1,0 +1,42 @@
+package org.freeuni.musicforum.service;
+
+import org.freeuni.musicforum.dao.ReviewDAO;
+import org.freeuni.musicforum.exception.UnsuccessfulReviewException;
+import org.freeuni.musicforum.model.Review;
+
+import java.util.List;
+
+public class ReviewService {
+    private ReviewDAO dao;
+
+    ReviewService(ReviewDAO dao) {
+        this.dao = dao;
+    }
+
+    public void uploadReview(Review review) {
+        if (!dao.addReview(review)) {
+            throw new UnsuccessfulReviewException("This review already exists.");
+        }
+    }
+
+    public List<Review> getAllReviewsBy(String username) {
+        return dao.getAllByUser(username);
+    }
+
+    public List<Review> getAllReviewsFor(String albumId) {
+        return dao.getAllByAlbum(albumId);
+    }
+
+    public void upvoteReview(String reviewId) {
+        if (!dao.upvoteReview(reviewId)) {
+            throw new UnsuccessfulReviewException("No such review exists.");
+        }
+    }
+
+    public void downvoteReview(String reviewId) {
+        if (!dao.downvoteReview(reviewId)) {
+            throw new UnsuccessfulReviewException("No such review exists");
+        }
+    }
+
+}
