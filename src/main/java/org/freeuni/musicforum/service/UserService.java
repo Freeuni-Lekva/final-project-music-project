@@ -2,8 +2,11 @@ package org.freeuni.musicforum.service;
 
 import org.freeuni.musicforum.dao.UserDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
+import org.freeuni.musicforum.model.Review;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.UserUtils;
+
+import java.util.List;
 
 public class UserService {
     private final UserDAO dao;
@@ -25,4 +28,12 @@ public class UserService {
     public boolean login(String username, String password) {
         return dao.correctCredentials(username, UserUtils.hashPassword(password));
     }
+
+    public int getUserPrestige(User user) {
+        ReviewService rs = ServiceFactory.getReviewService();
+        int count = rs.getReviewPrestigeFor(user.username());
+        // do the same for albums.
+        return count;
+    }
+
 }

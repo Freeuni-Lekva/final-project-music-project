@@ -189,6 +189,29 @@
     height: 80%;
 }
 
+.scroll_member {
+    width: 99%;
+    height: 100px;
+}
+
+.scroll_member_photobox {
+    width: 38%;
+    height: 90%;
+    float: left;
+}
+
+.scroll_member_infobox {
+    width: 61%;
+    height: 90%;
+    overflow: scroll;
+    float: left;
+}
+
+.vote_box {
+    width: 2%;
+    height: 10%;
+}
+
 .selection_width {
     width: 10%;
 }

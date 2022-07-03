@@ -1,3 +1,7 @@
+<%@ page import="org.freeuni.musicforum.model.User" %>
+<%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
+<%@ page import="org.freeuni.musicforum.model.Review" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -5,23 +9,23 @@
     <link rel="icon" href="/images/logo_small.png"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
-body class = "background">
+<body class = "background">
 <div class = "profile_top">
 
+    <% User user = (User) request.getAttribute("user"); %>
+
     <div class = "profile_image_rec">
-        <h2 class = "text">First Name, Last Name</h2>
+        <h2 class = "text"><%=user.firstName()%> <%=user.lastName()%></h2>
         <img src="images/username_profile" alt="Upload your profile picture!" class="profile_image">
     </div>
 
     <div class = "profile_info_rec">
         <p class = "huge_space"></p>
-        <p class = "text">Username</p>
+        <p class = "text"><%=user.username()%></p>
         <p class = "space"></p>
-        <p class = "text">Birthday</p>
+        <p class = "text"><%=user.badge().name()%></p>
         <p class = "space"></p>
-        <p class = "text">Badge</p>
-        <p class = "space"></p>
-        <p class = "text">Prestige: number</p>
+        <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user)%></p>
     </div>
 
 </div>
@@ -29,14 +33,38 @@ body class = "background">
 <div class = "profile_bottom">
     <div class = "profile_filter">
         <div class = "profile_full_button">
-            <form action="/profile" method="post">
-                <input type="button" value="Albums" class="profile_part_button" class="text">
+            <form action="/profile" method="get">
+                <input type="submit" value="Albums" class="profile_part_button" class="text">
             </form>
             <input type="button" value="Reviews" class="profile_part_button" class="text" >
         </div>
     </div>
     <div class = "profile_scroll">
-        <p class = "big_text">Test</p>
+        <% List<Review> reviews = ServiceFactory.getReviewService().getAllReviewsBy(user.username()); %>
+        <% for (Review rev : reviews) { %>
+            <%-- Later add href to the album page here and ask for actual album name instead of id --%>
+            <div class = "scroll_member">
+                <div class = "scroll_member_photobox">
+                    <%-- get photo from the album --%>
+                    <p class="text"><%=rev.getAlbumId()%></p>
+                    <img src ="/images/BLAH.png" alt="album image goes here">
+                </div>
+                <div class = "scroll_member_infobox">
+                    <p class="space"></p>
+                    <p class="small_text"><%=rev.getText()%></p>
+                    <p class="space"></p>
+                    <%-- get upvote/downvote info here --%>
+                    <%-- this is default for when upvote and
+                    downvote are unselected, forms must be
+                    added as well. --%>
+                    <p class="text">
+                        <img src="/images/up_sel.png" class="vote_box">
+                        <%=rev.getPrestige()%>
+                        <img src="/images/down_sel.png" class="vote_box">
+                    </p>
+                </div>
+            </div>
+        <% } %>
     </div>
 </div>
 </body>
