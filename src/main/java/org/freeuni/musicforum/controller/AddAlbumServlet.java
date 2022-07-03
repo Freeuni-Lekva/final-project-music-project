@@ -1,5 +1,8 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.dao.AlbumDAO;
+import org.freeuni.musicforum.file.processor.ImageProcessor;
+import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
 
 import javax.servlet.ServletContext;
@@ -18,6 +21,8 @@ import java.util.Base64;
 
 @MultipartConfig
 public class AddAlbumServlet extends HttpServlet {
+
+    private final String ALBUM_COVER_PATH = "src/main/webapp/images/album-covers";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/addAlbum.jsp").forward(req, resp);
@@ -27,31 +32,27 @@ public class AddAlbumServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String albumName = req.getParameter("albumName");
         String artistName = req.getParameter("artistName");
-        AlbumIdentifier id = new AlbumIdentifier(albumName+artistName);
+        AlbumIdentifier id = new AlbumIdentifier(albumName, artistName);
+        AlbumDAO dao = (AlbumDAO) getServletContext().getAttribute("albumDAO");
+        if(dao.exists(id)) {
+            throw new IllegalArgumentException();
+        }
         String nameForImage = albumName + "_" + artistName + "_cover";
-        downloadImage(req, resp, nameForImage);
+        ImageProcessor newImage = new ImageProcessor(req.getPart("coverImage"), nameForImage, getPath(req));
+        Album newAlbum = new Album(albumName, artistName,
+                newImage.getBase64EncodedString(), null, id);
+        dao.add(newAlbum);
 
-
+        req.setAttribute("currAlbum", id);
+        req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
     }
 
-    private void downloadImage(HttpServletRequest req, HttpServletResponse resp, String imageName) throws ServletException, IOException {
-        Part imagePart = req.getPart("coverImage");
-        String originalName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
-        String imageExtension = originalName.substring(originalName.lastIndexOf('.'));
-        String fullName = imageName + imageExtension;
-        InputStream fileContent = imagePart.getInputStream();
-        String uploadPath = getPath(req);
-        File uploads = new File(uploadPath);
-        File file = new File(uploads, fullName);
-        Files.copy(fileContent, file.toPath());
-
-    }
 
     private String getPath(HttpServletRequest req) {
         ServletContext context = req.getServletContext();
         String realPath = context.getRealPath("");
         String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
-        String pathFromContextRoot = "src/main/webapp/images/album-covers";
+        String pathFromContextRoot = ALBUM_COVER_PATH;
         return realPathWithoutTarget + pathFromContextRoot;
     }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public record Album(
         String albumName,
         String artistName,
-        String coverImageSrc,
+        String coverImageBase64,
         ArrayList<Song> songs,
         AlbumIdentifier id
 ) {
