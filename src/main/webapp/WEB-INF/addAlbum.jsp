@@ -8,13 +8,10 @@
 <body class="background">
 
 
-<div class="outer_rectangle">
+<div class="centered_rectangle">
 
-<%--    <div class="login_image">--%>
-<%--    </div>--%>
-
-    <div class="page_label_box">
-        <h1 style="text-align: center" class="page_label"> Music Forum </h1>
+    <div  class="album_page_label_box" >
+        <h1 class="page_label"> Music Forum </h1>
     </div>
 
     <p class="space"></p>
@@ -32,9 +29,9 @@
         <input type="text" id="artistName" name="artistName" class="textbox">
         <p class="space"></p>
 
-        <label for="coverImage" class="text"> Choose Album Cover</label>
-        <p class="space"></p>
-        <input type="file" id="coverImage" name="coverImage" accept="image/*" class="small_text" class="button">
+        <label class="text"> Choose Album Cover</label>
+        <br/>
+        <input type="file" id="coverImage" name="coverImage" accept="image/*" class="browse_files">
         <p class="space"></p>
 
         <input type="submit" value="Add New Album" class="text" class="button">

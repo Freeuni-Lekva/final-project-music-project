@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Base64;
 
 @MultipartConfig
 public class AddAlbumServlet extends HttpServlet {
@@ -28,18 +29,22 @@ public class AddAlbumServlet extends HttpServlet {
         String artistName = req.getParameter("artistName");
         AlbumIdentifier id = new AlbumIdentifier(albumName+artistName);
         String nameForImage = albumName + "_" + artistName + "_cover";
-        downloadImage(req, nameForImage);
+        downloadImage(req, resp, nameForImage);
+
+
     }
 
-    private void downloadImage(HttpServletRequest req, String imageName) throws ServletException, IOException {
+    private void downloadImage(HttpServletRequest req, HttpServletResponse resp, String imageName) throws ServletException, IOException {
         Part imagePart = req.getPart("coverImage");
         String originalName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
         String imageExtension = originalName.substring(originalName.lastIndexOf('.'));
+        String fullName = imageName + imageExtension;
         InputStream fileContent = imagePart.getInputStream();
         String uploadPath = getPath(req);
         File uploads = new File(uploadPath);
-        File file = new File(uploads, imageName + imageExtension);
+        File file = new File(uploads, fullName);
         Files.copy(fileContent, file.toPath());
+
     }
 
     private String getPath(HttpServletRequest req) {
