@@ -1,8 +1,10 @@
 package org.freeuni.musicforum.dao;
 
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.User;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class SQLUserDAO implements UserDAO {
 
@@ -26,4 +28,10 @@ public class SQLUserDAO implements UserDAO {
     public boolean correctCredentials(String username, String passwordHash) {
         return false;
     }
+
+    @Override
+    public List<User> getFiltered(Filter f){
+        return null;
+    }
+
 }

@@ -25,4 +25,8 @@ public class UserService {
     public boolean login(String username, String password) {
         return dao.correctCredentials(username, UserUtils.hashPassword(password));
     }
+
+    public UserDAO getUserDao(){
+        return dao;
+    }
 }

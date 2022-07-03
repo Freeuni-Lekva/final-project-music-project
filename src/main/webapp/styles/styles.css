@@ -113,3 +113,15 @@
 .selection_width {
     width: 10%;
 }
+
+.searchbar{
+    width: 60%;
+    height: 5%;
+
+    font-size: 20px;
+}
+
+.search_button{
+    margin-top: 0%;
+    height: 5%;
+}
