@@ -1,6 +1,7 @@
 package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.dao.AlbumDAO;
+import org.freeuni.musicforum.exception.AlbumExistsException;
 import org.freeuni.musicforum.file.processor.ImageProcessor;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
@@ -30,13 +31,16 @@ public class AddAlbumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        AlbumDAO dao = (AlbumDAO) getServletContext().getAttribute("albumDAO");
+
         String albumName = req.getParameter("albumName");
         String artistName = req.getParameter("artistName");
         AlbumIdentifier id = new AlbumIdentifier(albumName, artistName);
-        AlbumDAO dao = (AlbumDAO) getServletContext().getAttribute("albumDAO");
+
         if(dao.exists(id)) {
-            throw new IllegalArgumentException();
+            throw new AlbumExistsException();
         }
+
         String nameForImage = albumName + "_" + artistName + "_cover";
         ImageProcessor newImage = new ImageProcessor(req.getPart("coverImage"), nameForImage, getPath(req));
         Album newAlbum = new Album(albumName, artistName,

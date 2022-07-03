@@ -21,6 +21,7 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        // delete files which users have uploaded?
         try {
             DataSource.INSTANCE.closeConnection();
         } catch (SQLException e) {

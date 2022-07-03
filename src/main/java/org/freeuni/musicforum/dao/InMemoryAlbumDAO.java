@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class InMemoryAlbumDAO implements AlbumDAO{
 
-    HashMap<AlbumIdentifier, Album> albums;
+    HashMap<String, Album> albums;
 
     public InMemoryAlbumDAO() {
         albums = new HashMap<>();
@@ -15,17 +15,17 @@ public class InMemoryAlbumDAO implements AlbumDAO{
 
     @Override
     public void add(Album album) {
-        albums.put(album.id(), album);
+        albums.put(album.id().hashed(), album);
     }
 
     @Override
     public Album getById(AlbumIdentifier id) {
-        return albums.get(id);
+        return albums.get(id.hashed());
     }
 
     @Override
     public boolean exists(AlbumIdentifier id) {
-        return albums.containsKey(id);
+        return albums.containsKey(id.hashed());
     }
 
     public int albumCount() {
