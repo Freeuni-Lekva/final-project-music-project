@@ -2,9 +2,10 @@ package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.dao.AlbumDAO;
 import org.freeuni.musicforum.exception.AlbumExistsException;
-import org.freeuni.musicforum.file.processor.ImageProcessor;
+import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
+import org.freeuni.musicforum.model.Song;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,16 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @MultipartConfig
 public class AddAlbumServlet extends HttpServlet {
 
-    private final String ALBUM_COVER_PATH = "src/main/webapp/images/album-covers";
+    private final String ALBUM_COVER_PATH = "src/main/webapp/";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/addAlbum.jsp").forward(req, resp);
@@ -33,6 +32,7 @@ public class AddAlbumServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AlbumDAO dao = (AlbumDAO) getServletContext().getAttribute("albumDAO");
 
+        Collection<Part> parts  = req.getParts();
         String albumName = req.getParameter("albumName");
         String artistName = req.getParameter("artistName");
         AlbumIdentifier id = new AlbumIdentifier(albumName, artistName);
@@ -41,10 +41,26 @@ public class AddAlbumServlet extends HttpServlet {
             throw new AlbumExistsException();
         }
 
-        String nameForImage = albumName + "_" + artistName + "_cover";
-        ImageProcessor newImage = new ImageProcessor(req.getPart("coverImage"), nameForImage, getPath(req));
+        FileProcessor newImage = null;
+        ArrayList<Song> songs = new ArrayList<>();
+        for(Part part : parts) {
+            if(part.getName().equals("coverImage")) {
+                String nameForImage = albumName + "_" + artistName + "_cover";
+                newImage = new FileProcessor(part, nameForImage, getPath(req, "images/album-covers"));
+            }
+
+            if(part.getName().equals("albumSongs")) {
+                String originalName = part.getSubmittedFileName();
+                String nameForSong = albumName + "_" + artistName + "_" + originalName.substring(0, originalName.lastIndexOf("."));
+                FileProcessor newSong = new FileProcessor(part, nameForSong, getPath(req, "songs"));
+                Song curr = new Song("ex", albumName, artistName, newSong.getBase64EncodedString(), 0);
+                songs.add(curr);
+            }
+        }
+
+
         Album newAlbum = new Album(albumName, artistName,
-                newImage.getBase64EncodedString(), null, id);
+                newImage.getBase64EncodedString(), songs, id);
         dao.add(newAlbum);
 
         req.setAttribute("currAlbum", id);
@@ -52,11 +68,12 @@ public class AddAlbumServlet extends HttpServlet {
     }
 
 
-    private String getPath(HttpServletRequest req) {
+
+    private String getPath(HttpServletRequest req, String folder) {
         ServletContext context = req.getServletContext();
         String realPath = context.getRealPath("");
         String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
-        String pathFromContextRoot = ALBUM_COVER_PATH;
+        String pathFromContextRoot = ALBUM_COVER_PATH + folder;
         return realPathWithoutTarget + pathFromContextRoot;
     }
 }
