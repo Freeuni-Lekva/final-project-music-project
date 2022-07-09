@@ -6,6 +6,7 @@ import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.Song;
+import org.freeuni.musicforum.service.AlbumService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -30,40 +31,41 @@ public class AddAlbumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AlbumDAO dao = (AlbumDAO) getServletContext().getAttribute("albumDAO");
+        AlbumService service = (AlbumService) getServletContext().getAttribute("albumService");
 
         Collection<Part> parts  = req.getParts();
         String albumName = req.getParameter("albumName");
         String artistName = req.getParameter("artistName");
         AlbumIdentifier id = new AlbumIdentifier(albumName, artistName);
 
-        if(dao.exists(id)) {
-            throw new AlbumExistsException();
-        }
-
-        FileProcessor newImage = null;
+        FileProcessor imageProcessor = null;
+        FileProcessor songProcessor = null;
         ArrayList<Song> songs = new ArrayList<>();
+
         for(Part part : parts) {
             if(part.getName().equals("coverImage")) {
                 String nameForImage = albumName + "_" + artistName + "_cover";
-                newImage = new FileProcessor(part, nameForImage, getPath(req, "images/album-covers"));
+                String uploadPath = getPath(req, "images/album-covers");
+                imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
             }
-
             if(part.getName().equals("albumSongs")) {
                 String originalName = part.getSubmittedFileName();
                 String nameForSong = albumName + "_" + artistName + "_" + originalName.substring(0, originalName.lastIndexOf("."));
-                FileProcessor newSong = new FileProcessor(part, nameForSong, getPath(req, "songs"));
-                Song curr = new Song("ex", albumName, artistName, newSong.getBase64EncodedString(), 0);
+                String uploadPath = getPath(req, "songs");
+                songProcessor = new FileProcessor(part, nameForSong, uploadPath);
+                Song curr = new Song("ex", albumName, artistName, songProcessor.getBase64EncodedString(), 0);
                 songs.add(curr);
             }
         }
 
-
+        
         Album newAlbum = new Album(albumName, artistName,
-                newImage.getBase64EncodedString(), songs, id);
-        dao.add(newAlbum);
+                imageProcessor.getBase64EncodedString(), songs, id);
+        service.addNewAlbum(newAlbum);
 
-        req.setAttribute("currAlbum", id);
+        req.setAttribute("imagePrefix", imageProcessor.IMAGE_HTML_PREFIX_BASE64);
+        req.setAttribute("audioPrefix", songProcessor.AUDIO_HTML_PREFIX_BASE64);
+        req.setAttribute("currId", id);
         req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
     }
 

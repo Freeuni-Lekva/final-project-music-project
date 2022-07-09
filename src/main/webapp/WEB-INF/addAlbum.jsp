@@ -34,9 +34,9 @@
         <input type="file" id="coverImage" name="coverImage" accept="image/*" class="browse_files">
         <p class="space"></p>
 
-        <label class="text"> Choose Songs For The Album </label>
+        <label class="text"> Choose Songs(mp3 only) For The Album </label>
         <br/>
-        <input type="file" id="albumSongs" name="albumSongs" accept="audio/*" class="browse_files" multiple>
+        <input type="file" id="albumSongs" name="albumSongs" accept="audio/mpeg" class="browse_files" multiple>
         <p class="space"></p>
 
         <input type="submit" value="Add and Preview" class="text" class="button">

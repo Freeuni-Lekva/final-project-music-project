@@ -7,9 +7,13 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 
 public class FileProcessor {
+
+    public final String IMAGE_HTML_PREFIX_BASE64 = "data:image/*;base64,";
+    public final String AUDIO_HTML_PREFIX_BASE64 = "data:audio/mpeg;base64,";
 
     private Part part;
     private String fileName;
@@ -34,10 +38,15 @@ public class FileProcessor {
     }
 
     public String getFullName() {
-        String originalName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-        String fileExtension = originalName.substring(originalName.lastIndexOf('.'));
+        String fileExtension = getFileExtension();
         String fullName = fileName + fileExtension;
         return fullName;
+    }
+
+    public String getFileExtension() {
+        String originalName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        String fileExtension = originalName.substring(originalName.lastIndexOf('.'));
+        return fileExtension;
     }
 
     public File getFile() {
@@ -47,7 +56,8 @@ public class FileProcessor {
 
     private void copyFileToNewPath() throws IOException {
         InputStream fileContent = part.getInputStream();
-        Files.copy(fileContent, getFile().toPath());
+        Files.copy(fileContent, getFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+        fileContent.close();
     }
 
     private void constructNewFile() {

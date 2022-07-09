@@ -3,6 +3,8 @@ package org.freeuni.musicforum.listeners;
 import org.freeuni.musicforum.dao.AlbumDAO;
 import org.freeuni.musicforum.dao.DataSource;
 import org.freeuni.musicforum.dao.InMemoryAlbumDAO;
+import org.freeuni.musicforum.service.AlbumService;
+import org.freeuni.musicforum.service.ServiceFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,10 +15,9 @@ import java.sql.SQLException;
 public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        AlbumDAO albumDao = new InMemoryAlbumDAO(); //change to sql
-        sce.getServletContext().setAttribute("albumDAO", albumDao);
+        AlbumService albumService = ServiceFactory.getAlbumService();
+        sce.getServletContext().setAttribute("albumService", albumService);
 
-        sce.getServletContext().setAttribute("base64SrcPrefix", "data:image/*;base64,");
     }
 
     @Override
