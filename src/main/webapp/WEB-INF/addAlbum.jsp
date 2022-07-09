@@ -21,12 +21,12 @@
     <form action="/addAlbum" method="post" enctype="multipart/form-data">
         <label for="albumName" class="text"> Name Of New Album </label>
         <br/>
-        <input type="text" id="albumName" name="albumName" class="textbox">
+        <input minlength="2" type="text" id="albumName" name="albumName" class="textbox">
         <p class="space"></p>
 
         <label for="artistName" class="text"> Name Of Artist </label>
         <br/>
-        <input type="text" id="artistName" name="artistName" class="textbox">
+        <input minlength="2" type="text" id="artistName" name="artistName" class="textbox">
         <p class="space"></p>
 
         <label class="text"> Choose Album Cover</label>
@@ -34,12 +34,12 @@
         <input type="file" id="coverImage" name="coverImage" accept="image/*" class="browse_files">
         <p class="space"></p>
 
-        <label class="text"> Choose Songs(mp3 only) For The Album </label>
+        <label class="text"> Amount Of Songs </label>
         <br/>
-        <input type="file" id="albumSongs" name="albumSongs" accept="audio/mpeg" class="browse_files" multiple>
+        <input min="1" type="number" id="songAmount" name="songAmount" class="textbox"/>
         <p class="space"></p>
 
-        <input type="submit" value="Add and Preview" class="text" class="button">
+        <input type="submit" value="Choose Songs" class="text" class="button">
 
     </form>
 </div>

@@ -142,3 +142,7 @@
     font-family:"Verdana", Verdana, serif;
     font-size: 1.4vw;
 }
+
+.long_background {
+    background: radial-gradient(#ffffff 25%, #aafefe);
+}

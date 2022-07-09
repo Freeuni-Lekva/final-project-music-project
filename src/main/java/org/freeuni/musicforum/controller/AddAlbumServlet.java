@@ -1,7 +1,5 @@
 package org.freeuni.musicforum.controller;
 
-import org.freeuni.musicforum.dao.AlbumDAO;
-import org.freeuni.musicforum.exception.AlbumExistsException;
 import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
@@ -17,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @MultipartConfig
 public class AddAlbumServlet extends HttpServlet {
@@ -33,40 +29,27 @@ public class AddAlbumServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AlbumService service = (AlbumService) getServletContext().getAttribute("albumService");
 
-        Collection<Part> parts  = req.getParts();
         String albumName = req.getParameter("albumName");
         String artistName = req.getParameter("artistName");
+        int songAmount = Integer.parseInt(req.getParameter("songAmount"));
+        if(songAmount < 0) songAmount = 0;
         AlbumIdentifier id = new AlbumIdentifier(albumName, artistName);
 
-        FileProcessor imageProcessor = null;
-        FileProcessor songProcessor = null;
         ArrayList<Song> songs = new ArrayList<>();
 
-        for(Part part : parts) {
-            if(part.getName().equals("coverImage")) {
-                String nameForImage = albumName + "_" + artistName + "_cover";
-                String uploadPath = getPath(req, "images/album-covers");
-                imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
-            }
-            if(part.getName().equals("albumSongs")) {
-                String originalName = part.getSubmittedFileName();
-                String nameForSong = albumName + "_" + artistName + "_" + originalName.substring(0, originalName.lastIndexOf("."));
-                String uploadPath = getPath(req, "songs");
-                songProcessor = new FileProcessor(part, nameForSong, uploadPath);
-                Song curr = new Song("ex", albumName, artistName, songProcessor.getBase64EncodedString(), 0);
-                songs.add(curr);
-            }
-        }
+        Part part = req.getPart("coverImage");
+        String nameForImage = albumName + "_" + artistName + "_cover";
+        String uploadPath = getPath(req, "images/album-covers");
+        FileProcessor imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
 
         
         Album newAlbum = new Album(albumName, artistName,
                 imageProcessor.getBase64EncodedString(), songs, id);
         service.addNewAlbum(newAlbum);
 
-        req.setAttribute("imagePrefix", imageProcessor.IMAGE_HTML_PREFIX_BASE64);
-        req.setAttribute("audioPrefix", songProcessor.AUDIO_HTML_PREFIX_BASE64);
-        req.setAttribute("currId", id);
-        req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
+        req.setAttribute("songAmount", songAmount);
+        req.getSession().setAttribute("lastlyAddedAlbumId", id);
+        req.getRequestDispatcher("/WEB-INF/addSongs.jsp").forward(req, resp);
     }
 
 

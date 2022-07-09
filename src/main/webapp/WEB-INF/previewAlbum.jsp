@@ -5,11 +5,11 @@
     <title>Title</title>
 </head>
 <body>
- <img src="${imagePrefix}${albumService.getAlbum(currId).coverImageBase64()}"  alt="cover image" width="450px" height="450px" />
- <ul> <c:forEach var="song" items="${albumService.getAlbum(currId).songs()}">
+<%-- <img src="${imagePrefix}${albumService.getAlbum(lastlyAddedAlbumId).coverImageBase64()}"  alt="cover image" width="450px" height="450px" />--%>
+<%-- <ul> <c:forEach var="song" items="${albumService.getAlbum(lastlyAddedAlbumId).songs()}">--%>
 
-    <li> <audio src="${audioPrefix}<c:out value="${song.songBase64()}"/>" controls></audio> </li>
- </c:forEach>
- </ul>
+<%--    <li> <audio src="${audioPrefix}<c:out value="${song.songBase64()}"/>" controls></audio> </li>--%>
+<%-- </c:forEach>--%>
+<%-- </ul>--%>
 </body>
 </html>
