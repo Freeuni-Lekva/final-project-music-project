@@ -8,6 +8,7 @@ import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.Song;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AlbumService {
 
@@ -32,6 +33,11 @@ public class AlbumService {
         if(!dao.exists(id)) throw new NonexistentAlbumException();
         Album album = dao.getById(id);
         return album;
+    }
+
+    public boolean doesSongExist(AlbumIdentifier id, String name) {
+        Album album = getAlbum(id);
+        return album.songs().stream().filter(song -> song.songName().equals(name)).findAny().isPresent();
     }
 
 }

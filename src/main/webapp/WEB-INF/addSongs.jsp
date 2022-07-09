@@ -16,8 +16,8 @@
 
         <p class="space"></p>
         <h2 style="text-align: center" class="big_text">
-            Add Songs To "${albumService.getAlbum(lastlyAddedAlbumId).albumName()}"
-                      By "${albumService.getAlbum(lastlyAddedAlbumId).artistName()}"
+            Add Songs To "${albumService.getAlbum(currAlbumId).albumName()}"
+                      By "${albumService.getAlbum(currAlbumId).artistName()}"
         </h2>
         <p class="big_space"></p>
 

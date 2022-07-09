@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @MultipartConfig
 public class AddAlbumServlet extends HttpServlet {
 
-    private final String ALBUM_COVER_PATH = "src/main/webapp/";
+    private final String PATH_TO_ALBUMS = "src/main/webapp/";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/addAlbum.jsp").forward(req, resp);
@@ -48,7 +48,7 @@ public class AddAlbumServlet extends HttpServlet {
         service.addNewAlbum(newAlbum);
 
         req.setAttribute("songAmount", songAmount);
-        req.getSession().setAttribute("lastlyAddedAlbumId", id);
+        req.getSession().setAttribute("currAlbumId", id);
         req.getRequestDispatcher("/WEB-INF/addSongs.jsp").forward(req, resp);
     }
 
@@ -58,7 +58,7 @@ public class AddAlbumServlet extends HttpServlet {
         ServletContext context = req.getServletContext();
         String realPath = context.getRealPath("");
         String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
-        String pathFromContextRoot = ALBUM_COVER_PATH + folder;
+        String pathFromContextRoot = PATH_TO_ALBUMS + folder;
         return realPathWithoutTarget + pathFromContextRoot;
     }
 }
