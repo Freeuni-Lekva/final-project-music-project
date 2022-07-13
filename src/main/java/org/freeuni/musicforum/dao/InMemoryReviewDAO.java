@@ -1,7 +1,6 @@
 package org.freeuni.musicforum.dao;
 
 import org.freeuni.musicforum.model.Review;
-import org.freeuni.musicforum.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,12 @@ public class InMemoryReviewDAO implements ReviewDAO {
         ));
         reviews.add(new Review(
                 "2", "Contort", "extremely nice very good review", 4
+        ));
+        reviews.add(new Review(
+                "2", "Mandy", "I disliked this album, but not too bad", 3
+        ));
+        reviews.add(new Review(
+           "3", "Lendrick", "Good album", 4
         ));
     }
 

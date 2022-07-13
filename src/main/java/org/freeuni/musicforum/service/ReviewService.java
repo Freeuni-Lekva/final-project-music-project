@@ -16,7 +16,7 @@ public class ReviewService {
 
     public void postReview(Review review) {
         if (!dao.addReview(review)) {
-            throw new UnsuccessfulReviewException("This review already exists.");
+            throw new UnsuccessfulReviewException("This review already exists");
         }
     }
 
@@ -39,7 +39,7 @@ public class ReviewService {
 
     public void upvoteReview(String reviewId) {
         if (!dao.upvoteReview(reviewId)) {
-            throw new UnsuccessfulReviewException("No such review exists.");
+            throw new UnsuccessfulReviewException("No such review exists");
         }
     }
 
