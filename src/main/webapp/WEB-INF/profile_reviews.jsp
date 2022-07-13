@@ -45,6 +45,12 @@
             <%-- Later add href to the album page here and ask for actual album name instead of id --%>
             <div class = "scroll_member">
                 <div class = "scroll_member_photobox">
+                    <% for (int i = 0; i < rev.getStarCount(); i++) { %>
+                        <img src="/images/star_sel.png" class="vote_box">
+                    <% } %>
+                    <% for (int i = rev.getStarCount(); i < 5; i++) { %>
+                        <img src="/images/star_unsel.png" class="vote_box">
+                    <% } %>
                     <%-- get photo from the album --%>
                     <p class="text"><%=rev.getAlbumId()%></p>
                     <img src ="/images/BLAH.png" alt="album image goes here">

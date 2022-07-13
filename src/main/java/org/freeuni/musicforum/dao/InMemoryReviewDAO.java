@@ -15,10 +15,10 @@ public class InMemoryReviewDAO implements ReviewDAO {
     public InMemoryReviewDAO() {
         this.reviews = new ArrayList<>();
         reviews.add(new Review(
-                "1", "Vader", "nice review"
+                "1", "Contort", "nice review", 2
         ));
         reviews.add(new Review(
-                "2", "Vader", "extremely nice very good review"
+                "2", "Contort", "extremely nice very good review", 4
         ));
     }
 

@@ -12,7 +12,9 @@ public class Review {
     private final String username;
     private final String id;
 
-    public Review(String albumId, String username, String text) {
+    private final int stars;
+
+    public Review(String albumId, String username, String text, int stars) {
         this.albumId = albumId;
         this.username = username;
         this.text = text;
@@ -20,6 +22,7 @@ public class Review {
         this.id = UserUtils.hashPassword(albumId + text);
         this.upvote = 1;
         this.downvote = 0;
+        this.stars = stars;
     }
 
     public String getId() { return this.id; }
@@ -29,6 +32,8 @@ public class Review {
     public String getUsername() { return this.username; }
 
     public String getText() { return this.text; }
+
+    public int getStarCount() { return this.stars; }
 
     public int upvote() {
         return ++this.upvote;
