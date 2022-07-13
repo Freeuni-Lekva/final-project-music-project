@@ -14,6 +14,12 @@ public class InMemoryReviewDAO implements ReviewDAO {
 
     public InMemoryReviewDAO() {
         this.reviews = new ArrayList<>();
+        reviews.add(new Review(
+                "1", "Vader", "nice review"
+        ));
+        reviews.add(new Review(
+                "2", "Vader", "extremely nice very good review"
+        ));
     }
 
     @Override
@@ -26,7 +32,7 @@ public class InMemoryReviewDAO implements ReviewDAO {
     @Override
     public Review getById(String reviewId) {
         Optional<Review> review = findById(reviewId);
-        return review.isPresent() ? review.get() : null;
+        return review.orElse(null);
     }
 
     @Override

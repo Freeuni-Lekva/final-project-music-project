@@ -2,8 +2,9 @@ package org.freeuni.musicforum.model;
 
 import org.freeuni.musicforum.util.UserUtils;
 
-public class Review {
+import java.util.Objects;
 
+public class Review {
     private int upvote;
     private int downvote;
     private final String text;
@@ -45,4 +46,31 @@ public class Review {
         return this.upvote + this.downvote;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Review review)) return false;
+        return upvote == review.upvote && downvote == review.downvote &&
+                Objects.equals(getText(), review.getText()) &&
+                Objects.equals(getAlbumId(), review.getAlbumId()) &&
+                Objects.equals(getUsername(), review.getUsername()) &&
+                Objects.equals(getId(), review.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(upvote, downvote, getText(), getAlbumId(), getUsername(), getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "upvote=" + upvote +
+                ", downvote=" + downvote +
+                ", text='" + text + '\'' +
+                ", albumId='" + albumId + '\'' +
+                ", username='" + username + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }
