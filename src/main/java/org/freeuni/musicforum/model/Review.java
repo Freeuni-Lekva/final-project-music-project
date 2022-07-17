@@ -9,17 +9,17 @@ public class Review {
     private int downvote;
     private final String text;
     private final String albumId;
-    private final String username;
+    private final String authorUsername;
     private final String id;
 
     private final int stars;
 
-    public Review(String albumId, String username, String text, int stars) {
+    public Review(String albumId, String authorUsername, String text, int stars) {
         this.albumId = albumId;
-        this.username = username;
+        this.authorUsername = authorUsername;
         this.text = text;
         // this will later need to be changed to Utils.hashText(text)
-        this.id = UserUtils.hashPassword(albumId + username + text);
+        this.id = UserUtils.hashPassword(albumId + authorUsername + text);
         this.upvote = 1;
         this.downvote = 0;
         this.stars = stars;
@@ -29,7 +29,7 @@ public class Review {
 
     public String getAlbumId() { return this.albumId; }
 
-    public String getUsername() { return this.username; }
+    public String getAuthorUsername() { return this.authorUsername; }
 
     public String getText() { return this.text; }
 
@@ -58,13 +58,13 @@ public class Review {
         return upvote == review.upvote && downvote == review.downvote &&
                 Objects.equals(getText(), review.getText()) &&
                 Objects.equals(getAlbumId(), review.getAlbumId()) &&
-                Objects.equals(getUsername(), review.getUsername()) &&
+                Objects.equals(getAuthorUsername(), review.getAuthorUsername()) &&
                 Objects.equals(getId(), review.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(upvote, downvote, getText(), getAlbumId(), getUsername(), getId());
+        return Objects.hash(upvote, downvote, getText(), getAlbumId(), getAuthorUsername(), getId());
     }
 
     @Override
@@ -74,8 +74,9 @@ public class Review {
                 ", downvote=" + downvote +
                 ", text='" + text + '\'' +
                 ", albumId='" + albumId + '\'' +
-                ", username='" + username + '\'' +
+                ", authorUsername='" + authorUsername + '\'' +
                 ", id='" + id + '\'' +
+                ", stars=" + stars +
                 '}';
     }
 }

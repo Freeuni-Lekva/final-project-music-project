@@ -1,7 +1,7 @@
-<%@ page import="org.freeuni.musicforum.model.User" %>
 <%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
 <%@ page import="org.freeuni.musicforum.model.Review" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.freeuni.musicforum.model.PublicUserData" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,7 +12,7 @@
 <body class = "background">
 <div class = "profile_top">
 
-    <% User user = (User) request.getAttribute("user"); %>
+    <% PublicUserData user = (PublicUserData) request.getAttribute("user"); %>
 
     <div class = "profile_image_rec">
         <h2 class = "text"><%=user.firstName()%> <%=user.lastName()%></h2>
@@ -25,7 +25,7 @@
         <p class = "space"></p>
         <p class = "text"><%=user.badge().name()%></p>
         <p class = "space"></p>
-        <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user)%></p>
+        <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user.username())%></p>
     </div>
 
 </div>
@@ -34,6 +34,7 @@
     <div class = "profile_filter">
         <div class = "profile_full_button">
             <form action="/profile" method="get">
+                <input type="hidden" name="username" value="<%=user.username()%>" />
                 <input type="submit" value="Albums" class="profile_part_button" class="text">
             </form>
             <input type="button" value="Reviews" class="profile_part_button" class="text" >
@@ -66,7 +67,6 @@
                     <p class="text">
                         <img src="/images/up_sel.png" class="vote_box">
                         <%=rev.getPrestige()%>
-                        <img src="/images/down_sel.png" class="vote_box">
                     </p>
                 </div>
             </div>

@@ -1,12 +1,13 @@
 package org.freeuni.musicforum.service;
 
 import org.freeuni.musicforum.dao.UserDAO;
+import org.freeuni.musicforum.exception.NoSuchUserExistsException;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
-import org.freeuni.musicforum.model.Review;
+import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.UserUtils;
 
-import java.util.List;
+import java.util.Optional;
 
 public class UserService {
     private final UserDAO dao;
@@ -29,11 +30,21 @@ public class UserService {
         return dao.correctCredentials(username, UserUtils.hashPassword(password));
     }
 
-    public int getUserPrestige(User user) {
+    public int getUserPrestige(String username) {
         ReviewService rs = ServiceFactory.getReviewService();
-        int count = rs.getReviewPrestigeFor(user.username());
+        int count = rs.getReviewPrestigeFor(username);
         // do the same for albums.
         return count;
     }
 
+    public PublicUserData getProfileData(String username) {
+        Optional<User> userOptional = dao.getByUsername(username);
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+            return new PublicUserData(user.firstName(), user.lastName(), username,
+                    user.badge(), getUserPrestige(username));
+        }
+        throw new NoSuchUserExistsException("" +
+                "User with provided username " +  username + " does not exist");
+    }
 }

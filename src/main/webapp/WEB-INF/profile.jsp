@@ -1,5 +1,5 @@
-<%@ page import="org.freeuni.musicforum.model.User" %>
 <%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
+<%@ page import="org.freeuni.musicforum.model.PublicUserData" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,9 +8,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
 <body class = "background">
-    <div class = "profile_top">
+    <% PublicUserData user = (PublicUserData) request.getAttribute("user"); %>
 
-        <% User user = (User) request.getAttribute("user"); %>
+    <div class = "profile_top">
 
         <div class = "profile_image_rec">
             <h2 class = "text"><%=user.firstName()%> <%=user.lastName()%></h2>
@@ -23,7 +23,7 @@
             <p class = "space"></p>
             <p class = "text"><%=user.badge().name()%></p>
             <p class = "space"></p>
-            <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user)%></p>
+            <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user.username())%></p>
         </div>
 
     </div>
@@ -33,6 +33,7 @@
             <div class = "profile_full_button">
                 <input type="button" value="Albums" class="profile_part_button" class="text">
                 <form action="/profile_reviews" method="get">
+                    <input type="hidden" name="username" value="<%=user.username()%>" />
                     <input type="submit" value="Reviews" class="profile_part_button" class="text" >
                 </form>
             </div>

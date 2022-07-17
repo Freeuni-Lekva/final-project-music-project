@@ -3,6 +3,7 @@ package org.freeuni.musicforum.dao;
 import org.freeuni.musicforum.model.User;
 
 import java.sql.Connection;
+import java.util.Optional;
 
 public class SQLUserDAO implements UserDAO {
 
@@ -15,6 +16,11 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public void add(User user) {
 
+    }
+
+    @Override
+    public Optional<User> getByUsername(String username) {
+        return Optional.empty();
     }
 
     @Override

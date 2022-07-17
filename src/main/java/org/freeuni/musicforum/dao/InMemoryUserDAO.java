@@ -33,7 +33,8 @@ public class InMemoryUserDAO implements UserDAO {
         return getByUsername(username).isPresent();
     }
 
-    private Optional<User> getByUsername(String username) {
+    @Override
+    public Optional<User> getByUsername(String username) {
         return users.stream()
                 .filter(user -> user.username().equals(username))
                 .findFirst();

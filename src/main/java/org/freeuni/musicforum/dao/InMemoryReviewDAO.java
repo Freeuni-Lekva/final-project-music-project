@@ -14,16 +14,16 @@ public class InMemoryReviewDAO implements ReviewDAO {
     public InMemoryReviewDAO() {
         this.reviews = new ArrayList<>();
         reviews.add(new Review(
-                "1", "Contort", "nice review", 2
+                "1", "guri", "nice review", 2
         ));
         reviews.add(new Review(
-                "2", "Contort", "extremely nice very good review", 4
+                "2", "guri", "extremely nice very good review", 4
         ));
         reviews.add(new Review(
-                "2", "Mandy", "I disliked this album, but not too bad", 3
+                "2", "guri", "I disliked this album, but not too bad", 3
         ));
         reviews.add(new Review(
-           "3", "Lendrick", "Good album", 4
+           "3", "eva", "Good album", 4
         ));
     }
 
@@ -43,7 +43,7 @@ public class InMemoryReviewDAO implements ReviewDAO {
     @Override
     public List<Review> getAllByUser(String username) {
         return reviews.stream()
-                .filter(review -> review.getUsername().equals(username))
+                .filter(review -> review.getAuthorUsername().equals(username))
                 .collect(Collectors.toList());
     }
 
