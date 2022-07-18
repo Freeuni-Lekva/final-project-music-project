@@ -3,7 +3,7 @@ package org.freeuni.musicforum.service;
 import org.freeuni.musicforum.dao.UserDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
 import org.freeuni.musicforum.model.User;
-import org.freeuni.musicforum.util.UserUtils;
+import org.freeuni.musicforum.util.Utils;
 
 public class UserService {
     private final UserDAO dao;
@@ -23,6 +23,6 @@ public class UserService {
     }
 
     public boolean login(String username, String password) {
-        return dao.correctCredentials(username, UserUtils.hashPassword(password));
+        return dao.correctCredentials(username, Utils.hashText(password));
     }
 }

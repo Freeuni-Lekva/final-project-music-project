@@ -2,7 +2,6 @@ package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
-import org.freeuni.musicforum.util.UserUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
