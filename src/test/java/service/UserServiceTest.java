@@ -7,7 +7,7 @@ import org.freeuni.musicforum.model.Password;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
-import org.freeuni.musicforum.util.UserUtils;
+import org.freeuni.musicforum.util.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,9 +85,9 @@ class UserServiceTest {
 
     @Test
     void testWrongHashedPasswordLogins() {
-        assertFalse(service.login("u#700", UserUtils.hashPassword("ushi")));
-        assertFalse(service.login("guri", UserUtils.hashPassword("guri")));
-        assertFalse(service.login("melanie1996", UserUtils.hashPassword("A_B_C*")));
-        assertFalse(service.login("eva", UserUtils.hashPassword("2000")));
+        assertFalse(service.login("u#700", Utils.hashText("ushi")));
+        assertFalse(service.login("guri", Utils.hashText("guri")));
+        assertFalse(service.login("melanie1996", Utils.hashText("A_B_C*")));
+        assertFalse(service.login("eva", Utils.hashText("2000")));
     }
 }

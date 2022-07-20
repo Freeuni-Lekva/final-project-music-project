@@ -20,6 +20,14 @@
         <servlet-name>profile-reviews-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.ProfileReviewsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>add-album-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.AddAlbumServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>add-songs-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.AddSongsServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -36,6 +44,14 @@
     <servlet-mapping>
         <servlet-name>profile-reviews-servlet</servlet-name>
         <url-pattern>/profile_reviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>add-album-servlet</servlet-name>
+        <url-pattern>/addAlbum</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>add-songs-servlet</servlet-name>
+        <url-pattern>/addSongs</url-pattern>
     </servlet-mapping>
 
 </web-app>

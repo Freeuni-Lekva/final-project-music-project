@@ -5,7 +5,7 @@ import org.freeuni.musicforum.exception.NoSuchUserExistsException;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.User;
-import org.freeuni.musicforum.util.UserUtils;
+import org.freeuni.musicforum.util.Utils;
 
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public boolean login(String username, String password) {
-        return dao.correctCredentials(username, UserUtils.hashPassword(password));
+        return dao.correctCredentials(username, Utils.hashText(password));
     }
 
     public int getUserPrestige(String username) {
