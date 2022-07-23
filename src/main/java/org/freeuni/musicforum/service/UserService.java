@@ -3,6 +3,7 @@ package org.freeuni.musicforum.service;
 import org.freeuni.musicforum.dao.UserDAO;
 import org.freeuni.musicforum.exception.NoSuchUserExistsException;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
+import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.Utils;
@@ -46,5 +47,17 @@ public class UserService {
         }
         throw new NoSuchUserExistsException("" +
                 "User with provided username " +  username + " does not exist");
+    }
+
+    public FriendshipStatus getFriendshipStatus(String fromUsername, String toUsername){
+
+        User u = dao.getByUsername(fromUsername).get();
+
+        if(!u.friends().containsKey(toUsername)){
+            return null;
+        }
+
+        return u.friends().get(toUsername);
+
     }
 }

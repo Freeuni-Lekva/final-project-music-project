@@ -1,5 +1,6 @@
 <%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
 <%@ page import="org.freeuni.musicforum.model.PublicUserData" %>
+<%@ page import="org.freeuni.musicforum.model.FriendshipStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,6 +18,7 @@
             <img src="images/username_profile" alt="Upload your profile picture!" class="profile_image">
         </div>
 
+
         <div class = "profile_info_rec">
             <p class = "huge_space"></p>
             <p class = "text"><%=user.username()%></p>
@@ -24,9 +26,22 @@
             <p class = "text"><%=user.badge().name()%></p>
             <p class = "space"></p>
             <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user.username())%></p>
-        </div>
+
+            <%  PublicUserData currUser = (PublicUserData) request.getServletContext().getAttribute("currentUser");
+                if(!user.username().equals(currUser.username())){%>
+            <p class = "space"></p>
+            <% FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currUser.username(), user.username());
+                String text = "Add Friend";
+                if(fs!=null){text = fs.toString();}
+            %>
+            <form action = "/addFriend" method="post">
+                <input type="submit" value="<%=text%>" class="text" class = "button">
+            </form>
+            <%}%>
 
     </div>
+ </div>
+
 
     <div class = "profile_bottom">
         <div class = "profile_filter">

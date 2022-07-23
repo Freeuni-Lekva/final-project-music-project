@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
 
@@ -26,6 +27,7 @@ public class LoginServlet extends HttpServlet {
 
         UserService userService = ServiceFactory.getUserService();
         if(userService.login(username, password)) {
+            getServletContext().setAttribute("currentUser", userService.getProfileData(username));
             req.getRequestDispatcher("/WEB-INF/feed.jsp")
                     .forward(req, resp);
         }

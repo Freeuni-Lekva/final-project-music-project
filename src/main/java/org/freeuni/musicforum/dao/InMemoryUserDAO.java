@@ -1,9 +1,7 @@
 package org.freeuni.musicforum.dao;
 
-import org.freeuni.musicforum.model.Badge;
-import org.freeuni.musicforum.model.Gender;
-import org.freeuni.musicforum.model.Password;
-import org.freeuni.musicforum.model.User;
+import org.freeuni.musicforum.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +19,9 @@ public class InMemoryUserDAO implements UserDAO {
                         "melanie1996", new Password("A_B_C*"), Badge.NEWCOMER),
                 new User("ushi", "hagayana", null, Gender.OTHER,
                         "u#700", new Password("ushi"), Badge.NEWCOMER)));
+
+        users.get(0).friends().put("eva", FriendshipStatus.Pending);
+        System.out.println("status" + FriendshipStatus.Pending);
     }
 
     @Override

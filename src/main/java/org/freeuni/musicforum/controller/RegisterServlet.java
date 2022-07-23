@@ -1,10 +1,7 @@
 package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
-import org.freeuni.musicforum.model.Badge;
-import org.freeuni.musicforum.model.Gender;
-import org.freeuni.musicforum.model.Password;
-import org.freeuni.musicforum.model.User;
+import org.freeuni.musicforum.model.*;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
 
@@ -51,6 +48,7 @@ public class RegisterServlet extends HttpServlet {
         try {
             userService.signUp(newUser);
             System.out.println(newUser);
+            getServletContext().setAttribute("currentUser", userService.getProfileData(username));
             req.getRequestDispatcher("/WEB-INF/feed.jsp")
                     .forward(req, resp);
         }
