@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.dao;
 
+import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.User;
 
 import java.sql.Connection;
@@ -31,5 +32,10 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public boolean correctCredentials(String username, String passwordHash) {
         return false;
+    }
+
+    @Override
+    public boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs) {
+         return false;
     }
 }

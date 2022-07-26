@@ -15,6 +15,7 @@
 <div class = "profile_top">
 
     <% PublicUserData user = (PublicUserData) request.getAttribute("user"); %>
+    <% String buttonText = (String) request.getAttribute("buttonText"); %>
 
     <div class = "profile_image_rec">
         <h2 class = "text"><%=user.firstName()%> <%=user.lastName()%></h2>
@@ -35,14 +36,16 @@
         <% FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currUser.username(), user.username());
             String text = "Add Friend";
             if(fs!=null){text = fs.toString();}
+            if(buttonText!=null) text = buttonText;
         %>
         <form action = "/addFriend" method="post">
+            <input type="hidden" name="filepath" value="/WEB-INF/profile_reviews.jsp">
+            <input type="hidden" name="username" value=<%=user.username()%>>
             <input type="submit" value="<%=text%>" class="text" class = "button">
         </form>
         <%}%>
 
     </div>
-
 </div>
 
 <div class = "profile_bottom">

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class InMemoryUserDAO implements UserDAO {
     private final List<User> users;
 
@@ -20,8 +21,7 @@ public class InMemoryUserDAO implements UserDAO {
                 new User("ushi", "hagayana", null, Gender.OTHER,
                         "u#700", new Password("ushi"), Badge.NEWCOMER)));
 
-        users.get(0).friends().put("eva", FriendshipStatus.Pending);
-        System.out.println("status" + FriendshipStatus.Pending);
+
     }
 
     @Override
@@ -47,5 +47,15 @@ public class InMemoryUserDAO implements UserDAO {
 
         return user.isPresent() &&
                 user.get().password().hashed().equals(passwordHash);
+    }
+
+    @Override
+    public boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs) {
+        Optional<User> u = getByUsername(fromUsername);
+        if(u.isPresent()&&doesExist(toUsername)){
+            u.get().friends().put(toUsername, fs);
+            return true;
+        }
+        return false;
     }
 }

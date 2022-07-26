@@ -49,15 +49,42 @@ public class UserService {
                 "User with provided username " +  username + " does not exist");
     }
 
+
     public FriendshipStatus getFriendshipStatus(String fromUsername, String toUsername){
-
-        User u = dao.getByUsername(fromUsername).get();
-
-        if(!u.friends().containsKey(toUsername)){
+        User user = getUserIfExists(fromUsername);
+        if(!dao.doesExist(toUsername)){
+            throw new NoSuchUserExistsException("" +
+                    "User with provided username " +  toUsername + " does not exist");
+        }
+        if (!user.friends().containsKey(toUsername)) {
             return null;
         }
-
-        return u.friends().get(toUsername);
-
+        return user.friends().get(toUsername);
     }
+
+    public void sendFriendRequest(String fromUsername, String toUsername){
+        if(!dao.updateFriendshipStatus(fromUsername, toUsername, FriendshipStatus.REQUEST_SENT)){
+            getUserIfExists(fromUsername);
+            getUserIfExists(toUsername);
+        }
+        dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.ACCEPT_REQUEST);
+    }
+
+    public void acceptFriendRequest(String fromUsername, String toUsername){
+        if(!dao.updateFriendshipStatus(fromUsername, toUsername, FriendshipStatus.FRIENDS)){
+            getUserIfExists(fromUsername);
+            getUserIfExists(toUsername);
+        }
+        dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.FRIENDS);
+    }
+
+    private User getUserIfExists(String username){
+        Optional<User>  userOptional = dao.getByUsername(username);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        throw new NoSuchUserExistsException("" +
+                "User with provided username " +  username + " does not exist");
+    }
+
 }
