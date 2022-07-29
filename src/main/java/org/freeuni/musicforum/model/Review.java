@@ -1,6 +1,6 @@
 package org.freeuni.musicforum.model;
 
-import org.freeuni.musicforum.util.UserUtils;
+import org.freeuni.musicforum.util.Utils;
 
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ public class Review {
         this.authorUsername = authorUsername;
         this.text = text;
         // this will later need to be changed to Utils.hashText(text)
-        this.id = UserUtils.hashPassword(albumId + authorUsername + text);
+        this.id = Utils.hashText(albumId + authorUsername + text);
         this.upvote = 1;
         this.downvote = 0;
         this.stars = stars;
@@ -45,10 +45,6 @@ public class Review {
 
     public int getPrestige() {
         return this.upvote - this.downvote;
-    }
-
-    public int getFame() {
-        return this.upvote + this.downvote;
     }
 
     @Override

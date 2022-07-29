@@ -31,7 +31,7 @@
         <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user.username())%></p>
 
         <%  PublicUserData currUser = (PublicUserData) request.getServletContext().getAttribute("currentUser");
-            if(!user.username().equals(currUser.username())){%>
+            if(currUser != null && !user.username().equals(currUser.username())){%>
         <p class = "space"></p>
         <% FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currUser.username(), user.username());
             String text = "Add Friend";
