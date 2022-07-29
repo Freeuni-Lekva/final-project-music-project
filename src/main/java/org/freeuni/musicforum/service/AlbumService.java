@@ -35,6 +35,10 @@ public class AlbumService {
         return album;
     }
 
+    public List<Album> getAllAlbumsUploadedBy(String username) {
+        return dao.getAllByUser(username);
+    }
+
     public boolean doesSongExist(AlbumIdentifier id, String name) {
         Album album = getAlbum(id);
         return album.songs().stream().filter(song -> song.songName().equals(name)).findAny().isPresent();

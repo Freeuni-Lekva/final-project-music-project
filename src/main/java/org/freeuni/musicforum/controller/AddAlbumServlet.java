@@ -3,8 +3,10 @@ package org.freeuni.musicforum.controller;
 import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
+import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.service.AlbumService;
+import org.freeuni.musicforum.service.ServiceFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,6 +24,9 @@ public class AddAlbumServlet extends HttpServlet {
     private final String PATH_TO_ALBUMS = "src/main/webapp/";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username");
+        PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
+        req.getServletContext().setAttribute("uploader", userData.username());
         req.getRequestDispatcher("/WEB-INF/addAlbum.jsp").forward(req, resp);
     }
 
@@ -42,8 +47,8 @@ public class AddAlbumServlet extends HttpServlet {
         String uploadPath = getPath(req, "images/album-covers");
         FileProcessor imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
 
-        
-        Album newAlbum = new Album(albumName, artistName,
+        String username = (String) req.getServletContext().getAttribute("uploader");
+        Album newAlbum = new Album(username, albumName, artistName,
                 imageProcessor.getBase64EncodedString(), songs, id);
         service.addNewAlbum(newAlbum);
 

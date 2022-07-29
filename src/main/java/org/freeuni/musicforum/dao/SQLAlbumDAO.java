@@ -4,6 +4,7 @@ import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class SQLAlbumDAO implements AlbumDAO {
 
@@ -18,6 +19,11 @@ public class SQLAlbumDAO implements AlbumDAO {
 
     @Override
     public Album getById(AlbumIdentifier id) {
+        return null;
+    }
+
+    @Override
+    public List<Album> getAllByUser(String username) {
         return null;
     }
 
