@@ -32,6 +32,10 @@
         <servlet-name>add-friend-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.AddFriendServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>profile-friends-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.ProfileFriendsServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -60,6 +64,10 @@
     <servlet-mapping>
         <servlet-name>add-friend-servlet</servlet-name>
         <url-pattern>/addFriend</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>profile-friends-servlet</servlet-name>
+        <url-pattern>/profile_friends</url-pattern>
     </servlet-mapping>
 
 </web-app>

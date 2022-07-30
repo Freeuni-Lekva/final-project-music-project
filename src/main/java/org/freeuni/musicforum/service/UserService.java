@@ -8,7 +8,10 @@ import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.Utils;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class UserService {
     private final UserDAO dao;
@@ -78,6 +81,15 @@ public class UserService {
         dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.FRIENDS);
     }
 
+    public List<PublicUserData> getUsersFriends(String username){
+        User user = getUserIfExists(username);
+        Stream<PublicUserData> friends = user.friends().entrySet().stream().filter(entry->{
+            if(entry.getValue().equals(FriendshipStatus.FRIENDS)) return true;
+            return false;
+        }).map(entry->getProfileData(entry.getKey()));
+        return friends.toList();
+    }
+
     private User getUserIfExists(String username){
         Optional<User>  userOptional = dao.getByUsername(username);
         if (userOptional.isPresent()) {
@@ -86,5 +98,6 @@ public class UserService {
         throw new NoSuchUserExistsException("" +
                 "User with provided username " +  username + " does not exist");
     }
+
 
 }

@@ -187,15 +187,23 @@
     height: 4%;
 }
 
-.profile_full_button {
-    padding-left:30%;
-    padding-right:30%;
+.profile_full_two_buttons {
+    padding-left: 30%;
+    padding-right: 30%;
 
     width: 40%;
     height: 100%;
 }
 
-.profile_part_button {
+.profile_full_three_buttons {
+    padding-left: 14%;
+    padding-right: 14%;
+
+    width: 72%;
+    height: 100%;
+}
+
+.profile_part_two_buttons {
     border-top: 1px #000000;
     border-bottom: 1px #000000;
     border-left: 1px #000000;
@@ -208,6 +216,21 @@
     width: 48%;
     height: 80%;
 }
+
+.profile_part_three_buttons {
+    border-top: 1px #000000;
+    border-bottom: 1px #000000;
+    border-left: 1px #000000;
+    border-right: 1px #000000;
+    padding: 1px;
+    margin: 1px;
+    float: left;
+    background-color: #0abab5;
+
+    width: 31%;
+    height: 80%;
+}
+
 
 .scroll_member {
     width: 99%;
