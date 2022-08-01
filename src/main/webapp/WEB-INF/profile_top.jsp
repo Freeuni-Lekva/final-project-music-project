@@ -5,43 +5,47 @@
 <html>
 <head>
 
-    <link rel="icon" href="/images/logo_small.png"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
+  <link rel="icon" href="/images/logo_small.png"/>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
 <body>
-    <% PublicUserData user = (PublicUserData) request.getAttribute("user"); %>
-    <% String buttonText = (String) request.getAttribute("buttonText"); %>
+    <% PublicUserData user = (PublicUserData) request.getAttribute("user");%>
 
     <div class = "profile_top">
 
-      <div class = "profile_image_rec">
-        <h2 class = "text"><%=user.firstName()%> <%=user.lastName()%></h2>
-        <img src="images/username_profile" alt="Upload your profile picture!" class="profile_image">
-      </div>
+        <div class = "profile_image_rec">
+            <h2 class = "text"><%=user.firstName()%> <%=user.lastName()%></h2>
+            <img src="images/username_profile" alt="Upload your profile picture!" class="profile_image">
+        </div>
 
-      <div class = "profile_info_rec">
-        <p class = "huge_space"></p>
-        <p class = "text"><%=user.username()%></p>
-        <p class = "space"></p>
-        <p class = "text"><%=user.badge().name()%></p>
-        <p class = "space"></p>
-        <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user.username())%></p>
+        <div class = "profile_info_rec">
+            <p class = "huge_space"></p>
+            <p class = "text"><%=user.username()%></p>
+            <p class = "space"></p>
+            <p class = "text"><%=user.badge().name()%></p>
+            <p class = "space"></p>
+            <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user.username())%></p>
 
-        <%  PublicUserData currUser = (PublicUserData) request.getServletContext().getAttribute("currentUser");
-          if(currUser != null && !user.username().equals(currUser.username())){%>
-        <p class = "space"></p>
-        <% FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currUser.username(), user.username());
-          String text = "Add Friend";
-          if(fs!=null){text = fs.toString();}
-          if(buttonText!=null) text = buttonText;
-        %>
-        <form action = "/addFriend" method="post">
-          <input type="hidden" name="filepath" value="/WEB-INF/profile.jsp">
-          <input type="hidden" name="username" value=<%=user.username()%>>
-          <input type="submit" value="<%=text%>" class="text" class = "button">
-        </form>
-        <%}%>
-      </div>
+            <%PublicUserData currUser = (PublicUserData) request.getServletContext().getAttribute("currentUser");
+              if(currUser != null && !user.username().equals(currUser.username())){%>
+            <p class = "space"></p>
+            <%FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currUser.username(), user.username());
+              String buttonText = "Add Friend";
+              if(fs!=null){buttonText = fs.getButtonText();}
+            %>
+            <form action = "/addFriend" method="post">
+              <%String filepath = (String) request.getAttribute("filepath");
+                if(filepath==null) filepath = "WEB-INF/profile.jsp";%>
+              <input type="hidden" name="filepath" value="<%=filepath%>">
+              <input type="hidden" name="username" value=<%=user.username()%>>
+              <%if(fs!=null&&fs.equals(FriendshipStatus.FRIENDS)){%>
+              <label for="friendButton" class="green_text">Friends</label>
+              <p class="space"></p>
+              <%}%>
+              <input type="submit" id="friendButton" value="<%=buttonText%>" class="text" class = "button">
+            </form>
+            <%}%>
+        </div>
     </div>
 
 </body>

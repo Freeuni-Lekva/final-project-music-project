@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
 <body class = "background">
+    <%request.setAttribute("filepath", "WEB-INF/profile_friends.jsp");%>
     <%@include file="profile_top.jsp"%>
     <div class = "profile_bottom">
         <div class = "profile_filter" >

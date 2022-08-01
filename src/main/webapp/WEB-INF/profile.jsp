@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
 <body class = "background">
+    <%request.setAttribute("filepath", "WEB-INF/profile.jsp");%>
     <%@include file="profile_top.jsp"%>
     <% boolean currentUsersPage = currUser!=null&&currUser.username().equals(user.username());
        String fullClassName = "profile_full_two_buttons";

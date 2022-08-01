@@ -81,6 +81,14 @@ public class UserService {
         dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.FRIENDS);
     }
 
+    public void deleteFriend(String firstUsername, String secondUsername){
+        if(!dao.deleteFriendshipStatus(firstUsername, secondUsername)){
+            getUserIfExists(firstUsername);
+            getUsersFriends(secondUsername);
+        }
+        dao.deleteFriendshipStatus(secondUsername, firstUsername);
+    }
+
     public List<PublicUserData> getUsersFriends(String username){
         User user = getUserIfExists(username);
         Stream<PublicUserData> friends = user.friends().entrySet().stream().filter(entry->{

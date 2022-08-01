@@ -38,4 +38,7 @@ public class SQLUserDAO implements UserDAO {
     public boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs) {
          return false;
     }
+
+    @Override
+    public boolean deleteFriendshipStatus(String fromUsername, String toUsername) {return false; }
 }

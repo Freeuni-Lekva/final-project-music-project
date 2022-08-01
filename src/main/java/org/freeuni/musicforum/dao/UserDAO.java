@@ -13,5 +13,7 @@ public interface UserDAO {
 
     // returns true only if both users exist and update happened
     boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs);
+    boolean deleteFriendshipStatus(String fromUsername, String toUsername);
+
 
 }

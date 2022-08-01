@@ -20,19 +20,15 @@ public class AddFriendServlet extends HttpServlet {
         PublicUserData user =  ServiceFactory.getUserService().getProfileData(req.getParameter("username"));
 
         FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currentUser.username(), user.username());
-        String buttonText = FriendshipStatus.FRIENDS.toString();
 
         if(fs==null){
-            buttonText = FriendshipStatus.REQUEST_SENT.toString();
             ServiceFactory.getUserService().sendFriendRequest(currentUser.username(), user.username());
         } else if (fs==FriendshipStatus.ACCEPT_REQUEST) {
             ServiceFactory.getUserService().acceptFriendRequest(currentUser.username(), user.username());
-        } else if (fs==FriendshipStatus.REQUEST_SENT){
-            buttonText = FriendshipStatus.REQUEST_SENT.toString();;
+        } else if (fs==FriendshipStatus.FRIENDS){
+            ServiceFactory.getUserService().deleteFriend(currentUser.username(), user.username());
         }
 
-
-        req.setAttribute("buttonText", buttonText);
         req.setAttribute("user", user);
         req.getRequestDispatcher(req.getParameter("filepath")).forward(req, resp);
 
@@ -44,6 +40,5 @@ public class AddFriendServlet extends HttpServlet {
 
 
     }
-
 
 }

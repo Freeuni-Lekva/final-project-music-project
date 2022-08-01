@@ -58,4 +58,14 @@ public class InMemoryUserDAO implements UserDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteFriendshipStatus(String fromUsername, String toUsername) {
+        Optional<User> user = getByUsername(fromUsername);
+        if(user.isPresent()&&doesExist(toUsername)){
+            user.get().friends().remove(toUsername);
+            return true;
+        }
+        return false;
+    }
 }
