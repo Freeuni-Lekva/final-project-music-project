@@ -32,14 +32,15 @@ public class AddSongsServlet extends HttpServlet {
         List<Song> songs = new ArrayList<>();
 
         for(int i = 1; i <= songAmount; i++) {
-            String name = album.artistName() + "_" + album.albumName() + "_" + req.getParameter("name"+i);
+            String name = req.getParameter("name"+i);
+            String fullName = album.artistName() + "_" + album.albumName() + "_" + name;
             if(service.doesSongExist(id, name)) continue;
 
             Part part = req.getPart("song"+i);
             String path = getPath(req, "songs");
             FileProcessor songProcessor = new FileProcessor(part, name, path);
 
-            Song song = new Song(name, album.albumName(), album.artistName(), songProcessor.getBase64EncodedString());
+            Song song = new Song(name, fullName, album.albumName(), album.artistName(), songProcessor.getBase64EncodedString());
             songs.add(song);
         }
 

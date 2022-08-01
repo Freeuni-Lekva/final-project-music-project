@@ -18,7 +18,6 @@ public class Review {
         this.albumId = albumId;
         this.authorUsername = authorUsername;
         this.text = text;
-        // this will later need to be changed to Utils.hashText(text)
         this.id = Utils.hashText(albumId + authorUsername + text);
         this.upvote = 1;
         this.downvote = 0;

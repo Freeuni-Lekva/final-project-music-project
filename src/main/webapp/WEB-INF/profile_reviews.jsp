@@ -1,6 +1,7 @@
 <%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
 <%@ page import="org.freeuni.musicforum.model.Review" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.freeuni.musicforum.model.Album" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -48,7 +49,13 @@
                         <% } %>
                         <%-- get photo from the album --%>
                         <p class="text"><%=rev.getAlbumId()%></p>
-                        <img src ="/images/BLAH.png" alt="album image goes here">
+                        <% String albumFile = "";
+                        try {
+                            Album album = ServiceFactory.getAlbumService().getAlbum(rev.getAlbumId());
+                            albumFile = album.fileName();
+                        } catch (Exception e) {
+                        } %>
+                        <img src ="/images/album-covers/<%=albumFile%>" width="100px" height="100px">
                     </div>
                     <div class = "scroll_member_infobox">
                         <p class="space"></p>

@@ -1,3 +1,6 @@
+<%@ page import="org.freeuni.musicforum.model.Album" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.freeuni.musicforum.model.Song" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,7 +34,31 @@
             </div>
         </div>
         <div class = "profile_scroll">
-            <%-- add a list of albums added by this user --%>
+            <% List<Album> albums = ServiceFactory.getAlbumService().getAllAlbumsUploadedBy(user.username()); %>
+            <% for (Album alb : albums) { %>
+            <%-- Later add href to the album page here --%>
+            <div class = "scroll_member">
+                <div class = "scroll_member_photobox">
+                    <p class="text"><%=alb.artistName()%></p>
+                    <p class="small_text"><%=alb.albumName()%></p>
+                    <img src="/images/album-covers/<%=alb.fileName()%>" width="100px" height="100px">
+                </div>
+                <div class = "scroll_member_infobox">
+                    <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(alb.id()); %>
+                    <% for (int i = 0; i < stars; i++) { %>
+                        <img src="/images/star_sel.png" class="vote_box">
+                    <% } %>
+                    <% for (int i = stars; i < 5; i++) { %>
+                        <img src="/images/star_unsel.png" class="vote_box">
+                    <% } %>
+                    <% List<Song> songs = alb.songs(); %>
+                    <% for (Song song : songs) { %>
+                        <p class="text"><%=song.name()%></p>
+                        <p class="space"></p>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
         </div>
     </div>
 </body>

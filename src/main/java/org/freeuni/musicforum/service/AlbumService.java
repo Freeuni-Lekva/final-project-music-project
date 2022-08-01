@@ -35,8 +35,18 @@ public class AlbumService {
         return album;
     }
 
+    public Album getAlbum(String hashedId) {
+        if(!dao.exists(hashedId)) throw new NonexistentAlbumException();
+        Album album = dao.getByHashedId(hashedId);
+        return album;
+    }
+
     public List<Album> getAllAlbumsUploadedBy(String username) {
         return dao.getAllByUser(username);
+    }
+
+    public int getAverageStarFor(AlbumIdentifier id) {
+        return dao.getAverageStar(id);
     }
 
     public boolean doesSongExist(AlbumIdentifier id, String name) {

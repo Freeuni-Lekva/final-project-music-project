@@ -46,10 +46,11 @@ public class AddAlbumServlet extends HttpServlet {
         String nameForImage = albumName + "_" + artistName + "_cover";
         String uploadPath = getPath(req, "images/album-covers");
         FileProcessor imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
+        String fileName = imageProcessor.getFullName();
 
         String username = (String) req.getServletContext().getAttribute("uploader");
         Album newAlbum = new Album(username, albumName, artistName,
-                imageProcessor.getBase64EncodedString(), songs, id);
+                imageProcessor.getBase64EncodedString(), songs, id, fileName);
         service.addNewAlbum(newAlbum);
 
         req.setAttribute("songAmount", songAmount);

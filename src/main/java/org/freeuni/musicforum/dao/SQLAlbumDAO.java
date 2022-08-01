@@ -23,12 +23,27 @@ public class SQLAlbumDAO implements AlbumDAO {
     }
 
     @Override
+    public Album getByHashedId(String id) {
+        return null;
+    }
+
+    @Override
     public List<Album> getAllByUser(String username) {
         return null;
     }
 
     @Override
+    public int getAverageStar(AlbumIdentifier id) {
+        return 0;
+    }
+
+    @Override
     public boolean exists(AlbumIdentifier id) {
+        return false;
+    }
+
+    @Override
+    public boolean exists(String id) {
         return false;
     }
 
