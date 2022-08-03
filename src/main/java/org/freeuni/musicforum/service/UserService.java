@@ -37,7 +37,8 @@ public class UserService {
     public int getUserPrestige(String username) {
         ReviewService rs = ServiceFactory.getReviewService();
         int count = rs.getReviewPrestigeFor(username);
-        // do the same for albums.
+        AlbumService as = ServiceFactory.getAlbumService();
+        count += as.getAlbumPrestigeFor(username);
         return count;
     }
 

@@ -56,7 +56,7 @@
                             albumFile = album.fileName();
                         } catch (Exception e) {
                         } %>
-                        <img src ="/images/album-covers/<%=albumFile%>" width="100px" height="100px">
+                        <img src ="${imagePrefix}${alb.coverImageBase64()}" width="100px" height="100px">
                     </div>
                     <div class = "scroll_member_infobox">
                         <p class="space"></p>

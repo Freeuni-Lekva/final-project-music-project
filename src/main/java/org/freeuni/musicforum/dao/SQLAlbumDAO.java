@@ -18,12 +18,7 @@ public class SQLAlbumDAO implements AlbumDAO {
     }
 
     @Override
-    public Album getById(AlbumIdentifier id) {
-        return null;
-    }
-
-    @Override
-    public Album getByHashedId(String id) {
+    public Album getById(String id) {
         return null;
     }
 
@@ -33,19 +28,14 @@ public class SQLAlbumDAO implements AlbumDAO {
     }
 
     @Override
-    public int getAverageStar(AlbumIdentifier id) {
+    public int getAverageStar(String id) {
         return 0;
     }
 
     @Override
-    public boolean exists(AlbumIdentifier id) {
-        return false;
-    }
+    public boolean exists(String id) { return false; }
 
     @Override
-    public boolean exists(String id) {
-        return false;
-    }
-
+    public int calculatePrestigeFor(String id) { return 0; }
 
 }

@@ -24,14 +24,7 @@ public class InMemoryAlbumDAO implements AlbumDAO{
     }
 
     @Override
-    public Album getById(AlbumIdentifier id) {
-        return albums.get(id.hashed());
-    }
-
-    @Override
-    public Album getByHashedId(String id) {
-        return albums.get(id);
-    }
+    public Album getById(String id) { return albums.get(id); }
 
     @Override
     public List<Album> getAllByUser(String username) {
@@ -43,8 +36,8 @@ public class InMemoryAlbumDAO implements AlbumDAO{
     }
 
     @Override
-    public int getAverageStar(AlbumIdentifier id) {
-        List<Review> allReviews = ServiceFactory.getReviewService().getAllReviewsFor(id.hashed());
+    public int getAverageStar(String id) {
+        List<Review> allReviews = ServiceFactory.getReviewService().getAllReviewsFor(id);
         if (allReviews.size() == 0) return 0;
         int totalStars = allReviews.stream().map(rev -> rev.getStarCount()).
                 reduce(0, (sum, elem) -> sum + elem);
@@ -53,13 +46,15 @@ public class InMemoryAlbumDAO implements AlbumDAO{
     }
 
     @Override
-    public boolean exists(AlbumIdentifier id) {
-        return albums.containsKey(id.hashed());
-    }
+    public boolean exists(String id) { return albums.containsKey(id); }
 
     @Override
-    public boolean exists(String id) {
-        return albums.containsKey(id);
+    public int calculatePrestigeFor(String id) {
+        List<Review> allReviews = ServiceFactory.getReviewService().getAllReviewsFor(id);
+        if (allReviews.size() == 0) return 0;
+        int totalStars = allReviews.stream().map(rev -> rev.getStarCount()).
+                reduce(0, (sum, elem) -> sum + elem);
+        return totalStars - (3 * allReviews.size());
     }
 
     public int albumCount() {

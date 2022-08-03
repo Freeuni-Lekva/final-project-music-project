@@ -26,7 +26,7 @@ public class AddSongsServlet extends HttpServlet {
         AlbumService service = (AlbumService) getServletContext().getAttribute("albumService");
 
         AlbumIdentifier id = (AlbumIdentifier) req.getSession().getAttribute("currAlbumId");
-        Album album = service.getAlbum(id);
+        Album album = service.getAlbum(id.hashed());
         int songAmount = Integer.parseInt(req.getParameter("songAmount"));
 
         List<Song> songs = new ArrayList<>();
@@ -34,7 +34,7 @@ public class AddSongsServlet extends HttpServlet {
         for(int i = 1; i <= songAmount; i++) {
             String name = req.getParameter("name"+i);
             String fullName = album.artistName() + "_" + album.albumName() + "_" + name;
-            if(service.doesSongExist(id, name)) continue;
+            if(service.doesSongExist(id.hashed(), name)) continue;
 
             Part part = req.getPart("song"+i);
             String path = getPath(req, "songs");
@@ -44,7 +44,7 @@ public class AddSongsServlet extends HttpServlet {
             songs.add(song);
         }
 
-        service.addSongs(id, songs);
+        service.addSongs(id.hashed(), songs);
 
         req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.setAttribute("audioPrefix", FileProcessor.AUDIO_HTML_PREFIX_BASE64);

@@ -19,25 +19,19 @@ public class AlbumService {
 
     public void addNewAlbum(Album album) {
         AlbumIdentifier id = album.id();
-        if(dao.exists(id)) throw new AlbumExistsException();
+        if(dao.exists(id.hashed())) throw new AlbumExistsException();
         dao.add(album);
     }
 
-    public void addSongs(AlbumIdentifier id, List<Song> songs) {
+    public void addSongs(String id, List<Song> songs) {
         if(!dao.exists(id)) throw new NonexistentAlbumException();
         Album album = dao.getById(id);
         album.songs().addAll(songs);
     }
 
-    public Album getAlbum(AlbumIdentifier id) {
+    public Album getAlbum(String id) {
         if(!dao.exists(id)) throw new NonexistentAlbumException();
         Album album = dao.getById(id);
-        return album;
-    }
-
-    public Album getAlbum(String hashedId) {
-        if(!dao.exists(hashedId)) throw new NonexistentAlbumException();
-        Album album = dao.getByHashedId(hashedId);
         return album;
     }
 
@@ -45,13 +39,21 @@ public class AlbumService {
         return dao.getAllByUser(username);
     }
 
-    public int getAverageStarFor(AlbumIdentifier id) {
+    public int getAverageStarFor(String id) {
         return dao.getAverageStar(id);
     }
 
-    public boolean doesSongExist(AlbumIdentifier id, String name) {
+    public boolean doesSongExist(String id, String name) {
         Album album = getAlbum(id);
         return album.songs().stream().filter(song -> song.songName().equals(name)).findAny().isPresent();
     }
 
+    public int getAlbumPrestigeFor(String username) {
+        List<Album> albums = getAllAlbumsUploadedBy(username);
+        int res = 0;
+        for (Album a : albums) {
+            res += dao.calculatePrestigeFor(a.id().hashed());
+        }
+        return res;
+    }
 }

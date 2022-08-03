@@ -5,8 +5,7 @@ import org.freeuni.musicforum.util.Utils;
 import java.util.Objects;
 
 public class Review {
-    private int upvote;
-    private int downvote;
+    private int prestige;
     private final String text;
     private final String albumId;
     private final String authorUsername;
@@ -14,14 +13,17 @@ public class Review {
 
     private final int stars;
 
-    public Review(String albumId, String authorUsername, String text, int stars) {
+    public Review(String albumId, String authorUsername, String text, int stars, int prestige) {
         this.albumId = albumId;
         this.authorUsername = authorUsername;
         this.text = text;
         this.id = Utils.hashText(albumId + authorUsername + text);
-        this.upvote = 1;
-        this.downvote = 0;
+        this.prestige = prestige;
         this.stars = stars;
+    }
+
+    public Review(String albumId, String authorUsername, String text, int stars) {
+        this(albumId, authorUsername, text, stars, 1);
     }
 
     public String getId() { return this.id; }
@@ -35,22 +37,22 @@ public class Review {
     public int getStarCount() { return this.stars; }
 
     public int upvote() {
-        return ++this.upvote;
+        return ++this.prestige;
     }
 
     public int downvote() {
-        return ++this.downvote;
+        return --this.prestige;
     }
 
     public int getPrestige() {
-        return this.upvote - this.downvote;
+        return this.prestige;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Review review)) return false;
-        return upvote == review.upvote && downvote == review.downvote &&
+        return prestige == review.prestige &&
                 Objects.equals(getText(), review.getText()) &&
                 Objects.equals(getAlbumId(), review.getAlbumId()) &&
                 Objects.equals(getAuthorUsername(), review.getAuthorUsername()) &&
@@ -59,14 +61,13 @@ public class Review {
 
     @Override
     public int hashCode() {
-        return Objects.hash(upvote, downvote, getText(), getAlbumId(), getAuthorUsername(), getId());
+        return Objects.hash(prestige, getText(), getAlbumId(), getAuthorUsername(), getId());
     }
 
     @Override
     public String toString() {
         return "Review{" +
-                "upvote=" + upvote +
-                ", downvote=" + downvote +
+                "prestige=" + prestige +
                 ", text='" + text + '\'' +
                 ", albumId='" + albumId + '\'' +
                 ", authorUsername='" + authorUsername + '\'' +

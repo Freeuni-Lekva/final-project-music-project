@@ -42,10 +42,10 @@
                 <div class = "scroll_member_photobox">
                     <p class="text"><%=alb.artistName()%></p>
                     <p class="small_text"><%=alb.albumName()%></p>
-                    <img src="/images/album-covers/<%=alb.fileName()%>" width="100px" height="100px">
+                    <img src="${imagePrefix}${alb.coverImageBase64()}" width="100px" height="100px">
                 </div>
                 <div class = "scroll_member_infobox">
-                    <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(alb.id()); %>
+                    <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(alb.id().hashed()); %>
                     <% for (int i = 0; i < stars; i++) { %>
                         <img src="/images/star_sel.png" class="vote_box">
                     <% } %>
