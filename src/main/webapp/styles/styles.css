@@ -280,3 +280,35 @@
 .long_background {
     background: radial-gradient(#ffffff 25%, #aafefe);
 }
+
+.top_album {
+    width: 99%;
+    height: 64%;
+    float: top;
+}
+
+.bottom_album {
+    width: 99%;
+    height: 33%;
+    float: top;
+    overflow: scroll;
+}
+
+.left_album {
+    width: 55%;
+    height: 99%;
+    float: left;
+}
+
+.right_album {
+    width: 35%;
+    height: 99%;
+    float: left;
+    overflow: scroll;
+}
+
+.review_album{
+    width: 99%;
+    height: 100px;
+    overflow: scroll;
+}

@@ -48,15 +48,17 @@
                         <% for (int i = rev.getStarCount(); i < 5; i++) { %>
                             <img src="/images/star_unsel.png" class="vote_box">
                         <% } %>
-                        <%-- get photo from the album --%>
-                        <p class="text"><%=rev.getAlbumId()%></p>
-                        <% String albumFile = "";
+                        <% Album album = null;
                         try {
-                            Album album = ServiceFactory.getAlbumService().getAlbum(rev.getAlbumId());
-                            albumFile = album.fileName();
+                            album = ServiceFactory.getAlbumService().getAlbum(rev.getAlbumId());
                         } catch (Exception e) {
                         } %>
-                        <img src ="${imagePrefix}${alb.coverImageBase64()}" width="100px" height="100px">
+                        <% if (album != null) { %>
+                            <p class="text"><a href="/album?albumId=<%=album.id()%>">
+                                <%=album.albumName()%>
+                            </a></p>
+                            <img src ="${imagePrefix}<%=album.coverImageBase64()%>}" width="100px" height="100px">
+                        <% } %>
                     </div>
                     <div class = "scroll_member_infobox">
                         <p class="space"></p>

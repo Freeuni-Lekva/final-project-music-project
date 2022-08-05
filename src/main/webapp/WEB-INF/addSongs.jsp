@@ -16,8 +16,8 @@
 
         <p class="space"></p>
         <h2 style="text-align: center" class="big_text">
-            Add Songs To "${albumService.getAlbum(currAlbumId.hashed()).albumName()}"
-                      By "${albumService.getAlbum(currAlbumId.hashed()).artistName()}"
+            Add Songs To "${albumService.getAlbum(currAlbumId).albumName()}"
+                      By "${albumService.getAlbum(currAlbumId).artistName()}"
         </h2>
         <p class="big_space"></p>
 

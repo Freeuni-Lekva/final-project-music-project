@@ -41,7 +41,9 @@
             <div class = "scroll_member">
                 <div class = "scroll_member_photobox">
                     <p class="text"><%=alb.artistName()%></p>
-                    <p class="small_text"><%=alb.albumName()%></p>
+                    <p class="small_text"><a href="/album?albumId=<%=alb.id().hashed()%>">
+                        <%=alb.albumName()%>
+                    </a></p>
                     <img src="${imagePrefix}${alb.coverImageBase64()}" width="100px" height="100px">
                 </div>
                 <div class = "scroll_member_infobox">
