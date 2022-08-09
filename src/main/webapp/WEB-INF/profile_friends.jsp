@@ -25,19 +25,48 @@
             </div>
         </div>
 
-        <div class = "profile_scroll">
-            <%List<PublicUserData> users = ServiceFactory.getUserService().getUsersFriends(currUser.username());
-            for(PublicUserData friend : users){%>
+        <div class = "friends_scroll">
+            <%List<PublicUserData> usersFriends = ServiceFactory.getUserService().getUsersFriends(currUser.username());
+              List<PublicUserData> usersRequests = ServiceFactory.getUserService().getUsersFriendRequests(currUser.username()); %>
 
-            <%--later display user picture and add links--%>
-            <p class="small_text"><%=friend.username()%></p>
-            <p class="space"></p>
+            <div class = "friends_scroll_column">
+                <p class = "text" > Friend List: </p>
+                <p class = "space"></p>
+                <%for(PublicUserData friendData : usersFriends){%>
+                <div class = "friends_scroll_member">
+                    <img src = "${imagePrefix}<%=friendData.profileImageBase64()%>" class = "friends_scroll_member_photo">
+                    <div class = "friends_scroll_member_info">
+                        <p class="username_text"> <a href="/profile?username=<%=friendData.username()%>">
+                            <%=friendData.username()%>
+                        </a></p>
+                    </div>
+                </div>
+                <%}%>
+            </div>
 
-            <%}%>
-
+            <div class = "friends_scroll_column">
+                <p class = "text">Friend Requests:</p>
+                <p class = "space"></p>
+                <%for(PublicUserData requestData : usersRequests){%>
+                <div class = "friends_scroll_member">
+                    <img src = "${imagePrefix}<%=requestData.profileImageBase64()%>" class = "friends_scroll_member_photo">
+                    <div class = "friends_scroll_member_info">
+                        <p class="username_text"> <a href="/profile?username=<%=requestData.username()%>">
+                            <%=requestData.username()%>
+                        </a></p>
+                        <p class="bigger_space"></p>
+                        <form action = "/answerFriendRequest" method="post">
+                            <input type="hidden" name="filepath" value="<%=request.getAttribute("filepath")%>">
+                            <input type="hidden" name="username" value=<%=requestData.username()%>>
+                            <input type="submit" name="action" value="Accept Request" class="green_text" class="button">
+                            <input type="submit" name="action" value="Delete Request" class="red_text" class="button">
+                        </form>
+                    </div>
+                </div>
+                <p class="space"></p>
+                <%}%>
+            </div>
         </div>
-
     </div>
-
 </body>
 </html>

@@ -40,6 +40,10 @@
         <servlet-name>preview-album-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.PreviewAlbumServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>answer-friend-request</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.AnswerFriendRequestServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -76,6 +80,10 @@
     <servlet-mapping>
         <servlet-name>preview-album-servlet</servlet-name>
         <url-pattern>/album</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>answer-friend-request</servlet-name>
+        <url-pattern>/answerFriendRequest</url-pattern>
     </servlet-mapping>
 
 </web-app>

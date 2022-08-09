@@ -46,7 +46,7 @@ public class UserService {
         Optional<User> userOptional = dao.getByUsername(username);
         if(userOptional.isPresent()) {
             User user = userOptional.get();
-            return new PublicUserData(user.firstName(), user.lastName(), username,
+            return new PublicUserData(user.firstName(), user.lastName(), username, user.profileImageBase64(),
                     user.badge(), getUserPrestige(username));
         }
         throw new NoSuchUserExistsException("" +
@@ -85,7 +85,7 @@ public class UserService {
     public void deleteFriend(String firstUsername, String secondUsername){
         if(!dao.deleteFriendshipStatus(firstUsername, secondUsername)){
             getUserIfExists(firstUsername);
-            getUsersFriends(secondUsername);
+            getUserIfExists(secondUsername);
         }
         dao.deleteFriendshipStatus(secondUsername, firstUsername);
     }
@@ -99,6 +99,15 @@ public class UserService {
         return friends.toList();
     }
 
+    public List<PublicUserData> getUsersFriendRequests(String username){
+        User user = getUserIfExists(username);
+        Stream<PublicUserData> friendRequests = user.friends().entrySet().stream().filter(entry->{
+           if(entry.getValue().equals(FriendshipStatus.ACCEPT_REQUEST)) return true;
+           return false;
+        }).map(entry->getProfileData(entry.getKey()));
+        return friendRequests.toList();
+    }
+
     private User getUserIfExists(String username){
         Optional<User>  userOptional = dao.getByUsername(username);
         if (userOptional.isPresent()) {
@@ -107,6 +116,5 @@ public class UserService {
         throw new NoSuchUserExistsException("" +
                 "User with provided username " +  username + " does not exist");
     }
-
 
 }
