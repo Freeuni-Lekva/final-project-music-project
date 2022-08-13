@@ -9,9 +9,7 @@ import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.Utils;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class UserService {
     private final UserDAO dao;
@@ -67,45 +65,45 @@ public class UserService {
     }
 
     public void sendFriendRequest(String fromUsername, String toUsername){
-        if(!dao.updateFriendshipStatus(fromUsername, toUsername, FriendshipStatus.REQUEST_SENT)){
-            getUserIfExists(fromUsername);
-            getUserIfExists(toUsername);
+        FriendshipStatus currentStatus = getFriendshipStatus(fromUsername, toUsername);
+        if(currentStatus==null){
+            dao.updateFriendshipStatus(fromUsername, toUsername, FriendshipStatus.REQUEST_SENT);
+            dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.ACCEPT_REQUEST);
         }
-        dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.ACCEPT_REQUEST);
     }
 
     public void acceptFriendRequest(String fromUsername, String toUsername){
-        if(!dao.updateFriendshipStatus(fromUsername, toUsername, FriendshipStatus.FRIENDS)){
-            getUserIfExists(fromUsername);
-            getUserIfExists(toUsername);
+        FriendshipStatus currentStatus = getFriendshipStatus(fromUsername, toUsername);
+        if(currentStatus==FriendshipStatus.ACCEPT_REQUEST){
+            dao.updateFriendshipStatus(fromUsername, toUsername, FriendshipStatus.FRIENDS);
+            dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.FRIENDS);
         }
-        dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.FRIENDS);
     }
 
-    public void deleteFriend(String firstUsername, String secondUsername){
-        if(!dao.deleteFriendshipStatus(firstUsername, secondUsername)){
-            getUserIfExists(firstUsername);
-            getUserIfExists(secondUsername);
+    public void removeFriendshipStatus(String firstUsername, String secondUsername){
+        FriendshipStatus currentStatus = getFriendshipStatus(firstUsername, secondUsername);
+        if(currentStatus==FriendshipStatus.FRIENDS){
+            dao.deleteFriendshipStatus(firstUsername, secondUsername);
+            dao.deleteFriendshipStatus(secondUsername, firstUsername);
         }
-        dao.deleteFriendshipStatus(secondUsername, firstUsername);
     }
 
     public List<PublicUserData> getUsersFriends(String username){
-        User user = getUserIfExists(username);
-        Stream<PublicUserData> friends = user.friends().entrySet().stream().filter(entry->{
-            if(entry.getValue().equals(FriendshipStatus.FRIENDS)) return true;
-            return false;
-        }).map(entry->getProfileData(entry.getKey()));
-        return friends.toList();
+        List<String> friends = dao.getUsersByFriendshipStatus(username, FriendshipStatus.FRIENDS);
+        if(friends==null){
+            throw new NoSuchUserExistsException("" +
+                    "User with provided username " +  username + " does not exist");
+        }
+        return friends.stream().map(currUsername->getProfileData(currUsername)).toList();
     }
 
     public List<PublicUserData> getUsersFriendRequests(String username){
-        User user = getUserIfExists(username);
-        Stream<PublicUserData> friendRequests = user.friends().entrySet().stream().filter(entry->{
-           if(entry.getValue().equals(FriendshipStatus.ACCEPT_REQUEST)) return true;
-           return false;
-        }).map(entry->getProfileData(entry.getKey()));
-        return friendRequests.toList();
+        List<String> friendRequests = dao.getUsersByFriendshipStatus(username, FriendshipStatus.ACCEPT_REQUEST);
+        if(friendRequests==null){
+            throw new NoSuchUserExistsException("" +
+                    "User with provided username " +  username + " does not exist");
+        }
+        return friendRequests.stream().map(currUsername->getProfileData(currUsername)).toList();
     }
 
     private User getUserIfExists(String username){

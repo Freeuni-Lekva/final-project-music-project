@@ -20,13 +20,13 @@ public class AnswerFriendRequestServlet extends HttpServlet {
         String action = req.getParameter("action");
         FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currentUser.username(), username);
 
-        if(fs==FriendshipStatus.ACCEPT_REQUEST) {
-            if (action.equals("Accept Request")) {
-                ServiceFactory.getUserService().acceptFriendRequest(currentUser.username(), username);
-            } else if (action.equals("Delete Request")) {
-                ServiceFactory.getUserService().deleteFriend(currentUser.username(), username);
-            }
+
+        if (action.equals("Accept Request")) {
+            ServiceFactory.getUserService().acceptFriendRequest(currentUser.username(), username);
+        } else if (action.equals("Delete Request")) {
+            ServiceFactory.getUserService().removeFriendshipStatus(currentUser.username(), username);
         }
+
 
         req.setAttribute("user", currentUser);
         req.getRequestDispatcher(req.getParameter("filepath")).forward(req, resp);

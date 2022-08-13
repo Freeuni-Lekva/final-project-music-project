@@ -47,8 +47,7 @@ public class RegisterServlet extends HttpServlet {
 
         try {
             userService.signUp(newUser);
-            System.out.println(newUser);
-            getServletContext().setAttribute("currentUser", userService.getProfileData(username));
+            req.getSession().setAttribute("currentUser", userService.getProfileData(username));
             req.getRequestDispatcher("/WEB-INF/feed.jsp")
                     .forward(req, resp);
         }

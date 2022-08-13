@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 
         UserService userService = ServiceFactory.getUserService();
         if(userService.login(username, password)) {
-            getServletContext().setAttribute("currentUser", userService.getProfileData(username));
+            req.getSession().setAttribute("currentUser", userService.getProfileData(username));
             req.getRequestDispatcher("/WEB-INF/feed.jsp")
                     .forward(req, resp);
         }

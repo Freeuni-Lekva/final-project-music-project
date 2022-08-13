@@ -50,6 +50,18 @@ public class InMemoryUserDAO implements UserDAO {
     }
 
     @Override
+    public List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs) {
+        Optional<User> user = getByUsername(username);
+        if(user.isPresent()){
+            return user.get().friends().entrySet().stream().filter(entry->{
+                if(entry.getValue().equals(fs)) return true;
+                return false;
+            }).map(entry->entry.getKey()).toList();
+        }
+        return null;
+    }
+
+    @Override
     public boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs) {
         Optional<User> u = getByUsername(fromUsername);
         if(u.isPresent()&&doesExist(toUsername)){

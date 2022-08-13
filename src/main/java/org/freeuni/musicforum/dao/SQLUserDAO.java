@@ -4,6 +4,7 @@ import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.User;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Optional;
 
 public class SQLUserDAO implements UserDAO {
@@ -34,6 +35,10 @@ public class SQLUserDAO implements UserDAO {
         return false;
     }
 
+    @Override
+    public List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs) {
+        return null;
+    }
     @Override
     public boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs) {
          return false;

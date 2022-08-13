@@ -16,7 +16,7 @@ public class AddFriendServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        PublicUserData currentUser = (PublicUserData) req.getServletContext().getAttribute("currentUser");
+        PublicUserData currentUser = (PublicUserData) req.getSession().getAttribute("currentUser");
         PublicUserData user =  ServiceFactory.getUserService().getProfileData(req.getParameter("username"));
 
         FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currentUser.username(), user.username());
@@ -26,7 +26,7 @@ public class AddFriendServlet extends HttpServlet {
         } else if (fs==FriendshipStatus.ACCEPT_REQUEST) {
             ServiceFactory.getUserService().acceptFriendRequest(currentUser.username(), user.username());
         } else if (fs==FriendshipStatus.FRIENDS){
-            ServiceFactory.getUserService().deleteFriend(currentUser.username(), user.username());
+            ServiceFactory.getUserService().removeFriendshipStatus(currentUser.username(), user.username());
         }
 
         req.setAttribute("user", user);
