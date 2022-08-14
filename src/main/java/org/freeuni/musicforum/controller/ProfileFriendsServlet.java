@@ -16,7 +16,6 @@ public class ProfileFriendsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // this is temporary, we'll save the user in session later on.
         PublicUserData currentUser = (PublicUserData) req.getSession().getAttribute("currentUser");
         req.setAttribute("user", currentUser);
         req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);

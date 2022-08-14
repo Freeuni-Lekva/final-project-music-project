@@ -15,7 +15,6 @@ public class ProfileReviewsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // this is temporary, we'll save the user in session later on.
         String username = req.getParameter("username");
         PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
         req.setAttribute("user", userData);

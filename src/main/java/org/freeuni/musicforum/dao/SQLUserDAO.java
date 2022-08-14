@@ -36,6 +36,9 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
+    public void updateBadgeAccordingTo(String username, int prestige) {}
+
+    @Override
     public List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs) {
         return null;
     }

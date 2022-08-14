@@ -22,7 +22,7 @@
             <p class = "huge_space"></p>
             <p class = "text"><%=user.username()%></p>
             <p class = "space"></p>
-            <p class = "text"><%=user.badge().name()%></p>
+            <p class = "text"><%=user.badge().toString()%></p>
             <p class = "space"></p>
             <p class = "text">Prestige: <%=ServiceFactory.getUserService().getUserPrestige(user.username())%></p>
 

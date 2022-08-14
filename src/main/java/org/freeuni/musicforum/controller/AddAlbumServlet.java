@@ -24,10 +24,13 @@ public class AddAlbumServlet extends HttpServlet {
     private final String PATH_TO_ALBUMS = "src/main/webapp/";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
-        req.getServletContext().setAttribute("uploader", userData.username());
-        req.getRequestDispatcher("/WEB-INF/addAlbum.jsp").forward(req, resp);
+        PublicUserData user = (PublicUserData) req.getSession().getAttribute("currentUser");
+        if (user == null) {
+            req.getRequestDispatcher("").forward(req, resp);
+        } else {
+            req.getSession().setAttribute("uploader", user.username());
+            req.getRequestDispatcher("/WEB-INF/addAlbum.jsp").forward(req, resp);
+        }
     }
 
     @Override
@@ -48,7 +51,7 @@ public class AddAlbumServlet extends HttpServlet {
         FileProcessor imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
         String fileName = imageProcessor.getFullName();
 
-        String username = (String) req.getServletContext().getAttribute("uploader");
+        String username = (String) req.getSession().getAttribute("uploader");
         Album newAlbum = new Album(username, albumName, artistName,
                 imageProcessor.getBase64EncodedString(), songs, id, fileName);
         service.addNewAlbum(newAlbum);

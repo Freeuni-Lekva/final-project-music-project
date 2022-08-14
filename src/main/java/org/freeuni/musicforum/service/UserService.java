@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserService {
+
     private final UserDAO dao;
 
     UserService(UserDAO dao) {
@@ -49,6 +50,11 @@ public class UserService {
         }
         throw new NoSuchUserExistsException("" +
                 "User with provided username " +  username + " does not exist");
+    }
+
+    public void updateBadge(String username) {
+        int prestige = getUserPrestige(username);
+        dao.updateBadgeAccordingTo(username, prestige);
     }
 
 

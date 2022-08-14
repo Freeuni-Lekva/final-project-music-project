@@ -40,7 +40,8 @@ public class RegisterServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         User newUser = new User(
-                firstName, lastName, birthDate, gender, username, new Password(password), Badge.NEWCOMER
+                firstName, lastName, birthDate, gender, username,
+                new Password(password), new Badge(Badge.BadgeEnum.NEWCOMER)
         );
 
         UserService userService = ServiceFactory.getUserService();

@@ -18,9 +18,9 @@ class UserServiceTest {
     @Test
     void testCorrectSignups() {
         User u1 = new User("Robin", "Fenty", null, Gender.WOMAN,
-                "Rihanna", new Password("123"), Badge.NEWCOMER);
+                "Rihanna", new Password("123"), new Badge(Badge.BadgeEnum.NEWCOMER));
         User u2 = new User("Mikhail", "Gorbachev", null, Gender.MAN,
-                "MikGor", new Password("1984"), Badge.NEWCOMER);
+                "MikGor", new Password("1984"), new Badge(Badge.BadgeEnum.NEWCOMER));
 
         assertDoesNotThrow(() -> service.signUp(u1));
         assertDoesNotThrow(() -> service.signUp(u2));
@@ -29,11 +29,11 @@ class UserServiceTest {
     @Test
     void testShortParameterSignups() {
         User u1 = new User("Sandra", "Diaz-Twine", null, Gender.WOMAN,
-                "iQueen", new Password("a2"), Badge.ENTHUSIAST);
+                "iQueen", new Password("a2"), new Badge(Badge.BadgeEnum.ENTHUSIAST));
         User u2 = new User("Parvati", "Shallow", null, Gender.WOMAN,
-                "xo", new Password("xoxo"), Badge.CONTRIBUTOR);
+                "xo", new Password("xoxo"), new Badge(Badge.BadgeEnum.CONTRIBUTOR));
         User u3 = new User("", "", null, Gender.MAN, "",
-                new Password(""), Badge.NEWCOMER);
+                new Password(""), new Badge(Badge.BadgeEnum.NEWCOMER));
         String expectedErrorMessage = "Username/password must be longer than 2 characters";
 
         Exception ex1 = assertThrows(UnsuccessfulSignupException.class, (()-> service.signUp(u1)));
@@ -48,9 +48,9 @@ class UserServiceTest {
     void testUsernameExistsSignups() {
         // A user with username "guri" and password "guri" already exists.
         User u1 = new User("Guri", "Waters", null, Gender.MAN,
-                "guri", new Password("guri"), Badge.MODERATOR);
+                "guri", new Password("guri"), new Badge(Badge.BadgeEnum.ADMINISTRATOR));
         User u2 = new User("Guri", "Waters", null, Gender.MAN,
-                "guri", new Password("1234"), Badge.MODERATOR);
+                "guri", new Password("1234"), new Badge(Badge.BadgeEnum.ADMINISTRATOR));
         String expectedErrorMessage = "User with this username already exists";
 
         Exception ex1 = assertThrows(UnsuccessfulSignupException.class, (()-> service.signUp(u1)));

@@ -11,6 +11,7 @@ public interface UserDAO {
     Optional<User> getByUsername(String username);
     boolean doesExist(String username);
     boolean correctCredentials(String username, String passwordHash);
+    void updateBadgeAccordingTo(String username, int prestige);
     // returns null if username is not found
     List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs);
     // returns true only if both users exist and update happened

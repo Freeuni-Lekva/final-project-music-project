@@ -13,13 +13,13 @@ public class InMemoryUserDAO implements UserDAO {
     public InMemoryUserDAO() {
         this.users = new ArrayList<>(List.of(
                 new User("guri", "getsadze", null, Gender.MAN,
-                        "guri", new Password("guri"), Badge.NEWCOMER),
+                        "guri", new Password("guri"), new Badge(Badge.BadgeEnum.ADMINISTRATOR)),
                 new User("evangelina", "smith", null, Gender.WOMAN,
-                        "eva", new Password("2000"), Badge.NEWCOMER),
+                        "eva", new Password("2000"), new Badge(Badge.BadgeEnum.NEWCOMER)),
                 new User("melanie", "dorkus", null, Gender.WOMAN,
-                        "melanie1996", new Password("A_B_C*"), Badge.NEWCOMER),
+                        "melanie1996", new Password("A_B_C*"), new Badge(Badge.BadgeEnum.NEWCOMER)),
                 new User("ushi", "hagayana", null, Gender.OTHER,
-                        "u#700", new Password("ushi"), Badge.NEWCOMER)));
+                        "u#700", new Password("ushi"), new Badge(Badge.BadgeEnum.NEWCOMER))));
 
 
     }
@@ -47,6 +47,13 @@ public class InMemoryUserDAO implements UserDAO {
 
         return user.isPresent() &&
                 user.get().password().hashed().equals(passwordHash);
+    }
+
+    @Override
+    public void updateBadgeAccordingTo(String username, int prestige) {
+        Optional<User> user = getByUsername(username);
+
+        if (user.isPresent()) user.get().badge().modifyAccordingTo(prestige);
     }
 
     @Override
