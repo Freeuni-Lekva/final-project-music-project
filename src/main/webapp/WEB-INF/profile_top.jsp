@@ -42,9 +42,16 @@
               <label for="friendButton" class="green_text">Friends</label>
               <p class="space"></p>
               <%}%>
-              <input type="submit" id="friendButton" value="<%=buttonText%>" class="text" class = "button">
+              <input type="submit" id="friendButton" value="<%=buttonText%>" class="text" class="button">
             </form>
-            <%}%>
+            <% if (currUser.badge().isAdministrator()) { %>
+            <p class = "space"></p>
+            <form action = "/banUser" method="post">
+                <input type="hidden" name="username" value="<%=user.username()%>">
+                <input type="submit" id="banButton" value="Ban User" class="text" class="button">
+            </form>
+            <%}
+            }%>
         </div>
     </div>
 

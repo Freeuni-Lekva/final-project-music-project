@@ -1,6 +1,7 @@
 <%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
 <%@ page import="org.freeuni.musicforum.model.Review" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.freeuni.musicforum.model.Album" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -15,7 +16,14 @@
 
 <div class="top_album">
     <div class="left_album">
-        <p class="text">Uploaded by: <a href="/profile?username=${album.username()}">${album.username()}</a></p>
+        <p class="text">Uploaded by:
+            <% String uploader = ((Album) request.getAttribute("album")).username();
+                if(ServiceFactory.getUserService().userExists(uploader)) {%>
+                <a href="/profile?username=${album.username()}"><%=uploader%></a>
+            <%}else{%>
+                <%=uploader%>
+            <%}%>
+        </p>
         <p class="space"></p>
         <p class="big_text">Artist: ${album.artistName()}</p>
         <p class="big_text">Album: ${album.albumName()}</p>
@@ -51,7 +59,12 @@
     <% for (Review rev : reviews) { %>
     <div class="review_album">
         <p class="text">
+            <% String author = rev.getAuthorUsername();
+            if(ServiceFactory.getUserService().userExists(author)) {%>
             <a href="/profile?username=<%=rev.getAuthorUsername()%>"><%=rev.getAuthorUsername()%></a>
+            <%}else{%>
+            <%=rev.getAuthorUsername()%>
+            <%}%>
         </p>
         <p class="space"></p>
         <p class="small_text"><%=rev.getText()%></p>

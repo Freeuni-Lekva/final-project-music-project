@@ -44,6 +44,10 @@
         <servlet-name>answer-friend-request</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.AnswerFriendRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ban-user-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.BanUserServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -84,6 +88,10 @@
     <servlet-mapping>
         <servlet-name>answer-friend-request</servlet-name>
         <url-pattern>/answerFriendRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ban-user-servlet</servlet-name>
+        <url-pattern>/banUser</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -33,6 +33,10 @@ public class UserService {
         return dao.correctCredentials(username, Utils.hashText(password));
     }
 
+    public boolean userExists(String username) {
+        return dao.doesExist(username);
+    }
+
     public int getUserPrestige(String username) {
         ReviewService rs = ServiceFactory.getReviewService();
         int count = rs.getReviewPrestigeFor(username);
@@ -55,6 +59,10 @@ public class UserService {
     public void updateBadge(String username) {
         int prestige = getUserPrestige(username);
         dao.updateBadgeAccordingTo(username, prestige);
+    }
+
+    public void banUser(String username) {
+        dao.delete(username);
     }
 
 
