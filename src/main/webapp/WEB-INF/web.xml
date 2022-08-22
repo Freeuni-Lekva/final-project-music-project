@@ -48,6 +48,10 @@
         <servlet-name>ban-user-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.BanUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>delete-album-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.DeleteAlbumServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -92,6 +96,10 @@
     <servlet-mapping>
         <servlet-name>ban-user-servlet</servlet-name>
         <url-pattern>/banUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>delete-album-servlet</servlet-name>
+        <url-pattern>/deleteAlbum</url-pattern>
     </servlet-mapping>
 
 </web-app>

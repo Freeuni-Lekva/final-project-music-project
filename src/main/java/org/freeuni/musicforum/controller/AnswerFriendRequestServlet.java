@@ -33,10 +33,4 @@ public class AnswerFriendRequestServlet extends HttpServlet {
 
     }
 
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
-    }
-
 }

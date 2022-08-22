@@ -12,4 +12,5 @@ public interface AlbumDAO {
     int getAverageStar(String id);
     boolean exists(String id);
     int calculatePrestigeFor(String id);
+    void delete(String id);
 }

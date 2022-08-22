@@ -32,6 +32,11 @@ public class SQLReviewDAO implements ReviewDAO {
     }
 
     @Override
+    public void deleteAllByAlbum(String albumId) {
+
+    }
+
+    @Override
     public boolean upvoteReview(String reviewId) {
         return false;
     }

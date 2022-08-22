@@ -56,4 +56,10 @@ public class AlbumService {
         }
         return res;
     }
+
+    public void deleteAlbum(String id) {
+        dao.delete(id);
+        ServiceFactory.getReviewService().deleteAllReviewsFor(id);
+    }
+
 }

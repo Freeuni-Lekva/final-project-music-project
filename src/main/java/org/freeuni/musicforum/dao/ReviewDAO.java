@@ -9,6 +9,7 @@ public interface ReviewDAO {
     Review getById(String reviewId);
     List<Review> getAllByUser(String username);
     List<Review> getAllByAlbum(String albumId);
+    void deleteAllByAlbum(String albumId);
     boolean upvoteReview(String reviewId);
     boolean downvoteReview(String reviewId);
 }

@@ -24,9 +24,4 @@ public class ProfileAlbumsServlet extends HttpServlet {
         req.getRequestDispatcher("WEB-INF/profile.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-
-    }
-
 }

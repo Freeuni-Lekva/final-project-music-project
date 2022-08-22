@@ -38,4 +38,9 @@ public class SQLAlbumDAO implements AlbumDAO {
     @Override
     public int calculatePrestigeFor(String id) { return 0; }
 
+    @Override
+    public void delete(String id) {
+
+    }
+
 }

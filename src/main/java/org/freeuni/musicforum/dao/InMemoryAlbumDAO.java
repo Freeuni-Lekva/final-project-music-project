@@ -57,6 +57,11 @@ public class InMemoryAlbumDAO implements AlbumDAO{
         return totalStars - (3 * allReviews.size());
     }
 
+    @Override
+    public void delete(String id) {
+        albums.remove(id);
+    }
+
     public int albumCount() {
         return albums.size();
     }

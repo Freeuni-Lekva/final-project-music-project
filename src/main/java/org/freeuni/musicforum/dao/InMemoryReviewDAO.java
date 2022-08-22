@@ -55,6 +55,11 @@ public class InMemoryReviewDAO implements ReviewDAO {
     }
 
     @Override
+    public void deleteAllByAlbum(String albumId) {
+        reviews.removeIf(review -> review.getAlbumId().equals(albumId));
+    }
+
+    @Override
     public boolean upvoteReview(String reviewId) {
         Review review = getById(reviewId);
         if (review == null) return false;

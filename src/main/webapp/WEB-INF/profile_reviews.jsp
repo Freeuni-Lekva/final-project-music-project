@@ -2,6 +2,7 @@
 <%@ page import="org.freeuni.musicforum.model.Review" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.freeuni.musicforum.model.Album" %>
+<%@ page import="org.freeuni.musicforum.exception.NonexistentAlbumException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -44,21 +45,21 @@
                     <div class = "scroll_member_photobox">
                         <% for (int i = 0; i < rev.getStarCount(); i++) { %>
                             <img src="/images/star_sel.png" class="vote_box">
-                        <% } %>
-                        <% for (int i = rev.getStarCount(); i < 5; i++) { %>
+                        <% }
+                            for (int i = rev.getStarCount(); i < 5; i++) { %>
                             <img src="/images/star_unsel.png" class="vote_box">
-                        <% } %>
-                        <% Album album = null;
-                        try {
-                            album = ServiceFactory.getAlbumService().getAlbum(rev.getAlbumId());
-                        } catch (Exception e) {
-                        } %>
-                        <% if (album != null) { %>
+                        <% }
+                         Album album = null;
+                            try {
+                                album = ServiceFactory.getAlbumService().getAlbum(rev.getAlbumId());
+                            } catch (NonexistentAlbumException ex) {
+                            }
+                        if (album != null) {%>
                             <p class="text"><a href="/album?albumId=<%=album.id()%>">
                                 <%=album.albumName()%>
                             </a></p>
                             <img src ="${imagePrefix}<%=album.coverImageBase64()%>}" width="100px" height="100px">
-                        <% } %>
+                        <%}%>
                     </div>
                     <div class = "scroll_member_infobox">
                         <p class="space"></p>

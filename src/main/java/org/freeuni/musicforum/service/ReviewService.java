@@ -37,6 +37,10 @@ public class ReviewService {
         return dao.getAllByAlbum(albumId);
     }
 
+    public void deleteAllReviewsFor(String albumId) {
+        dao.deleteAllByAlbum(albumId);
+    }
+
     public void upvoteReview(String reviewId) {
         if (!dao.upvoteReview(reviewId)) {
             throw new UnsuccessfulReviewException("No such review exists");

@@ -22,9 +22,4 @@ public class ProfileReviewsServlet extends HttpServlet {
         req.getRequestDispatcher("WEB-INF/profile_reviews.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-
-    }
-
 }

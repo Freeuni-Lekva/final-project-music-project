@@ -2,6 +2,7 @@
 <%@ page import="org.freeuni.musicforum.model.Review" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.freeuni.musicforum.model.Album" %>
+<%@ page import="org.freeuni.musicforum.model.PublicUserData" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -41,6 +42,14 @@
     </div>
 
     <div class="right_album">
+        <%PublicUserData currUser = (PublicUserData) request.getSession().getAttribute("currentUser");
+        if (currUser != null && currUser.badge().isAdministrator()) { %>
+        <form action = "/deleteAlbum" method="post">
+            <input type="hidden" name="deleteAlbumId" value="${album.id().hashed()}">
+            <input type="submit" id="deleteButton" value="Delete Album" class="text" class="button">
+        </form>
+        <p class = "space"></p>
+        <% } %>
         <ul> <c:forEach var="song" items="${album.songs()}">
             <p class="space"></p>
             <li>
