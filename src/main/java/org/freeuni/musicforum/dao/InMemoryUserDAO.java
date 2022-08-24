@@ -1,10 +1,8 @@
 package org.freeuni.musicforum.dao;
 
 import org.freeuni.musicforum.filter.Filter;
-import org.freeuni.musicforum.model.Badge;
-import org.freeuni.musicforum.model.Gender;
-import org.freeuni.musicforum.model.Password;
-import org.freeuni.musicforum.model.User;
+import org.freeuni.musicforum.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +22,7 @@ public class InMemoryUserDAO implements UserDAO {
                         "melanie1996", new Password("A_B_C*"), Badge.NEWCOMER),
                 new User("ushi", "hagayana", null, Gender.OTHER,
                         "u#700", new Password("ushi"), Badge.NEWCOMER)));
+
     }
 
     @Override
@@ -50,9 +49,10 @@ public class InMemoryUserDAO implements UserDAO {
                 user.get().password().hashed().equals(passwordHash);
     }
 
-    public List<User> getFiltered(Filter m){
-        Stream<User> res =  users.stream().filter(user->m.doFilter(user));
-
-        return res.collect(Collectors.toList());
+    public List<User> getFiltered(Filter f){
+        for (int i = 0; i<users.size(); i++){
+            f.doFilter(new SearchRequest(users.get(i)));
+        }
+        return null;
     }
 }

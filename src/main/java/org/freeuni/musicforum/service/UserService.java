@@ -2,8 +2,11 @@ package org.freeuni.musicforum.service;
 
 import org.freeuni.musicforum.dao.UserDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.UserUtils;
+
+import java.util.List;
 
 public class UserService {
     private final UserDAO dao;
@@ -26,7 +29,8 @@ public class UserService {
         return dao.correctCredentials(username, UserUtils.hashPassword(password));
     }
 
-    public UserDAO getUserDao(){
-        return dao;
+    public List<User> filter(Filter f){
+        return dao.getFiltered(f);
     }
+
 }

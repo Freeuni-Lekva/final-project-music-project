@@ -1,6 +1,8 @@
 package org.freeuni.musicforum.filter;
 
-public interface Filter {
 
-     boolean doFilter(Object o);
+import org.freeuni.musicforum.model.SearchRequest;
+
+public interface Filter {
+      boolean doFilter(SearchRequest request);
 }

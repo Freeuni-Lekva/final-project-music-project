@@ -7,14 +7,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
 <body>
-
-<div class = "search-bar">
-    <form action = "/searchResults" method = "post">
-        <input type="text" id="search-bar" name="search-bar" class="searchbar">
-        <input type="submit" value="search"  class="search_button">
-    </form>
-</div>
-
+    <%@include file="searchbar.jsp"%>
 
 </body>
 </html>
