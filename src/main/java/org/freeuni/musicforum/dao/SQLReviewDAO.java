@@ -45,4 +45,9 @@ public class SQLReviewDAO implements ReviewDAO {
     public boolean downvoteReview(String reviewId) {
         return false;
     }
+
+    @Override
+    public boolean hasReviewFor(String username, String albumId) {
+        return false;
+    }
 }

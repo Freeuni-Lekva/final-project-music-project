@@ -12,4 +12,5 @@ public interface ReviewDAO {
     void deleteAllByAlbum(String albumId);
     boolean upvoteReview(String reviewId);
     boolean downvoteReview(String reviewId);
+    boolean hasReviewFor(String username, String albumId);
 }

@@ -75,9 +75,21 @@ public class InMemoryReviewDAO implements ReviewDAO {
         return true;
     }
 
+    @Override
+    public boolean hasReviewFor(String username, String albumId) {
+        Optional<Review> review = findReviewWrittenByUserFor(username, albumId);
+        return review.isPresent();
+    }
+
     private Optional<Review> findById(String reviewId) {
         return reviews.stream()
                 .filter(review -> review.getId().equals(reviewId))
                 .findFirst();
+    }
+
+    private Optional<Review> findReviewWrittenByUserFor(String username, String albumId) {
+        return reviews.stream().
+                filter(review -> review.getAuthorUsername().equals(username) &&
+                review.getAlbumId().equals(albumId)).findFirst();
     }
 }

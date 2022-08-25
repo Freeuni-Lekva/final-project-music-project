@@ -15,11 +15,14 @@
 
 <c:set var="album" value="${album}"></c:set>
 
+<%PublicUserData currUser = (PublicUserData) request.getSession().getAttribute("currentUser"); %>
+<% String uploader = ((Album) request.getAttribute("album")).username(); %>
+<% String albumId = ((Album) request.getAttribute("album")).id().hashed(); %>
+
 <div class="top_album">
     <div class="left_album">
         <p class="text">Uploaded by:
-            <% String uploader = ((Album) request.getAttribute("album")).username();
-                if(ServiceFactory.getUserService().userExists(uploader)) {%>
+            <%if(ServiceFactory.getUserService().userExists(uploader)) {%>
                 <a href="/profile?username=${album.username()}"><%=uploader%></a>
             <%}else{%>
                 <%=uploader%>
@@ -42,8 +45,7 @@
     </div>
 
     <div class="right_album">
-        <%PublicUserData currUser = (PublicUserData) request.getSession().getAttribute("currentUser");
-        if (currUser != null && currUser.badge().isAdministrator()) { %>
+        <% if (currUser != null && currUser.badge().isAdministrator()) { %>
         <form action = "/deleteAlbum" method="post">
             <input type="hidden" name="deleteAlbumId" value="${album.id().hashed()}">
             <input type="submit" id="deleteButton" value="Delete Album" class="text" class="button">
@@ -63,8 +65,24 @@
 
 <div class="bottom_album">
     <p class="text">Reviews</p>
-    <% List<Review> reviews = ServiceFactory.getReviewService().
-        getAllReviewsFor((String) request.getAttribute("currAlbumId")); %>
+    <% if (currUser != null && !currUser.username().equals(uploader) &&
+    !ServiceFactory.getReviewService().userHasReviewForAlbum(currUser.username(), albumId)) {%>
+    <div class="review_album">
+        <form action="/addReview" method="post">
+            <input type="hidden" name="albumId" value="${album.id().hashed()}">
+            <input type="hidden" name="authorUsername" value="<%=currUser.username()%>">
+            <label for="stars">Rating (Between 0 and 5):</label>
+            <input type="number" id="stars" name="stars" min="0" max="5">
+            <p class="space"></p>
+            <input type="text" id="reviewText" name="reviewText" class="huge_textbox">
+            <p class="space"></p>
+            <input type="submit" value="Add Review" class="text" class="button">
+            <p class="space"></p>
+        </form>
+    </div>
+    <%}
+    List<Review> reviews = ServiceFactory.getReviewService().
+        getAllReviewsFor(albumId); %>
     <% for (Review rev : reviews) { %>
     <div class="review_album">
         <p class="text">

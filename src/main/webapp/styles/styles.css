@@ -179,6 +179,12 @@
     font-size: 1.4vw;
 }
 
+.huge_textbox {
+    width: 70%;
+    height: 60%;
+    font-size: 1.2vw;
+}
+
 .longer_textbox_width {
     width: 20%;
 }
