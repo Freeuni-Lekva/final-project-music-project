@@ -56,6 +56,10 @@
         <servlet-name>add-review-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.AddReviewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>upload-profile-image-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.UploadProfileImageServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -108,6 +112,10 @@
     <servlet-mapping>
         <servlet-name>add-review-servlet</servlet-name>
         <url-pattern>/addReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>upload-profile-image-servlet</servlet-name>
+        <url-pattern>/uploadProfileImage</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -40,12 +40,12 @@
     height: 98%;
 }
 
-.profile_image {
-    margin: 1%;
+.upload_picture_button{
+    margin-top:0%;
+    margin-bottom:0%;
 
-    float: top;
-    width: 68%;
-    height: 78%;
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.2vw;
 }
 
 .profile_info_rec {
@@ -303,7 +303,7 @@
     margin-left: 15.5%;
 
     font-family:"Verdana", Verdana, serif;
-    font-size: 1.4vw;
+    font-size: 1.2vw;
 }
 
 .long_background {

@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
@@ -15,19 +16,18 @@ public class AnswerFriendRequestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PublicUserData currentUser = (PublicUserData) req.getServletContext().getAttribute("currentUser");
+        PublicUserData currentUser = (PublicUserData) req.getSession().getAttribute("currentUser");
         String username = req.getParameter("username");
         String action = req.getParameter("action");
-        FriendshipStatus fs = ServiceFactory.getUserService().getFriendshipStatus(currentUser.username(), username);
-
 
         if (action.equals("Accept Request")) {
             ServiceFactory.getUserService().acceptFriendRequest(currentUser.username(), username);
         } else if (action.equals("Delete Request")) {
-            ServiceFactory.getUserService().removeFriendshipStatus(currentUser.username(), username);
+            ServiceFactory.getUserService().removeFriendRequest(currentUser.username(), username);
         }
 
 
+        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.setAttribute("user", currentUser);
         req.getRequestDispatcher(req.getParameter("filepath")).forward(req, resp);
 

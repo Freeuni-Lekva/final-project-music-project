@@ -37,7 +37,7 @@ public class InMemoryUserDAO implements UserDAO {
     @Override
     public Optional<User> getByUsername(String username) {
         return users.stream()
-                .filter(user -> user.username().equals(username))
+                .filter(user -> user.getUsername().equals(username))
                 .findFirst();
     }
 
@@ -46,14 +46,14 @@ public class InMemoryUserDAO implements UserDAO {
         Optional<User> user = getByUsername(username);
 
         return user.isPresent() &&
-                user.get().password().hashed().equals(passwordHash);
+                user.get().getPassword().hashed().equals(passwordHash);
     }
 
     @Override
     public void updateBadgeAccordingTo(String username, int prestige) {
         Optional<User> user = getByUsername(username);
 
-        if (user.isPresent()) user.get().badge().modifyAccordingTo(prestige);
+        if (user.isPresent()) user.get().getBadge().modifyAccordingTo(prestige);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class InMemoryUserDAO implements UserDAO {
     public List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs) {
         Optional<User> user = getByUsername(username);
         if(user.isPresent()){
-            return user.get().friends().entrySet().stream().filter(entry->{
+            return user.get().getFriends().entrySet().stream().filter(entry->{
                 if(entry.getValue().equals(fs)) return true;
                 return false;
             }).map(entry->entry.getKey()).toList();
@@ -79,7 +79,7 @@ public class InMemoryUserDAO implements UserDAO {
     public boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs) {
         Optional<User> u = getByUsername(fromUsername);
         if(u.isPresent()&&doesExist(toUsername)){
-            u.get().friends().put(toUsername, fs);
+            u.get().getFriends().put(toUsername, fs);
             return true;
         }
         return false;
@@ -89,7 +89,7 @@ public class InMemoryUserDAO implements UserDAO {
     public boolean deleteFriendshipStatus(String fromUsername, String toUsername) {
         Optional<User> user = getByUsername(fromUsername);
         if(user.isPresent()&&doesExist(toUsername)){
-            user.get().friends().remove(toUsername);
+            user.get().getFriends().remove(toUsername);
             return true;
         }
         return false;

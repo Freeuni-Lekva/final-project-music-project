@@ -20,10 +20,10 @@ public class UserService {
     }
 
     public void signUp(User newUser) {
-        if(dao.doesExist(newUser.username()))
+        if(dao.doesExist(newUser.getUsername()))
             throw new UnsuccessfulSignupException("User with this username already exists");
 
-        if(newUser.username().length() < 3 || newUser.password().getPasswordSize() < 3) {
+        if(newUser.getUsername().length() < 3 || newUser.getPassword().getPasswordSize() < 3) {
             throw new UnsuccessfulSignupException("Username/password must be longer than 2 characters");
         }
         dao.add(newUser);
@@ -49,8 +49,8 @@ public class UserService {
         Optional<User> userOptional = dao.getByUsername(username);
         if(userOptional.isPresent()) {
             User user = userOptional.get();
-            return new PublicUserData(user.firstName(), user.lastName(), username, user.profileImageBase64(),
-                    user.badge(), getUserPrestige(username));
+            return new PublicUserData(user.getFirstName(), user.getLastName(), username, user.getProfileImageBase64(),
+                    user.getBadge(), getUserPrestige(username));
         }
         throw new NoSuchUserExistsException("" +
                 "User with provided username " +  username + " does not exist");
@@ -72,10 +72,10 @@ public class UserService {
             throw new NoSuchUserExistsException("" +
                     "User with provided username " +  toUsername + " does not exist");
         }
-        if (!user.friends().containsKey(toUsername)) {
+        if (!user.getFriends().containsKey(toUsername)) {
             return null;
         }
-        return user.friends().get(toUsername);
+        return user.getFriends().get(toUsername);
     }
 
     public void sendFriendRequest(String fromUsername, String toUsername){
@@ -91,6 +91,13 @@ public class UserService {
         if(currentStatus==FriendshipStatus.ACCEPT_REQUEST){
             dao.updateFriendshipStatus(fromUsername, toUsername, FriendshipStatus.FRIENDS);
             dao.updateFriendshipStatus(toUsername, fromUsername, FriendshipStatus.FRIENDS);
+        }
+    }
+    public void removeFriendRequest(String firstUsername, String secondUsername){
+        FriendshipStatus currentStatus = getFriendshipStatus(firstUsername, secondUsername);
+        if(currentStatus==FriendshipStatus.ACCEPT_REQUEST){
+            dao.deleteFriendshipStatus(firstUsername, secondUsername);
+            dao.deleteFriendshipStatus(secondUsername, firstUsername);
         }
     }
 
@@ -118,6 +125,13 @@ public class UserService {
                     "User with provided username " +  username + " does not exist");
         }
         return friendRequests.stream().map(currUsername->getProfileData(currUsername)).toList();
+    }
+
+    public void updateProfilePicture(String username, String base64String, String filename){
+        User u = getUserIfExists(username);
+
+        u.setFilename(filename);
+        u.setProfileImageBase64(base64String);
     }
 
     private User getUserIfExists(String username){

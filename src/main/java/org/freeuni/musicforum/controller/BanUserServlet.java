@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
 
@@ -19,6 +20,7 @@ public class BanUserServlet extends HttpServlet {
         PublicUserData currentUser = (PublicUserData) req.getSession().getAttribute("currentUser");
         req.setAttribute("user", currentUser);
 
+        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.getRequestDispatcher("/WEB-INF/profile.jsp").forward(req, resp);
 
     }
