@@ -4,7 +4,6 @@ import org.freeuni.musicforum.dao.ReviewDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulReviewException;
 import org.freeuni.musicforum.model.Review;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewService {
