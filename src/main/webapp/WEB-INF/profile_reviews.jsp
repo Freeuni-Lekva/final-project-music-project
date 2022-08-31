@@ -1,8 +1,7 @@
 <%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
-<%@ page import="org.freeuni.musicforum.model.Review" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.freeuni.musicforum.model.Album" %>
 <%@ page import="org.freeuni.musicforum.exception.NonexistentAlbumException" %>
+<%@ page import="org.freeuni.musicforum.model.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -55,7 +54,7 @@
                             } catch (NonexistentAlbumException ex) {
                             }
                         if (album != null) {%>
-                            <p class="text"><a href="/album?albumId=<%=album.id()%>">
+                            <p class="text"><a href="/album?albumId=<%=album.id().hashed()%>">
                                 <%=album.albumName()%>
                             </a></p>
                             <img src ="${imagePrefix}<%=album.coverImageBase64()%>}" width="100px" height="100px">
@@ -65,13 +64,34 @@
                         <p class="space"></p>
                         <p class="small_text"><%=rev.getText()%></p>
                         <p class="space"></p>
-                        <%-- get upvote/downvote info here --%>
-                        <%-- this is default for when upvote and
-                        downvote are unselected, forms must be
-                        added as well. --%>
+                        <% VoteType vote = ServiceFactory.getVotingDataService().
+                                getUserVoteForReview(currUser.username(), rev.getId()); %>
                         <p class="text">
-                            <img src="/images/up_sel.png" class="vote_box">
-                            <%=rev.getPrestige()%>
+                        <form action="/upvote" method="post">
+                            <input type="hidden" name="votingUser" value="<%=currUser.username()%>">
+                            <input type="hidden" name="reviewId" value="<%=rev.getId()%>">
+                            <input type="hidden" name="page" value="<%="profilereviews"%>">
+                            <input type="hidden" name="username" value="<%=user.username()%>">
+                            <% if (vote.equals(VoteType.UPVOTE)) { %>
+                            <input type="image" src="/images/up_sel.png" class="vote_box">
+                            <% } else { %>
+                            <input type="image" src="/images/up_unsel.png" class="vote_box">
+                            <% } %>
+                        </form>
+
+                        <%=rev.getPrestige()%>
+
+                        <form action="/downvote" method="post">
+                            <input type="hidden" name="votingUser" value="<%=currUser.username()%>">
+                            <input type="hidden" name="reviewId" value="<%=rev.getId()%>">
+                            <input type="hidden" name="page" value="<%="profilereviews"%>">
+                            <input type="hidden" name="username" value="<%=user.username()%>">
+                            <% if (vote.equals(VoteType.DOWNVOTE)) { %>
+                            <input type="image" src="/images/down_sel.png" class="vote_box">
+                            <% } else { %>
+                            <input type="image" src="/images/down_unsel.png" class="vote_box">
+                            <% } %>
+                        </form>
                         </p>
                     </div>
                 </div>

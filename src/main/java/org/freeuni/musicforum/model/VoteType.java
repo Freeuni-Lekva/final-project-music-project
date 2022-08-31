@@ -4,4 +4,5 @@ public enum VoteType {
     UPVOTE,
     DOWNVOTE,
     NONE
+
 }

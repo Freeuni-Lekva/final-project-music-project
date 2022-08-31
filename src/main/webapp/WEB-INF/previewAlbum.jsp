@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.freeuni.musicforum.model.Album" %>
 <%@ page import="org.freeuni.musicforum.model.PublicUserData" %>
+<%@ page import="org.freeuni.musicforum.model.VoteType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -15,7 +16,7 @@
 
 <c:set var="album" value="${album}"></c:set>
 
-<%PublicUserData currUser = (PublicUserData) request.getSession().getAttribute("currentUser"); %>
+<% PublicUserData currUser = (PublicUserData) request.getSession().getAttribute("currentUser"); %>
 <% String uploader = ((Album) request.getAttribute("album")).username(); %>
 <% String albumId = ((Album) request.getAttribute("album")).id().hashed(); %>
 
@@ -96,9 +97,36 @@
         <p class="space"></p>
         <p class="small_text"><%=rev.getText()%></p>
         <p class="space"></p>
+        <% VoteType vote = ServiceFactory.getVotingDataService().
+                getUserVoteForReview(currUser.username(), rev.getId()); %>
         <p class="text">
-            <img src="/images/up_sel.png" class="vote_box">
-            <%=rev.getPrestige()%>
+
+        <form action="/upvote" method="post">
+            <input type="hidden" name="votingUser" value="<%=currUser.username()%>">
+            <input type="hidden" name="reviewId" value="<%=rev.getId()%>">
+            <input type="hidden" name="page" value="<%="album"%>">
+            <input type="hidden" name="albumId" value="<%=albumId%>">
+            <% if (vote.equals(VoteType.UPVOTE)) { %>
+                <input type="image" src="/images/up_sel.png" class="vote_box">
+            <% } else { %>
+                <input type="image" src="/images/up_unsel.png" class="vote_box">
+            <% } %>
+        </form>
+
+        <%=rev.getPrestige()%>
+
+        <form action="/downvote" method="post">
+            <input type="hidden" name="votingUser" value="<%=currUser.username()%>">
+            <input type="hidden" name="reviewId" value="<%=rev.getId()%>">
+            <input type="hidden" name="page" value="<%="album"%>">
+            <input type="hidden" name="albumId" value="<%=albumId%>">
+            <% if (vote.equals(VoteType.DOWNVOTE)) { %>
+                <input type="image" src="/images/down_sel.png" class="vote_box">
+            <% } else { %>
+                <input type="image" src="/images/down_unsel.png" class="vote_box">
+            <% } %>
+        </form>
+
         </p>
     </div>
     <% } %>
