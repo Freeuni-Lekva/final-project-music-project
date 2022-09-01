@@ -368,10 +368,22 @@
     float: left;
 }
 
-.friends_scroll_member_info{
+.friends_scroll_member_info {
     margin-left: 5px;
     width: 70%;
     height: 99%;
     float: left;
     text-align: left;
+}
+
+.searchbar{
+    width: 60%;
+    height: 5%;
+
+    font-size: 20px;
+}
+
+.search_button{
+    margin-top: 0%;
+    height: 5%;
 }

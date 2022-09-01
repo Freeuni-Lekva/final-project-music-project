@@ -1,10 +1,13 @@
 package org.freeuni.musicforum.dao;
 
+
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 
 public class InMemoryUserDAO implements UserDAO {
@@ -20,7 +23,6 @@ public class InMemoryUserDAO implements UserDAO {
                         "melanie1996", new Password("A_B_C*"), new Badge(Badge.BadgeEnum.NEWCOMER)),
                 new User("ushi", "hagayana", null, Gender.OTHER,
                         "u#700", new Password("ushi"), new Badge(Badge.BadgeEnum.NEWCOMER))));
-
 
     }
 
@@ -93,5 +95,12 @@ public class InMemoryUserDAO implements UserDAO {
             return true;
         }
         return false;
+    }
+
+    public List<User> getFiltered(Filter f){
+        for (int i = 0; i<users.size(); i++){
+            f.doFilter(new SearchRequest(users.get(i)));
+        }
+        return null;
     }
 }

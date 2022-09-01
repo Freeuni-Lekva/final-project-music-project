@@ -5,11 +5,13 @@ import org.freeuni.musicforum.exception.NoSuchUserExistsException;
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
 import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.PublicUserData;
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.Utils;
 
 import java.util.List;
 import java.util.Optional;
+
 
 public class UserService {
 
@@ -86,6 +88,7 @@ public class UserService {
         }
     }
 
+
     public void acceptFriendRequest(String fromUsername, String toUsername){
         FriendshipStatus currentStatus = getFriendshipStatus(fromUsername, toUsername);
         if(currentStatus==FriendshipStatus.ACCEPT_REQUEST){
@@ -134,13 +137,17 @@ public class UserService {
         u.setProfileImageBase64(base64String);
     }
 
-    private User getUserIfExists(String username){
-        Optional<User>  userOptional = dao.getByUsername(username);
+    private User getUserIfExists(String username) {
+        Optional<User> userOptional = dao.getByUsername(username);
         if (userOptional.isPresent()) {
             return userOptional.get();
         }
         throw new NoSuchUserExistsException("" +
-                "User with provided username " +  username + " does not exist");
+                "User with provided username " + username + " does not exist");
+    }
+
+    public List<User> filter(Filter f){
+        return dao.getFiltered(f);
     }
 
 }

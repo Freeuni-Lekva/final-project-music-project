@@ -72,6 +72,10 @@
         <servlet-name>vote-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.VoteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>search-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.SearchServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -140,6 +144,10 @@
     <servlet-mapping>
         <servlet-name>vote-servlet</servlet-name>
         <url-pattern>/vote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>search-servlet</servlet-name>
+        <url-pattern>/searchResults</url-pattern>
     </servlet-mapping>
 
 </web-app>

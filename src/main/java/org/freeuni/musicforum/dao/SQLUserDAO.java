@@ -1,6 +1,7 @@
 package org.freeuni.musicforum.dao;
 
 import org.freeuni.musicforum.model.FriendshipStatus;
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.User;
 
 import java.sql.Connection;
@@ -36,6 +37,7 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
+
     public void updateBadgeAccordingTo(String username, int prestige) {}
 
     @Override
@@ -54,4 +56,9 @@ public class SQLUserDAO implements UserDAO {
 
     @Override
     public boolean deleteFriendshipStatus(String fromUsername, String toUsername) {return false; }
+
+    public List<User> getFiltered(Filter f){
+        return null;
+    }
+
 }
