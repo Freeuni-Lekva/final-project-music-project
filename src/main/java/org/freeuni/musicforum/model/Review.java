@@ -2,6 +2,7 @@ package org.freeuni.musicforum.model;
 
 import org.freeuni.musicforum.util.Utils;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Review {
@@ -10,20 +11,21 @@ public class Review {
     private final String albumId;
     private final String authorUsername;
     private final String id;
-
+    private final Date uploadDate;
     private final int stars;
 
-    public Review(String albumId, String authorUsername, String text, int stars, int prestige) {
+    public Review(String albumId, String authorUsername, String text, int stars, int prestige, Date uploadDate) {
         this.albumId = albumId;
         this.authorUsername = authorUsername;
         this.text = text;
         this.id = Utils.hashText(albumId + authorUsername + text);
         this.prestige = prestige;
         this.stars = stars;
+        this.uploadDate = uploadDate;
     }
 
     public Review(String albumId, String authorUsername, String text, int stars) {
-        this(albumId, authorUsername, text, stars, 1);
+        this(albumId, authorUsername, text, stars, 1, new Date());
     }
 
     public String getId() { return this.id; }
@@ -47,6 +49,8 @@ public class Review {
     public int getPrestige() {
         return this.prestige;
     }
+
+    public Date getUploadDate(){ return this.uploadDate; }
 
     @Override
     public boolean equals(Object o) {

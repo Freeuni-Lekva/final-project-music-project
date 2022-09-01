@@ -3,12 +3,11 @@ package org.freeuni.musicforum.service;
 import org.freeuni.musicforum.dao.AlbumDAO;
 import org.freeuni.musicforum.exception.AlbumExistsException;
 import org.freeuni.musicforum.exception.NonexistentAlbumException;
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.Song;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AlbumService {
 
@@ -61,5 +60,7 @@ public class AlbumService {
         dao.delete(id);
         ServiceFactory.getReviewService().deleteAllReviewsFor(id);
     }
+
+    public List<Album> filter(Filter f){ return dao.getFiltered(f); }
 
 }

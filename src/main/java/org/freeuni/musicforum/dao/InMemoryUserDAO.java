@@ -24,6 +24,9 @@ public class InMemoryUserDAO implements UserDAO {
                 new User("ushi", "hagayana", null, Gender.OTHER,
                         "u#700", new Password("ushi"), new Badge(Badge.BadgeEnum.NEWCOMER))));
 
+        users.get(0).getFriends().put("eva", FriendshipStatus.FRIENDS);
+        users.get(1).getFriends().put("guri", FriendshipStatus.FRIENDS);
+
     }
 
     @Override
@@ -98,9 +101,6 @@ public class InMemoryUserDAO implements UserDAO {
     }
 
     public List<User> getFiltered(Filter f){
-        for (int i = 0; i<users.size(); i++){
-            f.doFilter(new SearchRequest(users.get(i)));
-        }
-        return null;
+        return users.stream().filter(user->f.doFilter(new SearchRequest(user))).toList();
     }
 }

@@ -2,6 +2,7 @@ package org.freeuni.musicforum.service;
 
 import org.freeuni.musicforum.dao.ReviewDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulReviewException;
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Review;
 
 import java.util.List;
@@ -53,5 +54,7 @@ public class ReviewService {
             throw new UnsuccessfulReviewException("No such review exists");
         }
     }
+
+    public List<Review> filter(Filter f){ return dao.getFiltered(f); }
 
 }

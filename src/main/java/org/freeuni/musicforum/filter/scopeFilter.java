@@ -1,6 +1,7 @@
 package org.freeuni.musicforum.filter;
 
 
+import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.SearchRequest;
 
 public class scopeFilter implements Filter{
@@ -13,7 +14,7 @@ public class scopeFilter implements Filter{
 
     @Override
     public boolean doFilter(SearchRequest request) {
-        // implementation using getFriendshipStatus
-        return true;
+        FriendshipStatus fs = request.getFriendshipStatus(username);
+        return fs!=null&&fs.equals(FriendshipStatus.FRIENDS);
     }
 }

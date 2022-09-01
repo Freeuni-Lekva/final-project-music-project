@@ -1,6 +1,8 @@
 package org.freeuni.musicforum.dao;
 
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Review;
+import org.freeuni.musicforum.model.SearchRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class InMemoryReviewDAO implements ReviewDAO {
 
     public InMemoryReviewDAO() {
         this.reviews = new ArrayList<>();
+        /*
         reviews.add(new Review(
                 "1", "guri", "nice review", 2
         ));
@@ -25,6 +28,7 @@ public class InMemoryReviewDAO implements ReviewDAO {
         reviews.add(new Review(
            "3", "eva", "Good album", 4
         ));
+         */
     }
 
     @Override
@@ -91,5 +95,10 @@ public class InMemoryReviewDAO implements ReviewDAO {
         return reviews.stream().
                 filter(review -> review.getAuthorUsername().equals(username) &&
                 review.getAlbumId().equals(albumId)).findFirst();
+    }
+
+    @Override
+    public List<Review> getFiltered(Filter f) {
+        return reviews.stream().filter(review->f.doFilter(new SearchRequest(review))).toList();
     }
 }

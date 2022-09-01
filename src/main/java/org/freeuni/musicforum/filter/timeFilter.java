@@ -7,15 +7,19 @@ import java.util.Date;
 
 public class timeFilter implements Filter{
 
-    private LocalDate dateToCompare;
+    private Date dateToCompare;
 
-    public timeFilter(LocalDate dateToCompare){
+    public timeFilter(Date dateToCompare){
         this.dateToCompare = dateToCompare;
     }
 
     @Override
     public boolean doFilter(SearchRequest request) {
-        // implementation using getDate
-        return false;
+        Date requestDate = request.getDate();
+        if(requestDate!=null){
+            return dateToCompare.before(requestDate);
+        }
+        return true;
+
     }
 }

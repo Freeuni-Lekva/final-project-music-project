@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.dao;
 
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Review;
 
 import java.sql.Connection;
@@ -49,5 +50,10 @@ public class SQLReviewDAO implements ReviewDAO {
     @Override
     public boolean hasReviewFor(String username, String albumId) {
         return false;
+    }
+
+    @Override
+    public List<Review> getFiltered(Filter f) {
+        return null;
     }
 }

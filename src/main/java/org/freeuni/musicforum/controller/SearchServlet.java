@@ -1,20 +1,13 @@
 package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.filter.*;
-import org.freeuni.musicforum.filter.Filter;
-import org.freeuni.musicforum.model.User;
+import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
-import org.freeuni.musicforum.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.Calendar;
 
 
 public class SearchServlet extends HttpServlet {
@@ -23,18 +16,17 @@ public class SearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String searchBy = request.getParameter("searchBy");
-
-
         filterManager fm = customFilterManager(request);
 
         if(searchBy.equals("Users")){
             request.setAttribute("filteredUsers", ServiceFactory.getUserService().filter(fm));
         } else if(searchBy.equals("Albums")){
-            //request.setAttribute("filteredAlbums", ServiceFactory.getAlbumService().filter(fm));
+            request.setAttribute("filteredAlbums", ServiceFactory.getAlbumService().filter(fm));
         } else if(searchBy.equals("Reviews")){
-            //request.setAttribute("filteredReviews", ServiceFactory.getReviewService().filter(fm));
+            request.setAttribute("filteredReviews", ServiceFactory.getReviewService().filter(fm));
         }
 
+         request.getRequestDispatcher("/WEB-INF/searchResults.jsp").forward(request, response);
 
     }
 
@@ -42,19 +34,23 @@ public class SearchServlet extends HttpServlet {
         String scope = request.getParameter("scope");
         String time = request.getParameter("time");
         String key = request.getParameter("search-bar");
+        PublicUserData currUser = (PublicUserData)request.getSession().getAttribute("currentUser");
 
 
         filterManager fm = new filterManager();
 
         if(scope.equals("Friends")){
-            // fm.add(new scopeFilter(request.getSession().getParameter("currentUser")));
+             fm.add(new scopeFilter(currUser.username()));
         }
 
+        Calendar calendar = Calendar.getInstance();
 
         if(time.equals("Last Week")){
-            fm.add(new timeFilter(LocalDate.now().with(TemporalAdjusters.firstDayOfMonth())));
+            calendar.add(Calendar.DAY_OF_MONTH, -7);
+            fm.add(new timeFilter(calendar.getTime()));
         } else if(time.equals("Last Month")){
-            fm.add(new timeFilter(LocalDate.now().with(TemporalAdjusters.lastInMonth(DayOfWeek.MONDAY))));
+            calendar.add(Calendar.MONTH, -1);
+            fm.add(new timeFilter(calendar.getTime()));
         }
 
         if(!key.equals("")){

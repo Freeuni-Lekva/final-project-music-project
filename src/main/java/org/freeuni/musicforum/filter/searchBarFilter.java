@@ -11,7 +11,28 @@ public class searchBarFilter implements Filter{
     }
     @Override
     public boolean doFilter(SearchRequest request) {
-        // implementation here using getUsername, getAlbumName, getArtistName
-        return false;
+
+        boolean result = false;
+        String albumName = request.getAlbumName();
+        String artistName = request.getArtistName();
+        String username = request.getUsername();
+
+        if(albumName!=null){
+            result = albumName.contains(key);
+        }
+
+        if(artistName!=null){
+            if(!result){
+                result = artistName.contains(key);
+            }
+        }
+
+        if(username!=null){
+            if(!result){
+                result = username.contains(key);
+            }
+        }
+
+        return result;
     }
 }

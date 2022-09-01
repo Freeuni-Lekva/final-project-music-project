@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 @MultipartConfig
 public class AddAlbumServlet extends HttpServlet {
@@ -53,7 +55,7 @@ public class AddAlbumServlet extends HttpServlet {
 
         String username = (String) req.getSession().getAttribute("uploader");
         Album newAlbum = new Album(username, albumName, artistName,
-                imageProcessor.getBase64EncodedString(), songs, id, fileName);
+                imageProcessor.getBase64EncodedString(), songs, id, new Date(), fileName);
         service.addNewAlbum(newAlbum);
 
         req.setAttribute("songAmount", songAmount);

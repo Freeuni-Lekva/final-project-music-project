@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.dao;
 
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.AlbumIdentifier;
 
@@ -43,4 +44,8 @@ public class SQLAlbumDAO implements AlbumDAO {
 
     }
 
+    @Override
+    public List<Album> getFiltered(Filter f) {
+        return null;
+    }
 }

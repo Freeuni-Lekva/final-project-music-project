@@ -1,6 +1,7 @@
 package org.freeuni.musicforum.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public record Album(
         String username,
@@ -9,6 +10,7 @@ public record Album(
         String coverImageBase64,
         ArrayList<Song> songs,
         AlbumIdentifier id,
+        Date uploadDate,
         String fileName
 ) {
 }

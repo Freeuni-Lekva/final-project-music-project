@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.dao;
 
+import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Review;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface ReviewDAO {
     boolean upvoteReview(String reviewId);
     boolean downvoteReview(String reviewId);
     boolean hasReviewFor(String username, String albumId);
+    List<Review> getFiltered(Filter f);
+
 }
