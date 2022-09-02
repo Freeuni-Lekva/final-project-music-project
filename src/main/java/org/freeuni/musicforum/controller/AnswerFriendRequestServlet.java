@@ -1,7 +1,6 @@
 package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.file.processor.FileProcessor;
-import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
 
@@ -16,6 +15,7 @@ public class AnswerFriendRequestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
         PublicUserData currentUser = (PublicUserData) req.getSession().getAttribute("currentUser");
         String username = req.getParameter("username");
         String action = req.getParameter("action");

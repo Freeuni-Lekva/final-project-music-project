@@ -10,8 +10,10 @@ public class UpvoteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.setAttribute("votetype", "up");
         VoteServlet.helper(req, resp);
+
     }
 
 }

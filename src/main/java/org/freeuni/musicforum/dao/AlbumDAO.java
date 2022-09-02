@@ -14,5 +14,4 @@ public interface AlbumDAO {
     int calculatePrestigeFor(String id);
     void delete(String id);
     List<Album> getFiltered(Filter f);
-
 }

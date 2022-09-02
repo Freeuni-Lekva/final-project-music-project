@@ -17,12 +17,10 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         AlbumService albumService = ServiceFactory.getAlbumService();
         sce.getServletContext().setAttribute("albumService", albumService);
-
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        // delete files which users have uploaded?
         try {
             DataSource.INSTANCE.closeConnection();
         } catch (SQLException e) {

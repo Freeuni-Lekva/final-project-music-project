@@ -6,7 +6,6 @@ import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.service.AlbumService;
-import org.freeuni.musicforum.service.ServiceFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,8 +22,10 @@ import java.util.Date;
 public class AddAlbumServlet extends HttpServlet {
 
     private final String PATH_TO_ALBUMS = "src/main/webapp/";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         PublicUserData user = (PublicUserData) req.getSession().getAttribute("currentUser");
         if (user == null) {
             req.getRequestDispatcher("").forward(req, resp);
@@ -33,10 +33,12 @@ public class AddAlbumServlet extends HttpServlet {
             req.getSession().setAttribute("uploader", user.username());
             req.getRequestDispatcher("/WEB-INF/addAlbum.jsp").forward(req, resp);
         }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         AlbumService service = (AlbumService) getServletContext().getAttribute("albumService");
 
         String albumName = req.getParameter("albumName");
@@ -61,6 +63,7 @@ public class AddAlbumServlet extends HttpServlet {
         req.setAttribute("songAmount", songAmount);
         req.getSession().setAttribute("currAlbumId", id.hashed());
         req.getRequestDispatcher("/WEB-INF/addSongs.jsp").forward(req, resp);
+
     }
 
 
@@ -72,4 +75,5 @@ public class AddAlbumServlet extends HttpServlet {
         String pathFromContextRoot = PATH_TO_ALBUMS + folder;
         return realPathWithoutTarget + pathFromContextRoot;
     }
+
 }

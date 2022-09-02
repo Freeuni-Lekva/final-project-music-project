@@ -11,6 +11,7 @@ import java.io.IOException;
 public class VoteServlet extends HttpServlet {
 
     public static void helper(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String votingUser = req.getParameter("votingUser");
         String reviewId = req.getParameter("reviewId");
         String vote = (String) req.getAttribute("votetype");
@@ -32,6 +33,7 @@ public class VoteServlet extends HttpServlet {
             req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
             req.getRequestDispatcher("WEB-INF/profile_reviews.jsp").forward(req, resp);
         }
+
     }
 
 }

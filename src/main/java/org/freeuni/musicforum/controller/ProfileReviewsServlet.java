@@ -15,11 +15,13 @@ public class ProfileReviewsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         String username = req.getParameter("username");
         PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
         req.setAttribute("user", userData);
         req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.getRequestDispatcher("WEB-INF/profile_reviews.jsp").forward(req, resp);
+
     }
 
 }

@@ -17,12 +17,8 @@ public interface UserDAO {
     boolean correctCredentials(String username, String passwordHash);
     void updateBadgeAccordingTo(String username, int prestige);
     void delete(String username);
-    // returns null if username is not found
     List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs);
-    // returns true only if both users exist and update happened
     boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs);
     boolean deleteFriendshipStatus(String fromUsername, String toUsername);
-    // will replace with PublicUserData if necessary
     List<User> getFiltered(Filter f);
-
 }

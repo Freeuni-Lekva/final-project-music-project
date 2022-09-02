@@ -2,7 +2,6 @@ package org.freeuni.musicforum.dao;
 
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
-import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.Review;
 import org.freeuni.musicforum.model.SearchRequest;
 import org.freeuni.musicforum.service.ServiceFactory;
@@ -64,12 +63,9 @@ public class InMemoryAlbumDAO implements AlbumDAO{
         albums.remove(id);
     }
 
-    public int albumCount() {
-        return albums.size();
-    }
-
     @Override
     public List<Album> getFiltered(Filter f) {
         return albums.values().stream().filter(Album->f.doFilter(new SearchRequest(Album))).toList();
     }
+
 }

@@ -26,7 +26,6 @@ public class InMemoryUserDAO implements UserDAO {
 
         users.get(0).getFriends().put("eva", FriendshipStatus.FRIENDS);
         users.get(1).getFriends().put("guri", FriendshipStatus.FRIENDS);
-
     }
 
     @Override
@@ -49,7 +48,6 @@ public class InMemoryUserDAO implements UserDAO {
     @Override
     public boolean correctCredentials(String username, String passwordHash) {
         Optional<User> user = getByUsername(username);
-
         return user.isPresent() &&
                 user.get().getPassword().hashed().equals(passwordHash);
     }
@@ -57,14 +55,12 @@ public class InMemoryUserDAO implements UserDAO {
     @Override
     public void updateBadgeAccordingTo(String username, int prestige) {
         Optional<User> user = getByUsername(username);
-
         if (user.isPresent()) user.get().getBadge().modifyAccordingTo(prestige);
     }
 
     @Override
     public void delete(String username) {
         Optional<User> user = getByUsername(username);
-
         if (user.isPresent()) users.remove(user.get());
     }
 
@@ -103,4 +99,5 @@ public class InMemoryUserDAO implements UserDAO {
     public List<User> getFiltered(Filter f){
         return users.stream().filter(user->f.doFilter(new SearchRequest(user))).toList();
     }
+
 }

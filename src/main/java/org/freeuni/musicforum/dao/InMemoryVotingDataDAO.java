@@ -53,4 +53,5 @@ public class InMemoryVotingDataDAO implements VotingDataDAO {
         if (!votes.containsKey(reviewId)) return false;
         return votes.get(reviewId).containsKey(username);
     }
+
 }

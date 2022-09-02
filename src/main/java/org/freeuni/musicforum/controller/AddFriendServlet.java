@@ -30,11 +30,9 @@ public class AddFriendServlet extends HttpServlet {
             ServiceFactory.getUserService().removeFriendshipStatus(currentUser.username(), user.username());
         }
 
-
         req.setAttribute("user", user);
         req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.getRequestDispatcher(req.getParameter("filepath")).forward(req, resp);
-
 
     }
 

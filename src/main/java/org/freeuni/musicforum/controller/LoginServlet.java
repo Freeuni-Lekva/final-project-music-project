@@ -1,6 +1,5 @@
 package org.freeuni.musicforum.controller;
 
-import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
 
@@ -15,13 +14,16 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         req.getRequestDispatcher("/WEB-INF/login.jsp")
                 .forward(req, resp);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
@@ -36,5 +38,7 @@ public class LoginServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/login.jsp")
                     .forward(req, resp);
         }
+
     }
+
 }

@@ -10,8 +10,10 @@ public class DownvoteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.setAttribute("votetype", "down");
         VoteServlet.helper(req, resp);
+
     }
 
 }

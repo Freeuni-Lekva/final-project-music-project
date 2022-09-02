@@ -12,12 +12,14 @@ public class PreviewAlbumServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String albumId = req.getParameter("albumId");
         Album album = ServiceFactory.getAlbumService().getAlbum(albumId);
         req.setAttribute("album", album);
         req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.setAttribute("audioPrefix", FileProcessor.AUDIO_HTML_PREFIX_BASE64);
         req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
+
     }
 
 }

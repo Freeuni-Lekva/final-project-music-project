@@ -2,7 +2,6 @@ package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
-import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.service.AlbumService;
 
@@ -21,8 +20,10 @@ import java.util.List;
 public class AddSongsServlet extends HttpServlet {
 
     private final String PATH_TO_ALBUMS = "src/main/webapp/";
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         AlbumService service = (AlbumService) getServletContext().getAttribute("albumService");
 
         String id = (String) req.getSession().getAttribute("currAlbumId");

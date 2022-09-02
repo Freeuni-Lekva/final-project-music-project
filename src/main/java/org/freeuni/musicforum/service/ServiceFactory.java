@@ -40,4 +40,5 @@ public final class ServiceFactory {
         if (votingDataService != null) return votingDataService;
         return votingDataService = new VotingDataService(VOTING_DATA_DAO);
     }
+
 }
