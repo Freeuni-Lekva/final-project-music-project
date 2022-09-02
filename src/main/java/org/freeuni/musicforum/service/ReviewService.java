@@ -19,7 +19,9 @@ public class ReviewService {
             throw new UnsuccessfulReviewException("This review already exists");
         }
     }
-
+    public Review getReview(String id) {
+        return dao.getById(id);
+    }
     public List<Review> getAllReviewsBy(String username) {
         return dao.getAllByUser(username);
     }
@@ -57,4 +59,8 @@ public class ReviewService {
 
     public List<Review> filter(Filter f){ return dao.getFiltered(f); }
 
+    public void deleteReview(String id) {
+        dao.deleteReview(id);
+        ServiceFactory.getVotingDataService().deleteAllVotingDataFor(id);
+    }
 }

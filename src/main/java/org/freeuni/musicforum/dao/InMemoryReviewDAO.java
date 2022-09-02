@@ -101,4 +101,10 @@ public class InMemoryReviewDAO implements ReviewDAO {
     public List<Review> getFiltered(Filter f) {
         return reviews.stream().filter(review->f.doFilter(new SearchRequest(review))).toList();
     }
+
+    @Override
+    public void deleteReview(String id) {
+        reviews.removeIf(rv -> rv.getId().equals(id));
+    }
+
 }

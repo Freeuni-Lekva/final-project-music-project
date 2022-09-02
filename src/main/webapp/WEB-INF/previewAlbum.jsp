@@ -128,6 +128,13 @@
         </form>
 
         </p>
+        <% if (currUser != null && currUser.badge().isAdministrator()) { %>
+        <p class = "space"></p>
+        <form action = "/deleteReview" method="post">
+            <input type="hidden" name="deleteReviewId" value="<%=rev.getId()%>">
+            <input type="submit" id="deleteReviewButton" value="Delete Review" class="text" class="button">
+        </form>
+        <% } %>
     </div>
     <% } %>
 </div>

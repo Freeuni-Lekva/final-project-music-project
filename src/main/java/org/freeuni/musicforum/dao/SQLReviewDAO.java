@@ -56,4 +56,9 @@ public class SQLReviewDAO implements ReviewDAO {
     public List<Review> getFiltered(Filter f) {
         return null;
     }
+
+    @Override
+    public void deleteReview(String id) {
+
+    }
 }

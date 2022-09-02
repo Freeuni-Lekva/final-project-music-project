@@ -23,4 +23,9 @@ public class SQLVotingDataDAO implements VotingDataDAO {
     public VoteType getUserVoteFor(String username, String reviewId) {
         return null;
     }
+
+    @Override
+    public void deleteVotingDataFor(String reviewId) {
+
+    }
 }

@@ -44,6 +44,11 @@ public class InMemoryVotingDataDAO implements VotingDataDAO {
         return votes.get(reviewId).get(username);
     }
 
+    @Override
+    public void deleteVotingDataFor(String reviewId) {
+        votes.remove(reviewId);
+    }
+
     private boolean userHasVoteFor(String username, String reviewId) {
         if (!votes.containsKey(reviewId)) return false;
         return votes.get(reviewId).containsKey(username);

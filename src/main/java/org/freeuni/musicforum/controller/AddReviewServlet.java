@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Review;
 import org.freeuni.musicforum.service.ServiceFactory;
 
@@ -22,6 +23,8 @@ public class AddReviewServlet extends HttpServlet {
         ServiceFactory.getReviewService().postReview(review);
 
         req.setAttribute("album", ServiceFactory.getAlbumService().getAlbum(albumId));
+        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
+        req.setAttribute("audioPrefix", FileProcessor.AUDIO_HTML_PREFIX_BASE64);
         req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
 
     }

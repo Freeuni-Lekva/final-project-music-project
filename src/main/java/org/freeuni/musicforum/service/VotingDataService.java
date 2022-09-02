@@ -1,8 +1,11 @@
 package org.freeuni.musicforum.service;
 
 import org.freeuni.musicforum.dao.VotingDataDAO;
+import org.freeuni.musicforum.model.Review;
 import org.freeuni.musicforum.model.Vote;
 import org.freeuni.musicforum.model.VoteType;
+
+import java.util.List;
 
 public class VotingDataService {
 
@@ -39,4 +42,16 @@ public class VotingDataService {
             dao.addVote(new Vote(username, reviewId, VoteType.DOWNVOTE));
         }
     }
+
+    public void deleteAllVotingDataFor(String reviewId) {
+        dao.deleteVotingDataFor(reviewId);
+    }
+
+    public void deleteAllVotingDataForAlbum(String albumId) {
+        List<Review> rs = ServiceFactory.getReviewService().getAllReviewsFor(albumId);
+        for (Review review : rs) {
+            deleteAllVotingDataFor(review.getId());
+        }
+    }
+
 }

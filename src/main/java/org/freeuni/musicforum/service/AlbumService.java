@@ -59,6 +59,7 @@ public class AlbumService {
     public void deleteAlbum(String id) {
         dao.delete(id);
         ServiceFactory.getReviewService().deleteAllReviewsFor(id);
+        ServiceFactory.getVotingDataService().deleteAllVotingDataForAlbum(id);
     }
 
     public List<Album> filter(Filter f){ return dao.getFiltered(f); }

@@ -15,5 +15,5 @@ public interface ReviewDAO {
     boolean downvoteReview(String reviewId);
     boolean hasReviewFor(String username, String albumId);
     List<Review> getFiltered(Filter f);
-
+    void deleteReview(String id);
 }
