@@ -1,6 +1,7 @@
 package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
+import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.*;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
@@ -47,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
         );
 
         UserService userService = ServiceFactory.getUserService();
-
+        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         try {
             userService.signUp(newUser);
             req.getSession().setAttribute("currentUser", userService.getProfileData(username));

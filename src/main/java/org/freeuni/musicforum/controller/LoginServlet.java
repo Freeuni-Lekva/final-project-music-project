@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
 
@@ -28,6 +29,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         UserService userService = ServiceFactory.getUserService();
+        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         if(userService.login(username, password)) {
             req.getSession().setAttribute("currentUser", userService.getProfileData(username));
             req.getRequestDispatcher("/WEB-INF/feed.jsp")

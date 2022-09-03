@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.filter.*;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
@@ -18,6 +19,7 @@ public class SearchServlet extends HttpServlet {
         String searchBy = request.getParameter("searchBy");
         filterManager fm = customFilterManager(request);
 
+
         if(searchBy.equals("Users")){
             request.setAttribute("filteredUsers", ServiceFactory.getUserService().filter(fm));
         } else if(searchBy.equals("Albums")){
@@ -26,7 +28,8 @@ public class SearchServlet extends HttpServlet {
             request.setAttribute("filteredReviews", ServiceFactory.getReviewService().filter(fm));
         }
 
-         request.getRequestDispatcher("/WEB-INF/searchResults.jsp").forward(request, response);
+        request.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
+        request.getRequestDispatcher("/WEB-INF/searchResults.jsp").forward(request, response);
 
     }
 
@@ -40,7 +43,7 @@ public class SearchServlet extends HttpServlet {
         filterManager fm = new filterManager();
 
         if(scope.equals("Friends")){
-             fm.add(new scopeFilter(currUser.username()));
+            fm.add(new scopeFilter(currUser.username()));
         }
 
         Calendar calendar = Calendar.getInstance();
