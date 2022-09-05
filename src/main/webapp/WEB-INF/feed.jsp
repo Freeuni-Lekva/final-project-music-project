@@ -7,8 +7,10 @@
 </head>
 <body class = "background">
     <%@include file="searchbar.jsp"%>
-    <div class = "feed_scroll">
+    <div class="feed_scroll_wrapper">
+        <div class = "feed_scroll">
 
+        </div>
     </div>
 
 </body>

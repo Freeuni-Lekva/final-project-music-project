@@ -7,7 +7,7 @@ public class searchBarFilter implements Filter{
     private String key;
 
     public searchBarFilter(String key){
-        this.key = key;
+        this.key = key.toLowerCase();
     }
     @Override
     public boolean doFilter(SearchRequest request) {
@@ -18,18 +18,18 @@ public class searchBarFilter implements Filter{
         String username = request.getUsername();
 
         if(albumName!=null){
-            result = albumName.contains(key);
+            result = albumName.toLowerCase().contains(key);
         }
 
         if(artistName!=null){
             if(!result){
-                result = artistName.contains(key);
+                result = artistName.toLowerCase().contains(key);
             }
         }
 
         if(username!=null){
             if(!result){
-                result = username.contains(key);
+                result = username.toLowerCase().contains(key);
             }
         }
 

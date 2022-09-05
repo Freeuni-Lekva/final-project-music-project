@@ -11,10 +11,14 @@
 </head>
 <body class = "background">
     <%@include file="searchbar.jsp"%>
+    <% List<User> users = (List<User>) request.getAttribute("filteredUsers");
+       List<Album> albums = (List<Album>) request.getAttribute("filteredAlbums");
+       List<Review> reviews = (List<Review>) request.getAttribute("filteredReviews");
+    %>
 
+    <div class="feed_scroll_wrapper">
     <div class = "feed_scroll">
-        <% List<User> users = (List<User>) request.getAttribute("filteredUsers");
-        if(users!=null){
+        <%if(users!=null){
             for(int i = 0; i<users.size(); i++){
                 User user = users.get(i); %>
             <div class="feed_scroll_member">
@@ -31,12 +35,11 @@
             <%}
         }%>
 
-        <% List<Album> albums = (List<Album>) request.getAttribute("filteredAlbums");
-        if(albums!=null){
+        <%if(albums!=null){
             for(int i = 0; i<albums.size(); i++){
                 Album album = albums.get(i); %>
             <div class="feed_scroll_member">
-                <img src="${imagePrefix}${album.coverImageBase64()}" class="feed_scroll_photobox">
+                <img src="${imagePrefix}<%=album.coverImageBase64()%>" alt="cover image" class="feed_scroll_photobox">
                 <div class="feed_scroll_infobox">
                     <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(album.id().hashed()); %>
                     <% for (int j = 0; j < stars; j++) { %>
@@ -59,8 +62,7 @@
             <%}
         }%>
 
-        <% List<Review> reviews = (List<Review>) request.getAttribute("filteredReviews");
-            if(reviews!=null){
+        <%if(reviews!=null){
                 for(int i = 0; i<reviews.size(); i++){
                     Review review = reviews.get(i);
                     Album album = null;
@@ -75,7 +77,7 @@
                             <%=album.albumName()%>
                         </a></p>
                         <p class="small_text">Artist: <%=album.artistName()%></p>
-                        <img src="${imagePrefix}${album.coverImageBase64()}" width="200px" height="200px">
+                        <img src="${imagePrefix}<%=album.coverImageBase64()%>" alt="cover image" width="200px" height="200px">
                     </div>
                     <div class="feed_scroll_infobox">
                         <p class="huge_space"></p>
@@ -95,6 +97,7 @@
                 </div>
                 <%}
             }%>
+    </div>
     </div>
 </body>
 </html>

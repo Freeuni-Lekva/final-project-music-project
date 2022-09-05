@@ -457,14 +457,17 @@
     float: right;
 }
 
+.feed_scroll_wrapper{
+    float: top;
+    width: 95%;
+    height: 81%;
+
+    padding-left: 5%;
+}
+
 .feed_scroll{
     overflow: scroll;
-    float: top;
-
-    width: 99%;
-    height: 81%;
-    padding-left: 5%;
-    padding-right: 5%;
+    height: 100%;
 }
 
 .feed_scroll_member{
