@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
 <body class = "background">
+    <%@include file="upper_strip.jsp"%>
+    <p class="space"></p>
     <%@include file="searchbar.jsp"%>
     <% List<User> users = (List<User>) request.getAttribute("filteredUsers");
        List<Album> albums = (List<Album>) request.getAttribute("filteredAlbums");
@@ -19,6 +21,9 @@
     <div class="feed_scroll_wrapper">
     <div class = "feed_scroll">
         <%if(users!=null){
+            if(users.size()==0){%>
+                <p class = "big_text">No Results Found</p>
+        <%  }
             for(int i = 0; i<users.size(); i++){
                 User user = users.get(i); %>
             <div class="feed_scroll_member">
@@ -36,6 +41,9 @@
         }%>
 
         <%if(albums!=null){
+            if(albums.size()==0){%>
+            <p class = "big_text">No Results Found</p>
+        <%  }
             for(int i = 0; i<albums.size(); i++){
                 Album album = albums.get(i); %>
             <div class="feed_scroll_member">
@@ -63,6 +71,9 @@
         }%>
 
         <%if(reviews!=null){
+            if(reviews.size()==0){%>
+            <p class = "big_text">No Results Found</p>
+        <%  }
                 for(int i = 0; i<reviews.size(); i++){
                     Review review = reviews.get(i);
                     Album album = null;

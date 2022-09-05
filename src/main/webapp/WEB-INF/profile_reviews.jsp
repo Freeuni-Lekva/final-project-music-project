@@ -57,7 +57,7 @@
                             <p class="text"><a href="/album?albumId=<%=album.id().hashed()%>">
                                 <%=album.albumName()%>
                             </a></p>
-                            <img src ="${imagePrefix}<%=album.coverImageBase64()%>}" width="100px" height="100px">
+                            <img src ="${imagePrefix}<%=album.coverImageBase64()%>" width="100px" height="100px">
                         <%}%>
                     </div>
                     <div class = "scroll_member_infobox">

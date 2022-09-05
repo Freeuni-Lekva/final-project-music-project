@@ -15,6 +15,9 @@
     if(filepath==null) filepath = "WEB-INF/profile.jsp";
 %>
 
+<%@include file="upper_strip.jsp"%>
+<p class="smaller_space"></p>
+
 <div class = "profile_top">
 
     <div class = "profile_image_rec">

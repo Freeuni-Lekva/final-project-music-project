@@ -84,6 +84,10 @@
         <servlet-name>logout-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>feed-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.GenerateFeedServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -164,6 +168,10 @@
     <servlet-mapping>
         <servlet-name>logout-servlet</servlet-name>
         <url-pattern>/loggedOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>feed-servlet</servlet-name>
+        <url-pattern>/feed</url-pattern>
     </servlet-mapping>
 
 </web-app>

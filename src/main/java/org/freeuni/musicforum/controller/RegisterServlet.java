@@ -52,8 +52,8 @@ public class RegisterServlet extends HttpServlet {
         try {
             userService.signUp(newUser);
             req.getSession().setAttribute("currentUser", userService.getProfileData(username));
-            req.getRequestDispatcher("/WEB-INF/feed.jsp")
-                    .forward(req, resp);
+            GenerateFeedServlet feedServlet = new GenerateFeedServlet();
+            feedServlet.doGet(req, resp);
         }
         catch(UnsuccessfulSignupException e) {
             req.setAttribute("incorrectRegister", e.getMessage());

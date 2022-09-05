@@ -32,8 +32,8 @@ public class LoginServlet extends HttpServlet {
         req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         if(userService.login(username, password)) {
             req.getSession().setAttribute("currentUser", userService.getProfileData(username));
-            req.getRequestDispatcher("/WEB-INF/feed.jsp")
-                    .forward(req, resp);
+            GenerateFeedServlet feedServlet = new GenerateFeedServlet();
+            feedServlet.doGet(req, resp);
         }
         else {
             req.setAttribute("incorrectLogin", true);

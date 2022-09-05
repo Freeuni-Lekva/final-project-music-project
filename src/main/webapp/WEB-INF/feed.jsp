@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
 <body class = "background">
+    <%@include file="upper_strip.jsp"%>
+    <p class="space"></p>
     <%@include file="searchbar.jsp"%>
     <div class="feed_scroll_wrapper">
         <div class = "feed_scroll">

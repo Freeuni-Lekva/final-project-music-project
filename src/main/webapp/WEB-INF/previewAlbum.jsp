@@ -12,7 +12,10 @@
     <link rel="icon" href="/images/logo_small.png"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
 </head>
-<body class="long_background" style="text-align:center">
+<body class="background" style="text-align:center">
+
+<%@include file="upper_strip.jsp"%>
+<p class="smaller_space"></p>
 
 <c:set var="album" value="${album}"></c:set>
 

@@ -44,7 +44,7 @@
                     <p class="small_text"><a href="/album?albumId=<%=alb.id().hashed()%>">
                         <%=alb.albumName()%>
                     </a></p>
-                    <img src="${imagePrefix}${alb.coverImageBase64()}" width="100px" height="100px">
+                    <img src="${imagePrefix}<%=alb.coverImageBase64()%>" width="100px" height="100px">
                 </div>
                 <div class = "scroll_member_infobox">
                     <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(alb.id().hashed()); %>
