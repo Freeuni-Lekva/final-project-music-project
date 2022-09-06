@@ -32,7 +32,7 @@ public enum DataSource {
                     try {
                         con = DriverManager.getConnection(
                                 "jdbc:mysql://127.0.0.1:3306/freeuni",
-                                "root", "root");
+                                "root", "FreeUni2022!");
                         timer.cancel();
                     }
                     catch(SQLException e) {
