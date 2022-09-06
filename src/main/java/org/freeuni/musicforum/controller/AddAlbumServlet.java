@@ -6,8 +6,7 @@ import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.service.AlbumService;
-
-import javax.servlet.ServletContext;
+import org.freeuni.musicforum.service.ServiceFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +19,6 @@ import java.util.Date;
 
 @MultipartConfig
 public class AddAlbumServlet extends HttpServlet {
-
-    private final String PATH_TO_ALBUMS = "src/main/webapp/";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,26 +35,23 @@ public class AddAlbumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        AlbumService service = (AlbumService) getServletContext().getAttribute("albumService");
+        AlbumService service = ServiceFactory.getAlbumService();
 
         String albumName = req.getParameter("albumName");
         String artistName = req.getParameter("artistName");
         int songAmount = Integer.parseInt(req.getParameter("songAmount"));
-        if(songAmount < 0) songAmount = 0;
         AlbumIdentifier id = new AlbumIdentifier(albumName, artistName);
-
         ArrayList<Song> songs = new ArrayList<>();
 
         Part part = req.getPart("coverImage");
         String nameForImage = albumName + "_" + artistName + "_cover";
-        String uploadPath = getPath(req, "images/album-covers");
-        FileProcessor imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
-        String fileName = imageProcessor.getFullName();
+        String pathFromWebFolder =  "images/album-covers";
+        FileProcessor imageProcessor = new FileProcessor(part, nameForImage, req, pathFromWebFolder);
+
 
         String username = (String) req.getSession().getAttribute("uploader");
         Album newAlbum = new Album(username, albumName, artistName,
-                imageProcessor.getBase64EncodedString(), songs, id, new Date(), fileName);
+                imageProcessor.getBase64EncodedString(), songs, id, new Date());
         service.addNewAlbum(newAlbum);
 
         req.setAttribute("songAmount", songAmount);
@@ -68,12 +62,6 @@ public class AddAlbumServlet extends HttpServlet {
 
 
 
-    private String getPath(HttpServletRequest req, String folder) {
-        ServletContext context = req.getServletContext();
-        String realPath = context.getRealPath("");
-        String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
-        String pathFromContextRoot = PATH_TO_ALBUMS + folder;
-        return realPathWithoutTarget + pathFromContextRoot;
-    }
+
 
 }

@@ -10,7 +10,6 @@ public record Album(
         String coverImageBase64,
         ArrayList<Song> songs,
         AlbumIdentifier id,
-        Date uploadDate,
-        String fileName
+        Date uploadDate
 ) {
 }

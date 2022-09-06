@@ -4,8 +4,7 @@ import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.service.AlbumService;
-
-import javax.servlet.ServletContext;
+import org.freeuni.musicforum.service.ServiceFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +18,10 @@ import java.util.List;
 @MultipartConfig
 public class AddSongsServlet extends HttpServlet {
 
-    private final String PATH_TO_ALBUMS = "src/main/webapp/";
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        AlbumService service = (AlbumService) getServletContext().getAttribute("albumService");
+        AlbumService service = ServiceFactory.getAlbumService();
 
         String id = (String) req.getSession().getAttribute("currAlbumId");
         Album album = service.getAlbum(id);
@@ -38,8 +35,8 @@ public class AddSongsServlet extends HttpServlet {
             if(service.doesSongExist(id, name)) continue;
 
             Part part = req.getPart("song"+i);
-            String path = getPath(req, "songs");
-            FileProcessor songProcessor = new FileProcessor(part, name, path);
+            String pathFromWebFolder =  "songs";
+            FileProcessor songProcessor = new FileProcessor(part, name, req, pathFromWebFolder);
 
             Song song = new Song(name, fullName, album.albumName(), album.artistName(), songProcessor.getBase64EncodedString());
             songs.add(song);
@@ -48,17 +45,8 @@ public class AddSongsServlet extends HttpServlet {
         service.addSongs(id, songs);
 
         req.setAttribute("album", album);
-        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
-        req.setAttribute("audioPrefix", FileProcessor.AUDIO_HTML_PREFIX_BASE64);
         req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
 
     }
 
-    private String getPath(HttpServletRequest req, String folder) {
-        ServletContext context = req.getServletContext();
-        String realPath = context.getRealPath("");
-        String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
-        String pathFromContextRoot = PATH_TO_ALBUMS + folder;
-        return realPathWithoutTarget + pathFromContextRoot;
-    }
 }

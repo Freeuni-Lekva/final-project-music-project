@@ -37,7 +37,7 @@
         <p class="big_text">Album: ${album.albumName()}</p>
 
         <% int stars = ServiceFactory.getAlbumService().
-                getAverageStarFor((String) request.getAttribute("currAlbumId")); %>
+                getAverageStarFor(((Album) request.getAttribute("album")).id().hashed()); %>
         <% for (int i = 0; i < stars; i++) { %>
         <img src="/images/star_sel.png" style="width: 30px; height: 30px">
         <% } %>

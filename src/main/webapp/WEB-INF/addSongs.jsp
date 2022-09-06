@@ -1,3 +1,4 @@
+<%@ page import="org.freeuni.musicforum.service.ServiceFactory" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -14,10 +15,14 @@
             <h1 class="page_label"> Music Forum </h1>
         </div>
 
+
+        <% request.setAttribute("albumService", ServiceFactory.getAlbumService()); %>
+        <c:set var="album" value="${albumService.getAlbum(currAlbumId)}"></c:set>
+
         <p class="space"></p>
         <h2 style="text-align: center" class="big_text">
-            Add Songs To "${albumService.getAlbum(currAlbumId).albumName()}"
-                      By "${albumService.getAlbum(currAlbumId).artistName()}"
+            Add Songs To "${album.albumName()}"
+                      By "${album.artistName()}"
         </h2>
         <p class="big_space"></p>
 

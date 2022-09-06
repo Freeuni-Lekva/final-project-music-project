@@ -1,5 +1,7 @@
 package org.freeuni.musicforum.file.processor;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -14,44 +16,27 @@ public class FileProcessor {
 
     public static final String IMAGE_HTML_PREFIX_BASE64 = "data:image/*;base64,";
     public static final String AUDIO_HTML_PREFIX_BASE64 = "data:audio/mpeg;base64,";
+    private final String PATH_TO_WEB_FOLDER = "src/main/webapp/";
 
     private Part part;
     private String fileName;
     private String uploadPath;
-
     private File newFile;
 
-    public FileProcessor(Part part, String fileNewName, String uploadPath) throws IOException {
+    public FileProcessor(Part part, String fileNewName, HttpServletRequest req, String pathFromWebFolder) throws IOException {
         this.part = part;
         this.fileName = fileNewName;
-        this.uploadPath = uploadPath;
+        this.uploadPath = getFullPath(req, pathFromWebFolder);
         newFile = null;
         copyFileToNewPath();
     }
 
-
-
-    public String getBase64EncodedString() throws IOException {
-        byte[] encodedBytes = Base64.getEncoder().encode(Files.readAllBytes(getFile().toPath()));
-        String encodedString = new String(encodedBytes, StandardCharsets.UTF_8);
-        return encodedString;
-    }
-
-    public String getFullName() {
-        String fileExtension = getFileExtension();
-        String fullName = fileName + fileExtension;
-        return fullName;
-    }
-
-    public String getFileExtension() {
-        String originalName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-        String fileExtension = originalName.substring(originalName.lastIndexOf('.'));
-        return fileExtension;
-    }
-
-    public File getFile() {
-        if(newFile == null) constructNewFile();
-        return newFile;
+    private String getFullPath(HttpServletRequest req, String pathFromWebFolder) {
+        ServletContext context = req.getServletContext();
+        String realPath = context.getRealPath("");
+        String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
+        String pathFromContextRoot = PATH_TO_WEB_FOLDER + pathFromWebFolder;
+        return realPathWithoutTarget + pathFromContextRoot;
     }
 
     private void copyFileToNewPath() throws IOException {
@@ -60,9 +45,29 @@ public class FileProcessor {
         fileContent.close();
     }
 
+    public File getFile() {
+        if(newFile == null) constructNewFile();
+        return newFile;
+    }
+
     private void constructNewFile() {
         File uploads = new File(uploadPath);
         newFile = new File(uploads, getFullName());
+    }
+
+    public String getFullName() {
+        String fileExtension = getFileExtension();
+        return fileName + fileExtension;
+    }
+
+    public String getFileExtension() {
+        String originalName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        return originalName.substring(originalName.lastIndexOf('.'));
+    }
+
+    public String getBase64EncodedString() throws IOException {
+        byte[] encodedBytes = Base64.getEncoder().encode(Files.readAllBytes(getFile().toPath()));
+        return new String(encodedBytes, StandardCharsets.UTF_8);
     }
 
 }

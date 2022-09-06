@@ -1,11 +1,8 @@
 package org.freeuni.musicforum.listeners;
 
-import org.freeuni.musicforum.dao.AlbumDAO;
 import org.freeuni.musicforum.dao.DataSource;
-import org.freeuni.musicforum.dao.InMemoryAlbumDAO;
-import org.freeuni.musicforum.service.AlbumService;
-import org.freeuni.musicforum.service.ServiceFactory;
-
+import org.freeuni.musicforum.file.processor.FileProcessor;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -15,8 +12,10 @@ import java.sql.SQLException;
 public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        AlbumService albumService = ServiceFactory.getAlbumService();
-        sce.getServletContext().setAttribute("albumService", albumService);
+        ServletContext context = sce.getServletContext();
+        context.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
+        context.setAttribute("audioPrefix", FileProcessor.AUDIO_HTML_PREFIX_BASE64);
+        // add activity log for feed
     }
 
     @Override

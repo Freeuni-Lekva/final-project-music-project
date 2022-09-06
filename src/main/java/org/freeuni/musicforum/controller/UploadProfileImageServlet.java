@@ -4,7 +4,6 @@ import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +15,6 @@ import java.io.IOException;
 @MultipartConfig
 public class UploadProfileImageServlet extends HttpServlet {
 
-    private final String PATH_TO_USERS = "src/main/webapp/";
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -28,8 +25,8 @@ public class UploadProfileImageServlet extends HttpServlet {
 
         if(part.getSize()>0){
             String nameForImage = username+"_image";
-            String uploadPath = getPath(req, "images/profile-images");
-            FileProcessor imageProcessor = new FileProcessor(part, nameForImage, uploadPath);
+            String pathFromWebFolder = "images/profile-images";
+            FileProcessor imageProcessor = new FileProcessor(part, nameForImage, req, pathFromWebFolder);
             String fileName = imageProcessor.getFullName();
 
             ServiceFactory.getUserService().updateProfilePicture(username, imageProcessor.getBase64EncodedString(), fileName);
@@ -42,12 +39,5 @@ public class UploadProfileImageServlet extends HttpServlet {
 
     }
 
-    private String getPath(HttpServletRequest req, String folder) {
-        ServletContext context = req.getServletContext();
-        String realPath = context.getRealPath("");
-        String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
-        String pathFromContextRoot = PATH_TO_USERS + folder;
-        return realPathWithoutTarget + pathFromContextRoot;
-    }
 }
 
