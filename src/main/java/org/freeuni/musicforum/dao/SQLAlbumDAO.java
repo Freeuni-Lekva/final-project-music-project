@@ -2,7 +2,6 @@ package org.freeuni.musicforum.dao;
 
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
-import org.freeuni.musicforum.model.AlbumIdentifier;
 
 import java.sql.Connection;
 import java.util.List;

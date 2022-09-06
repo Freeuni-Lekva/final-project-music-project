@@ -54,7 +54,7 @@
                             } catch (NonexistentAlbumException ex) {
                             }
                         if (album != null) {%>
-                            <p class="text"><a href="/album?albumId=<%=album.id().hashed()%>">
+                            <p class="text"><a href="/album?albumId=<%=album.id()%>">
                                 <%=album.albumName()%>
                             </a></p>
                             <img src ="${imagePrefix}<%=album.coverImageBase64()%>" width="100px" height="100px">

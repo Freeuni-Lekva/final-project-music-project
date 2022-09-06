@@ -9,7 +9,7 @@ public record Album(
         String artistName,
         String coverImageBase64,
         ArrayList<Song> songs,
-        AlbumIdentifier id,
+        String id,
         Date uploadDate
 ) {
 }

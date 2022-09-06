@@ -49,14 +49,14 @@
             <div class="feed_scroll_member">
                 <img src="${imagePrefix}<%=album.coverImageBase64()%>" alt="cover image" class="feed_scroll_photobox">
                 <div class="feed_scroll_infobox">
-                    <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(album.id().hashed()); %>
+                    <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(album.id()); %>
                     <% for (int j = 0; j < stars; j++) { %>
                     <img src="/images/star_sel.png" class="vote_box">
                     <% } %>
                     <% for (int j = stars; j < 5; j++) { %>
                     <img src="/images/star_unsel.png" class="vote_box">
                     <% } %>
-                    <p class="text"><a href="/album?albumId=<%=album.id().hashed()%>">
+                    <p class="text"><a href="/album?albumId=<%=album.id()%>">
                         <%=album.albumName()%>
                     </a></p>
                     <p class="small_text">Artist: <%=album.artistName()%></p>
@@ -84,7 +84,7 @@
                 <div class="feed_scroll_member_for_reviews">
                     <%-- will add upvote and reply later --%>
                     <div class="feed_scroll_photobox_for_reviews">
-                        <p class="text"><a href="/album?albumId=<%=album.id().hashed()%>">
+                        <p class="text"><a href="/album?albumId=<%=album.id()%>">
                             <%=album.albumName()%>
                         </a></p>
                         <p class="small_text">Artist: <%=album.artistName()%></p>

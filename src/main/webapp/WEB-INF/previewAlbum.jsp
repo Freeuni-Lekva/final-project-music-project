@@ -21,7 +21,7 @@
 
 <% PublicUserData currUser = (PublicUserData) request.getSession().getAttribute("currentUser"); %>
 <% String uploader = ((Album) request.getAttribute("album")).username(); %>
-<% String albumId = ((Album) request.getAttribute("album")).id().hashed(); %>
+<% String albumId = ((Album) request.getAttribute("album")).id(); %>
 
 <div class="top_album">
     <div class="left_album">
@@ -37,7 +37,7 @@
         <p class="big_text">Album: ${album.albumName()}</p>
 
         <% int stars = ServiceFactory.getAlbumService().
-                getAverageStarFor(((Album) request.getAttribute("album")).id().hashed()); %>
+                getAverageStarFor(((Album) request.getAttribute("album")).id()); %>
         <% for (int i = 0; i < stars; i++) { %>
         <img src="/images/star_sel.png" style="width: 30px; height: 30px">
         <% } %>
@@ -51,7 +51,7 @@
     <div class="right_album">
         <% if (currUser != null && currUser.badge().isAdministrator()) { %>
         <form action = "/deleteAlbum" method="post">
-            <input type="hidden" name="deleteAlbumId" value="${album.id().hashed()}">
+            <input type="hidden" name="deleteAlbumId" value="${album.id()}">
             <input type="submit" id="deleteButton" value="Delete Album" class="text" class="button">
         </form>
         <p class = "space"></p>
@@ -73,7 +73,7 @@
     !ServiceFactory.getReviewService().userHasReviewForAlbum(currUser.username(), albumId)) {%>
     <div class="review_album">
         <form action="/addReview" method="post">
-            <input type="hidden" name="albumId" value="${album.id().hashed()}">
+            <input type="hidden" name="albumId" value="${album.id()}">
             <input type="hidden" name="authorUsername" value="<%=currUser.username()%>">
             <label for="stars">Rating (Between 0 and 5):</label>
             <input type="number" id="stars" name="stars" min="0" max="5">

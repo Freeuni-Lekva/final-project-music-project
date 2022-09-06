@@ -5,7 +5,6 @@ import org.freeuni.musicforum.exception.AlbumExistsException;
 import org.freeuni.musicforum.exception.NonexistentAlbumException;
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
-import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.Song;
 import java.util.List;
 
@@ -17,8 +16,8 @@ public class AlbumService {
     }
 
     public void addNewAlbum(Album album) {
-        AlbumIdentifier id = album.id();
-        if(dao.exists(id.hashed())) throw new AlbumExistsException();
+        String id = album.id();
+        if(dao.exists(id)) throw new AlbumExistsException();
         dao.add(album);
     }
 
@@ -30,8 +29,7 @@ public class AlbumService {
 
     public Album getAlbum(String id) {
         if(!dao.exists(id)) throw new NonexistentAlbumException();
-        Album album = dao.getById(id);
-        return album;
+        return dao.getById(id);
     }
 
     public List<Album> getAllAlbumsUploadedBy(String username) {
@@ -44,14 +42,14 @@ public class AlbumService {
 
     public boolean doesSongExist(String id, String name) {
         Album album = getAlbum(id);
-        return album.songs().stream().filter(song -> song.songName().equals(name)).findAny().isPresent();
+        return album.songs().stream().anyMatch(song -> song.songName().equals(name));
     }
 
     public int getAlbumPrestigeFor(String username) {
         List<Album> albums = getAllAlbumsUploadedBy(username);
         int res = 0;
         for (Album a : albums) {
-            res += dao.calculatePrestigeFor(a.id().hashed());
+            res += dao.calculatePrestigeFor(a.id());
         }
         return res;
     }

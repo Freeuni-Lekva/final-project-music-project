@@ -21,7 +21,7 @@ public class InMemoryAlbumDAO implements AlbumDAO{
 
     @Override
     public void add(Album album) {
-        albums.put(album.id().hashed(), album);
+        albums.put(album.id(), album);
     }
 
     @Override

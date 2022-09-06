@@ -2,11 +2,12 @@ package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
-import org.freeuni.musicforum.model.AlbumIdentifier;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.service.AlbumService;
 import org.freeuni.musicforum.service.ServiceFactory;
+import org.freeuni.musicforum.util.Utils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +41,7 @@ public class AddAlbumServlet extends HttpServlet {
         String albumName = req.getParameter("albumName");
         String artistName = req.getParameter("artistName");
         int songAmount = Integer.parseInt(req.getParameter("songAmount"));
-        AlbumIdentifier id = new AlbumIdentifier(albumName, artistName);
+        String id = Utils.hashText(albumName + artistName);
         ArrayList<Song> songs = new ArrayList<>();
 
         Part part = req.getPart("coverImage");
@@ -55,7 +56,7 @@ public class AddAlbumServlet extends HttpServlet {
         service.addNewAlbum(newAlbum);
 
         req.setAttribute("songAmount", songAmount);
-        req.getSession().setAttribute("currAlbumId", id.hashed());
+        req.getSession().setAttribute("currAlbumId", id);
         req.getRequestDispatcher("/WEB-INF/addSongs.jsp").forward(req, resp);
 
     }
