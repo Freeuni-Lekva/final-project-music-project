@@ -3,6 +3,7 @@ package org.freeuni.musicforum.dao;
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Review;
 import org.freeuni.musicforum.model.SearchRequest;
+import org.freeuni.musicforum.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ public class InMemoryReviewDAO implements ReviewDAO {
 
     public InMemoryReviewDAO() {
         this.reviews = new ArrayList<>();
+        reviews.add(new Review(Utils.hashText("Body Riddle" + "Clark"),"guri", "wow",4));
+        reviews.add(new Review(Utils.hashText("Body Riddle" + "Clark"),"eva", "damn",4));
+
         /*
         reviews.add(new Review(
                 "1", "guri", "nice review", 2

@@ -16,6 +16,7 @@
     <% List<User> users = (List<User>) request.getAttribute("filteredUsers");
        List<Album> albums = (List<Album>) request.getAttribute("filteredAlbums");
        List<Review> reviews = (List<Review>) request.getAttribute("filteredReviews");
+       PublicUserData currentUser  = (PublicUserData) request.getSession().getAttribute("currentUser");
     %>
 
     <div class="feed_scroll_wrapper">
@@ -74,6 +75,7 @@
             if(reviews.size()==0){%>
             <p class = "big_text">No Results Found</p>
         <%  }
+            request.getSession().setAttribute("filteredReviews", reviews);
                 for(int i = 0; i<reviews.size(); i++){
                     Review review = reviews.get(i);
                     Album album = null;
@@ -82,7 +84,6 @@
                     } catch (NonexistentAlbumException ex) {
                     } %>
                 <div class="feed_scroll_member_for_reviews">
-                    <%-- will add upvote and reply later --%>
                     <div class="feed_scroll_photobox_for_reviews">
                         <p class="text"><a href="/album?albumId=<%=album.id()%>">
                             <%=album.albumName()%>
@@ -90,6 +91,40 @@
                         <p class="small_text">Artist: <%=album.artistName()%></p>
                         <img src="${imagePrefix}<%=album.coverImageBase64()%>" alt="cover image" width="200px" height="200px">
                     </div>
+
+                    <div class="vote_box_for_feed">
+                        <% VoteType vote = ServiceFactory.getVotingDataService().
+                                getUserVoteForReview(currentUser.username(), review.getId());
+                        %>
+                        <p>
+                        <form action="/upvote" method="post">
+                            <input type="hidden" name="votingUser" value="<%=currentUser.username()%>">
+                            <input type="hidden" name="reviewId" value="<%=review.getId()%>">
+                            <input type="hidden" name="page" value="<%="searchresults"%>">
+                            <% if (vote.equals(VoteType.UPVOTE)) { %>
+                            <input type="image" src="/images/up_sel.png" width="20px" height="20px">
+                            <% } else { %>
+                            <input type="image" src="/images/up_unsel.png" width="20px" height="20px">
+                            <% } %>
+                        </form>
+                        </p>
+
+                        <p class="text"> <%=review.getPrestige()%> </p>
+
+                        <p>
+                        <form action="/downvote" method="post">
+                            <input type="hidden" name="votingUser" value="<%=currentUser.username()%>">
+                            <input type="hidden" name="reviewId" value="<%=review.getId()%>">
+                            <input type="hidden" name="page" value="<%="searchresults"%>">
+                            <% if (vote.equals(VoteType.DOWNVOTE)) { %>
+                            <input type="image" src="/images/down_sel.png" width="20px" height="20px">
+                            <% } else { %>
+                            <input type="image" src="/images/down_unsel.png" width="20px" height="20px">
+                            <% } %>
+                        </form>
+                        </p>
+                    </div>
+
                     <div class="feed_scroll_infobox">
                         <p class="huge_space"></p>
                         <p class="small_text">Uploaded By: <a href="/profile?username=<%=review.getAuthorUsername()%>">

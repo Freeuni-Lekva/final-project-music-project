@@ -5,11 +5,9 @@ import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.Review;
 import org.freeuni.musicforum.model.SearchRequest;
 import org.freeuni.musicforum.service.ServiceFactory;
+import org.freeuni.musicforum.util.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryAlbumDAO implements AlbumDAO{
 
@@ -17,6 +15,9 @@ public class InMemoryAlbumDAO implements AlbumDAO{
 
     public InMemoryAlbumDAO() {
         albums = new HashMap<>();
+        Album al = new Album("guri", "Body Riddle", "Clark", null, null, Utils.hashText("Body Riddle"+"Clark"),new Date());
+        albums.put(Utils.hashText("Body Riddle"+"Clark"), al);
+
     }
 
     @Override

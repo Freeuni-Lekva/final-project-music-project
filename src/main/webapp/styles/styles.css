@@ -300,6 +300,15 @@
     height: 10%;
 }
 
+
+.vote_box_for_feed{
+    padding-top: 45px;
+    float: left;
+    height: 99%;
+    width: 5%;
+}
+
+
 .selection_width {
     width: 10%;
 }
@@ -495,7 +504,7 @@
 
 .feed_scroll_infobox{
     height: 99%;
-    width: 79%;
+    width: 74%;
     float: left;
     margin-left: 5px;
 }
