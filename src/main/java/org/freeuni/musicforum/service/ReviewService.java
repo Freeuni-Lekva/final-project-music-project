@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.service;
 
+import org.freeuni.musicforum.Activity.Activity;
 import org.freeuni.musicforum.dao.ReviewDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulReviewException;
 import org.freeuni.musicforum.filter.Filter;
@@ -18,6 +19,7 @@ public class ReviewService {
         if (!dao.addReview(review)) {
             throw new UnsuccessfulReviewException("This review already exists");
         }
+        Activity.getActivityLog().addLog(review.getAlbumId());
     }
     public Review getReview(String id) {
         return dao.getById(id);

@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.service;
 
+import org.freeuni.musicforum.Activity.Activity;
 import org.freeuni.musicforum.dao.AlbumDAO;
 import org.freeuni.musicforum.exception.AlbumExistsException;
 import org.freeuni.musicforum.exception.NonexistentAlbumException;
@@ -19,6 +20,7 @@ public class AlbumService {
         String id = album.id();
         if(dao.exists(id)) throw new AlbumExistsException();
         dao.add(album);
+        Activity.getActivityLog().addLog(album.id());
     }
 
     public void addSongs(String id, List<Song> songs) {

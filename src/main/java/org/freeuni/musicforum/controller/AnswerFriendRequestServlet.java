@@ -1,6 +1,6 @@
 package org.freeuni.musicforum.controller;
 
-import org.freeuni.musicforum.file.processor.FileProcessor;
+import org.freeuni.musicforum.fileProcessor.FileProcessor;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
 

@@ -1,6 +1,5 @@
 package org.freeuni.musicforum.controller;
 
-import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.filter.*;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
@@ -28,7 +27,6 @@ public class SearchServlet extends HttpServlet {
             request.setAttribute("filteredReviews", ServiceFactory.getReviewService().filter(fm));
         }
 
-        request.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         request.getRequestDispatcher("/WEB-INF/searchResults.jsp").forward(request, response);
 
     }

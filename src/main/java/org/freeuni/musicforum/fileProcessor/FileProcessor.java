@@ -1,4 +1,4 @@
-package org.freeuni.musicforum.file.processor;
+package org.freeuni.musicforum.fileProcessor;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

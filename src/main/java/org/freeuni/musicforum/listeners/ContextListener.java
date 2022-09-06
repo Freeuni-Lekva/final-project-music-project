@@ -1,7 +1,8 @@
 package org.freeuni.musicforum.listeners;
 
+import org.freeuni.musicforum.Activity.Activity;
 import org.freeuni.musicforum.dao.DataSource;
-import org.freeuni.musicforum.file.processor.FileProcessor;
+import org.freeuni.musicforum.fileProcessor.FileProcessor;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,7 +16,7 @@ public class ContextListener implements ServletContextListener {
         ServletContext context = sce.getServletContext();
         context.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         context.setAttribute("audioPrefix", FileProcessor.AUDIO_HTML_PREFIX_BASE64);
-        // add activity log for feed
+        context.setAttribute("activity", Activity.getActivityLog());
     }
 
     @Override

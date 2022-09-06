@@ -1,6 +1,5 @@
 package org.freeuni.musicforum.controller;
 
-import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.PublicUserData;
 
 import javax.servlet.ServletException;
@@ -18,7 +17,6 @@ public class ProfileFriendsServlet extends HttpServlet {
 
         PublicUserData currentUser = (PublicUserData) req.getSession().getAttribute("currentUser");
         req.setAttribute("user", currentUser);
-        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.getRequestDispatcher("WEB-INF/profile_friends.jsp").forward(req, resp);
 
     }

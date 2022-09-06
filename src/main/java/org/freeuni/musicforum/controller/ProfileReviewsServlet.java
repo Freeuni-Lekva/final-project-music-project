@@ -1,6 +1,5 @@
 package org.freeuni.musicforum.controller;
 
-import org.freeuni.musicforum.file.processor.FileProcessor;
 import org.freeuni.musicforum.model.*;
 import org.freeuni.musicforum.service.ServiceFactory;
 
@@ -19,7 +18,6 @@ public class ProfileReviewsServlet extends HttpServlet {
         String username = req.getParameter("username");
         PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
         req.setAttribute("user", userData);
-        req.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
         req.getRequestDispatcher("WEB-INF/profile_reviews.jsp").forward(req, resp);
 
     }
