@@ -394,12 +394,13 @@
 }
 
 .search_bar{
-    width:94%;
-    height:5%;
+    width: 97%;
+    height: 5%;
+    padding-left: 2%;
 }
 
 .search_field{
-    width: 60%;
+    width: 64%;
     height: 100%;
 
     font-size: 20px;
@@ -408,6 +409,18 @@
 .search_button{
     height: 100%;
     font-size: 1.2vw;
+}
+
+.search_field_wrapper{
+    height: 100%;
+    width: 75%;
+    float: left;
+}
+
+.sort_button_wrapper{
+    height: 100%;
+    width: 10%;
+    float: left;
 }
 
 .upper_strip{
@@ -480,7 +493,7 @@
 .feed_scroll_wrapper{
     float: top;
     width: 95%;
-    height: 81%;
+    height: 80%;
 
     padding-left: 5%;
 }

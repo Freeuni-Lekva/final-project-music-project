@@ -88,6 +88,10 @@
         <servlet-name>feed-servlet</servlet-name>
         <servlet-class>org.freeuni.musicforum.controller.GenerateFeedServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>sort-servlet</servlet-name>
+        <servlet-class>org.freeuni.musicforum.controller.sortServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>register-servlet</servlet-name>
@@ -172,6 +176,10 @@
     <servlet-mapping>
         <servlet-name>feed-servlet</servlet-name>
         <url-pattern>/feed</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sort-servlet</servlet-name>
+        <url-pattern>/sortedResults</url-pattern>
     </servlet-mapping>
 
 </web-app>
