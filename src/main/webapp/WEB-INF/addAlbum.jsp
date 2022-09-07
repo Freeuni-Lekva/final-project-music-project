@@ -21,22 +21,22 @@
     <form action="/addAlbum" method="post" enctype="multipart/form-data">
         <label for="albumName" class="text"> Name Of New Album </label>
         <br/>
-        <input minlength="2" type="text" id="albumName" name="albumName" class="textbox">
+        <input minlength="2" type="text" id="albumName" name="albumName" class="textbox" required>
         <p class="space"></p>
 
         <label for="artistName" class="text"> Name Of Artist </label>
         <br/>
-        <input minlength="2" type="text" id="artistName" name="artistName" class="textbox">
+        <input minlength="2" type="text" id="artistName" name="artistName" class="textbox" required>
         <p class="space"></p>
 
         <label class="text"> Choose Album Cover</label>
         <br/>
-        <input type="file" id="coverImage" name="coverImage" accept="image/*" class="browse_files">
+        <input type="file" id="coverImage" name="coverImage" accept="image/*" class="browse_files" required>
         <p class="space"></p>
 
         <label class="text"> Amount Of Songs </label>
         <br/>
-        <input min="1" type="number" id="songAmount" name="songAmount" class="textbox"/>
+        <input min="1" type="number" id="songAmount" name="songAmount" class="textbox" required/>
         <p class="space"></p>
 
         <input type="submit" value="Choose Songs" class="text" class="button">
