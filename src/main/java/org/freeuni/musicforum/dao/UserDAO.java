@@ -1,3 +1,4 @@
+
 package org.freeuni.musicforum.dao;
 
 
@@ -17,6 +18,7 @@ public interface UserDAO {
     boolean correctCredentials(String username, String passwordHash);
     void updateBadgeAccordingTo(String username, int prestige);
     void delete(String username);
+    void banUser(String username);
     List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs);
     boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs);
     boolean deleteFriendshipStatus(String fromUsername, String toUsername);

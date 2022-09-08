@@ -6,6 +6,7 @@ import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
 import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.filter.Filter;
+import org.freeuni.musicforum.model.Status;
 import org.freeuni.musicforum.model.User;
 import org.freeuni.musicforum.util.Utils;
 
@@ -47,24 +48,31 @@ public class UserService {
         return count;
     }
 
+    public Status getActivityStatus(String username){
+        if(userExists(username)){
+            return getProfileData(username).status();
+        }
+        throw new NoSuchUserExistsException("User with provided username " +  username + " does not exist");
+    }
+
     public PublicUserData getProfileData(String username) {
         Optional<User> userOptional = dao.getByUsername(username);
         if(userOptional.isPresent()) {
             User user = userOptional.get();
             return new PublicUserData(user.getFirstName(), user.getLastName(), username, user.getProfileImageBase64(),
-                    user.getBadge(), getUserPrestige(username));
+                    user.getBadge(), user.getStatus(), getUserPrestige(username));
         }
         throw new NoSuchUserExistsException("" +
                 "User with provided username " +  username + " does not exist");
     }
 
+    public void banUser(String username) {
+        dao.banUser(username);
+    }
+
     public void updateBadge(String username) {
         int prestige = getUserPrestige(username);
         dao.updateBadgeAccordingTo(username, prestige);
-    }
-
-    public void banUser(String username) {
-        dao.delete(username);
     }
 
 

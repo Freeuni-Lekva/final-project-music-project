@@ -1,5 +1,5 @@
-<%@ page import="org.freeuni.musicforum.model.User" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.freeuni.musicforum.model.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -33,7 +33,8 @@
             <div class = "friends_scroll_column">
                 <p class = "text" > Friend List: </p>
                 <p class = "space"></p>
-                <%for(PublicUserData friendData : usersFriends){%>
+                <%for(PublicUserData friendData : usersFriends){
+                if(friendData.status().equals(Status.ACTIVE)){%>
                 <div class = "friends_scroll_member">
                     <img src = "${imagePrefix}<%=friendData.profileImageBase64()%>" class = "friends_scroll_member_photo">
                     <div class = "friends_scroll_member_info">
@@ -42,13 +43,16 @@
                         </a></p>
                     </div>
                 </div>
-                <%}%>
+                <%}
+                }%>
             </div>
 
             <div class = "friends_scroll_column">
                 <p class = "text">Friend Requests:</p>
                 <p class = "space"></p>
-                <%for(PublicUserData requestData : usersRequests){%>
+                <%for(PublicUserData requestData : usersRequests){
+                if(requestData.status().equals(Status.ACTIVE)){%>
+
                 <div class = "friends_scroll_member">
                     <img src = "${imagePrefix}<%=requestData.profileImageBase64()%>" class = "friends_scroll_member_photo">
                     <div class = "friends_scroll_member_info">
@@ -65,7 +69,8 @@
                     </div>
                 </div>
                 <p class="space"></p>
-                <%}%>
+                <%}
+                }%>
             </div>
         </div>
     </div>

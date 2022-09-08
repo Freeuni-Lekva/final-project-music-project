@@ -46,6 +46,11 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
+    public void banUser(String username) {
+
+    }
+
+    @Override
     public List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs) {
         return null;
     }

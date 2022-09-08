@@ -49,7 +49,8 @@ public class InMemoryUserDAO implements UserDAO {
     public boolean correctCredentials(String username, String passwordHash) {
         Optional<User> user = getByUsername(username);
         return user.isPresent() &&
-                user.get().getPassword().hashed().equals(passwordHash);
+                user.get().getPassword().hashed().equals(passwordHash)&&
+                user.get().getStatus().equals(Status.ACTIVE);
     }
 
     @Override
@@ -62,6 +63,12 @@ public class InMemoryUserDAO implements UserDAO {
     public void delete(String username) {
         Optional<User> user = getByUsername(username);
         if (user.isPresent()) users.remove(user.get());
+    }
+
+    @Override
+    public void banUser(String username) {
+        Optional<User> user = getByUsername(username);
+        if(user.isPresent()) user.get().setStatus(Status.BANNED);
     }
 
     @Override

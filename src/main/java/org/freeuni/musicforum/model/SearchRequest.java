@@ -67,5 +67,10 @@ public class SearchRequest {
         return null;
     }
 
+    public Status getStatus(){
+        if(user!=null) return user.getStatus();
+        return null;
+    }
+
 
 }

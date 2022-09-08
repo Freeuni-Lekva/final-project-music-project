@@ -58,6 +58,8 @@ public class SearchServlet extends HttpServlet {
             fm.add(new searchBarFilter(key));
         }
 
+        fm.add(new bannedUserFilter());
+
         return fm;
     }
 

@@ -13,6 +13,7 @@ public class User {
     private String profileImageBase64;
     private String filename;
     private Badge badge;
+    private Status status;
     private HashMap<String, FriendshipStatus> friends;
     public User(String firstName,
                 String lastName,
@@ -28,6 +29,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.badge = badge;
+        this.status = Status.ACTIVE;
         friends = new HashMap<>();
 
     }
@@ -48,9 +50,11 @@ public class User {
         return birthDate;
     }
 
-    public Gender getGender() {
-        return gender;
+    public Status getStatus() {
+        return status;
     }
+
+    public void setStatus(Status status) { this.status = status; }
 
     public String getFirstName() {
         return firstName;

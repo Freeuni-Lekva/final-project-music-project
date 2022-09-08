@@ -6,5 +6,6 @@ public record PublicUserData(
         String username,
         String profileImageBase64,
         Badge badge,
+        Status status,
         int prestige
-        ) { }
+) { }
