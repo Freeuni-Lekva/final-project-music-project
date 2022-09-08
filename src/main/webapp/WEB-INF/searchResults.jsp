@@ -63,7 +63,7 @@
                     </a></p>
                     <p class="small_text">Artist: <%=album.artistName()%></p>
                     <p class="infobox_smaller_space"></p>
-                    <%if(ServiceFactory.getUserService().getActivityStatus(album.username()).equals(Status.ACTIVE)){%>
+                    <%if(ServiceFactory.getUserService().isActive(album.username())){%>
                     <p class="small_text">Uploaded By: <a href="/profile?username=<%=album.username()%>">
                         <%=album.username()%>
                     </a></p>
@@ -132,7 +132,7 @@
 
                     <div class="feed_scroll_infobox">
                         <p class="huge_space"></p>
-                        <%if(ServiceFactory.getUserService().getActivityStatus(review.getAuthorUsername()).equals(Status.ACTIVE)){%>
+                        <%if(ServiceFactory.getUserService().isActive(review.getAuthorUsername())){%>
                         <p class="small_text">Uploaded By: <a href="/profile?username=<%=review.getAuthorUsername()%>">
                             <%=review.getAuthorUsername()%>
                         </a></p>

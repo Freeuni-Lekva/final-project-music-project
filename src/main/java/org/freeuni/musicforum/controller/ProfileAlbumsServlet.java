@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.exception.NoSuchUserExistsException;
 import org.freeuni.musicforum.model.*;
 import org.freeuni.musicforum.service.ServiceFactory;
 
@@ -17,6 +18,9 @@ public class ProfileAlbumsServlet extends HttpServlet {
 
         String username = req.getParameter("username");
         PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
+        if(userData.status().equals(Status.BANNED)){
+            throw new NoSuchUserExistsException("User with username "+ username+" does not exist.");
+        }
         req.setAttribute("user", userData);
         req.getRequestDispatcher("WEB-INF/profile.jsp").forward(req, resp);
 

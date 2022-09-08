@@ -24,7 +24,7 @@
 <div class="top_album">
     <div class="left_album">
         <p class="text">Uploaded by:
-            <%if(ServiceFactory.getUserService().getActivityStatus(uploader).equals(Status.ACTIVE)) {%>
+            <%if(ServiceFactory.getUserService().isActive(uploader)) {%>
                 <a href="/profile?username=${album.username()}"><%=uploader%></a>
             <%}else{%>
                 <%=uploader%>
@@ -89,7 +89,7 @@
     <div class="review_album">
         <p class="text">
             <% String author = rev.getAuthorUsername();
-            if(ServiceFactory.getUserService().getActivityStatus(author).equals(Status.ACTIVE)) {%>
+            if(ServiceFactory.getUserService().isActive(author)) {%>
             <a href="/profile?username=<%=rev.getAuthorUsername()%>"><%=rev.getAuthorUsername()%></a>
             <%}else{%>
             <%=rev.getAuthorUsername()%>

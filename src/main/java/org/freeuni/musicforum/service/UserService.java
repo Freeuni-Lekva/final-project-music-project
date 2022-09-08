@@ -48,11 +48,11 @@ public class UserService {
         return count;
     }
 
-    public Status getActivityStatus(String username){
+    public boolean isActive(String username){
         if(userExists(username)){
-            return getProfileData(username).status();
+            return getProfileData(username).status().equals(Status.ACTIVE);
         }
-        throw new NoSuchUserExistsException("User with provided username " +  username + " does not exist");
+        return false;
     }
 
     public PublicUserData getProfileData(String username) {
