@@ -233,6 +233,19 @@
     height: 4%;
 }
 
+.add_album_button{
+    height: 100%;
+    width: 8%;
+    float: left;
+    background-color: #0abab5;
+}
+
+.add_album_button_wrapper{
+    height: 7%;
+    width: 100%;
+    padding-left: 44%;
+}
+
 .profile_full_two_buttons {
     padding-left: 30%;
     padding-right: 30%;

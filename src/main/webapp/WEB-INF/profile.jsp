@@ -60,8 +60,15 @@
                         <p class="space"></p>
                     <% } %>
                 </div>
+                <p class="small_space"></p>
             </div>
             <% } %>
+            <p class="big_space"></p>
+            <% if(currentUsersPage){%>
+            <div class="add_album_button_wrapper">
+                <a href="/addAlbum"><input type="button"  value="Add Album" class="add_album_button"></a>
+            </div>
+            <%}%>
         </div>
     </div>
 </body>

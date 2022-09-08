@@ -76,7 +76,7 @@
             <input type="hidden" name="albumId" value="${album.id()}">
             <input type="hidden" name="authorUsername" value="<%=currUser.username()%>">
             <label for="stars">Rating (Between 0 and 5):</label>
-            <input type="number" id="stars" name="stars" min="0" max="5">
+            <input type="number" id="stars" name="stars" min="0" max="5" required>
             <p class="space"></p>
             <input type="text" id="reviewText" name="reviewText" class="huge_textbox">
             <p class="space"></p>
