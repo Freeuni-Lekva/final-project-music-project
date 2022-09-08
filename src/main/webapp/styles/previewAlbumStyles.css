@@ -1,0 +1,31 @@
+.top_album {
+    width: 99%;
+    height: 60%;
+    float: top;
+}
+
+.bottom_album {
+    width: 99%;
+    height: 32%;
+    float: top;
+    overflow: scroll;
+}
+
+.left_album {
+    width: 55%;
+    height: 99%;
+    float: left;
+}
+
+.right_album {
+    width: 35%;
+    height: 99%;
+    float: left;
+    overflow: scroll;
+}
+
+.review_album{
+    width: 99%;
+    height: 120px;
+    overflow: scroll;
+}

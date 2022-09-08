@@ -6,7 +6,8 @@
 <head>
 
     <link rel="icon" href="/images/logo_small.png"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/profileStyles.css" />
 </head>
 <body>
 <% PublicUserData user = (PublicUserData) request.getAttribute("user");

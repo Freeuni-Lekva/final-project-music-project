@@ -5,7 +5,7 @@
 <head>
     <title>Add Songs To The Album</title>
     <link rel="icon" href="/images/logo_small.png"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_styles.css" />
 </head>
 <body class="long_background">
 

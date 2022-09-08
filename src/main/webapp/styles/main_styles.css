@@ -1,0 +1,224 @@
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                    BACKGROUNDS
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+
+.background {
+    margin:0%;
+
+    background-image: url("/images/background_image.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.long_background {
+    background-size: 100% 100%;
+    background: radial-gradient(#ffffff 25%, #aafefe) repeat;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                    GENERAL USAGES
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+
+
+.outer_rectangle {
+    margin: 0%;
+
+    width:60%;
+    height:98%;
+    float:left;
+    text-align:center;
+}
+
+.centered_rectangle {
+    margin: 0%;
+
+    width: 100%;
+    height: 100%;
+    float: none;
+    text-align: center;
+}
+
+.page_label_box {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    width:98%;
+    height:10%;
+    float:top;
+}
+
+.album_page_label_box {
+    margin-top: 5%;
+    margin-bottom: 0%;
+
+    width: 100%;
+    height: 10%;
+    text-align: center;
+
+}
+
+.page_label {
+    color:#81d8d0;
+    font-family:"Times New Roman", Times, serif;
+    font-size: 3.4vw;
+    font-weight: bolder;
+}
+.button {
+     margin: 0%;
+     border: 1vw;
+     padding: 0%;
+
+     width: 8%;
+     height: 4%;
+ }
+
+
+.vote_box {
+    width: 2%;
+    height: 10%;
+}
+
+.browse_files {
+    margin-top:0%;
+    margin-bottom:0%;
+    margin-left: 15.5%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.2vw;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                    TEXT STYLES
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+
+.big_text {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 2.1vw;
+    font-weight: bold;
+}
+
+.text {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.4vw;
+}
+
+.small_text {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1vw;
+}
+
+.green_text {
+    margin-top:0%;
+    margin-bottom:0%;
+    color: green;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.4vw;
+}
+
+.red_text {
+    margin-top:0%;
+    margin-bottom:0%;
+    color: red;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.4vw;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                    TEXTBOXES
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+
+.textbox {
+    padding: 0%;
+    margin-top:0%;
+    margin-bottom:0%;
+
+    width: 15%;
+    height: 3.5%;
+    font-size: 1.4vw;
+}
+
+.huge_textbox {
+    width: 70%;
+    height: 60%;
+    font-size: 1.2vw;
+}
+
+.longer_textbox_width {
+    width: 20%;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                        SPACES
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+
+.small_space{
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 2%;
+}
+
+.space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 4%;
+}
+
+.big_space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 8%;
+}
+
+.bigger_space{
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 50px;
+}
+
+.huge_space {
+    margin-top:0%;
+    margin-bottom:0%;
+
+    height: 16%;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                    REGISTER AND LOGIN
+  ----------------------------------------------------------------------------------------------------------------------
+ */
+
+.selection_width {
+    width: 10%;
+}
+
+.login_image {
+    margin: 0%;
+
+    text-align: center;
+    float: left;
+    width: 35%;
+    height: 98%;
+}
+
+
+

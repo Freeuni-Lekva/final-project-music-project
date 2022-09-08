@@ -1,0 +1,196 @@
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                        GENERAL
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+.profile_top {
+    margin: 0%;
+
+    width: 100%;
+    height:34%;
+}
+
+.profile_bottom {
+    margin: 0%;
+    text-align: center;
+
+    width: 100%;
+    height: 58%;
+}
+
+.profile_username_text {
+    margin-top: 0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.4vw;
+}
+
+.profile_image_rec {
+    margin: 0%;
+
+    text-align: center;
+    float: left;
+    width: 26%;
+    height: 98%;
+}
+
+.upload_picture_button{
+    margin-top:0%;
+    margin-bottom:0%;
+
+    font-family:"Verdana", Verdana, serif;
+    font-size: 1.2vw;
+}
+
+.profile_info_rec {
+    margin: 0%;
+    text-align: center;
+    float: left;
+
+    width: 68%;
+    height: 98%;
+}
+
+.profile_filter{
+    float:top;
+    text-align: center;
+
+    width: 100%;
+    height: 8%;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                        ADD ALBUM
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+
+.add_album_button{
+    height: 100%;
+    width: 8%;
+    float: left;
+    background-color: #0abab5;
+}
+
+.add_album_button_wrapper{
+    height: 7%;
+    width: 100%;
+    padding-left: 44%;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                PROFILE NAVIGATION BUTTONS
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+.profile_full_two_buttons {
+    padding-left: 30%;
+    padding-right: 30%;
+
+    width: 40%;
+    height: 100%;
+}
+
+.profile_full_three_buttons {
+    padding-left: 14%;
+    padding-right: 14%;
+
+    width: 72%;
+    height: 100%;
+}
+
+.profile_part_two_buttons {
+    border-top: 1px #000000;
+    border-bottom: 1px #000000;
+    border-left: 1px #000000;
+    border-right: 1px #000000;
+    padding: 1px;
+    margin: 1px;
+    float: left;
+    background-color: #0abab5;
+
+    width: 48%;
+    height: 80%;
+}
+
+.profile_part_three_buttons {
+    border-top: 1px #000000;
+    border-bottom: 1px #000000;
+    border-left: 1px #000000;
+    border-right: 1px #000000;
+    padding: 1px;
+    margin: 1px;
+    float: left;
+    background-color: #0abab5;
+
+    width: 31%;
+    height: 80%;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                   PROFILE SCROLL
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+
+.profile_scroll{
+    overflow:scroll;
+    float:top;
+
+    height: 88%;
+    width: 99%;
+}
+
+.profile_scroll_member {
+    width: 99%;
+    height: 150px;
+}
+
+.profile_scroll_member_photobox {
+    width: 38%;
+    height: 90%;
+    float: left;
+}
+
+.profile_scroll_member_infobox {
+    width: 61%;
+    height: 90%;
+    overflow: scroll;
+    float: left;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+                                                    FRIENDS SCROLL
+   ---------------------------------------------------------------------------------------------------------------------
+ */
+.friends_scroll{
+    padding-left: 14%;
+    padding-right: 14%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: scroll;
+
+    height: 88%;
+    width: 71%;
+}
+
+
+.friends_scroll_column{
+    width: 100%;
+}
+
+.friends_scroll_member{
+    width: 100%;
+    height: 125px;
+}
+
+.friends_scroll_member_photo{
+    width: 120px;
+    height: 120px;
+    float: left;
+}
+
+.friends_scroll_member_info {
+    margin-left: 5px;
+    width: 70%;
+    height: 99%;
+    float: left;
+    text-align: left;
+}

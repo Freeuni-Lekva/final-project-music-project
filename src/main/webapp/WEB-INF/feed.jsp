@@ -8,7 +8,8 @@
 <head>
     <title>Feed</title>
     <link rel="icon" href="/images/logo_small.png"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/feedCardStyles.css" />
 </head>
 <body class = "background">
     <%@include file="upper_strip.jsp"%>

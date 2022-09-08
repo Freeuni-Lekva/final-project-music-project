@@ -1,0 +1,66 @@
+.upper_strip{
+    background-color:aqua;
+    width: 100%;
+    height: 45px;
+}
+
+.image_wrapper{
+    float: left;
+}
+
+.website_title{
+    float: left;
+    height: 45px;
+    width: 15%;
+}
+
+.website_title_text{
+    float: left;
+    position: relative;
+    top: -6px;
+    color: black;
+    text-decoration: none;
+    cursor: auto;
+
+    font-weight: bold;
+    font-family: "Verdana", Verdana, serif;
+    font-size: 1.3vw;
+}
+
+.links_rec{
+    width: 10%;
+    height: 100%;
+    float: right;
+}
+
+.link_text{
+    position: absolute;
+    top: -8px;
+
+    font-family: "Verdana", Verdana, serif;
+    font-size: 1.2vw;
+}
+
+.profile_link{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.log_out_link{
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+
+.frame_space_left{
+    height: 100%;
+    width: 2%;
+    float: left;
+}
+
+.frame_space_right{
+    height: 100%;
+    width: 2%;
+    float: right;
+}

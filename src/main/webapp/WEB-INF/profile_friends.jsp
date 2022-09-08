@@ -5,7 +5,8 @@
 <head>
     <title>User Profile</title>
     <link rel="icon" href="/images/logo_small.png"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/profileStyles.css" />
 </head>
 <body class = "background">
     <%request.setAttribute("filepath", "WEB-INF/profile_friends.jsp");%>
@@ -36,7 +37,7 @@
                 <div class = "friends_scroll_member">
                     <img src = "${imagePrefix}<%=friendData.profileImageBase64()%>" class = "friends_scroll_member_photo">
                     <div class = "friends_scroll_member_info">
-                        <p class="username_text"> <a href="/profile?username=<%=friendData.username()%>">
+                        <p class="profile_username_text"> <a href="/profile?username=<%=friendData.username()%>">
                             <%=friendData.username()%>
                         </a></p>
                     </div>
@@ -51,7 +52,7 @@
                 <div class = "friends_scroll_member">
                     <img src = "${imagePrefix}<%=requestData.profileImageBase64()%>" class = "friends_scroll_member_photo">
                     <div class = "friends_scroll_member_info">
-                        <p class="username_text"> <a href="/profile?username=<%=requestData.username()%>">
+                        <p class="profile_username_text"> <a href="/profile?username=<%=requestData.username()%>">
                             <%=requestData.username()%>
                         </a></p>
                         <p class="bigger_space"></p>

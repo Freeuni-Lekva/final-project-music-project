@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/searchAndFeedStyles.css" />
 </head>
 <body>
 

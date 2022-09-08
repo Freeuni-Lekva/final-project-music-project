@@ -7,7 +7,8 @@
 <head>
     <title>User Profile</title>
     <link rel="icon" href="/images/logo_small.png"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_styles.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/profileStyles.css" />
 </head>
 <body class = "background">
     <%request.setAttribute("filepath", "WEB-INF/profile_reviews.jsp");%>
@@ -40,8 +41,8 @@
             <% List<Review> reviews = ServiceFactory.getReviewService().getAllReviewsBy(user.username()); %>
             <% for (Review rev : reviews) { %>
                 <%-- Later add href to the album page here and ask for actual album name instead of id --%>
-                <div class = "scroll_member">
-                    <div class = "scroll_member_photobox">
+                <div class = "profile_scroll_member">
+                    <div class = "profile_scroll_member_photobox">
                         <% for (int i = 0; i < rev.getStarCount(); i++) { %>
                             <img src="/images/star_sel.png" class="vote_box">
                         <% }
@@ -60,7 +61,7 @@
                             <img src ="${imagePrefix}<%=album.coverImageBase64()%>" width="100px" height="100px">
                         <%}%>
                     </div>
-                    <div class = "scroll_member_infobox">
+                    <div class = "profile_scroll_member_infobox">
                         <p class="space"></p>
                         <p class="small_text"><%=rev.getText()%></p>
                         <p class="space"></p>
