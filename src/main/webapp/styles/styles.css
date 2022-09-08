@@ -324,7 +324,7 @@
 
 .long_background {
     background-size: 100% 100%;
-    background: radial-gradient(#ffffff 25%, #aafefe) no-repeat;
+    background: radial-gradient(#ffffff 25%, #aafefe) repeat;
 }
 
 .top_album {
@@ -541,6 +541,100 @@
 
     font-family:"Verdana", Verdana, serif;
     font-size: 1.9vw;
+}
+
+.feed_card {
+    margin: auto;
+    float: none;
+
+    width: 40%;
+    height: 600px;
+    text-align: center;
+    margin-bottom: 100px;
+    background-color: #bbfffd;
+
+}
+.feed_card:hover {
+    width:55%;
+    position: relative;
+}
+
+.feed_card:hover .feed_card_album_image{
+    float:left;
+}
+
+.feed_card:hover .feed_card_information{
+    display: block;
+    font-size: xxx-large;
+    color: #01bdb7;
+}
+
+.feed_card:hover .feed_card_preview{
+    display: block;
+    font-size: xx-large;
+    color: #01bdb7;
+    position: absolute;
+    bottom: 10%;
+    right: 17%;
+
+}
+
+.feed_card:hover .feed_card_type{
+    display: none;
+}
+
+.feed_card:hover .feed_card_uploader_wrapper{
+    margin-bottom: 50px;
+}
+.feed_card_uploader_wrapper{
+    margin-bottom: 20px;
+    margin-top: 50px;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    background-color: #92fffa;
+}
+
+.feed_card_uploader_image {
+    width: 70px;
+    height: 100%;
+    float: left;
+}
+
+.feed_card_uploader {
+    margin-top:20px;
+    margin-left:20px;
+    float:left;
+    font-size:x-large;
+}
+
+.feed_card_uploader_date {
+    margin-top:20px;
+    margin-left:20px;
+    float:Right;
+    font-size:x-large;
+    color: #0abab5;
+}
+
+.feed_card_album_image{
+    width: 450px;
+    height: 450px;
+    margin: auto;
+}
+
+.feed_card_information{
+    display: none;
+}
+
+.feed_card_preview{
+    display: none;
+}
+
+.feed_card_type{
+    display: block;
+    font-size: x-large;
+    margin-bottom: 20px;
+    color: #01bdb7;
 }
 
 .infobox_space{

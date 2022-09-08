@@ -15,7 +15,7 @@ public class InMemoryAlbumDAO implements AlbumDAO{
 
     public InMemoryAlbumDAO() {
         albums = new HashMap<>();
-        Album al = new Album("guri", "Body Riddle", "Clark", null, null, Utils.hashText("Body Riddle"+"Clark"),new Date());
+        Album al = new Album("guri", "Body Riddle", "Clark", null, new ArrayList<>(), Utils.hashText("Body Riddle"+"Clark"),new Date());
         albums.put(Utils.hashText("Body Riddle"+"Clark"), al);
 
     }
