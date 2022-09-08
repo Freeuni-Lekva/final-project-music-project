@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ActivityLog {
 
-    private final int MAX_LOGS  = 4;
+    private final int MAX_LOGS  = 100;
     // String -> id
     private LinkedList<FeedCard> activity;
 

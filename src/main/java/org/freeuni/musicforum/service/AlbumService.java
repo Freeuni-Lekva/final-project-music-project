@@ -30,6 +30,9 @@ public class AlbumService {
         album.songs().addAll(songs);
     }
 
+    public boolean exists(String id) {
+        return dao.exists(id);
+    }
     public Album getAlbum(String id) {
         if(!dao.exists(id)) throw new NonexistentAlbumException();
         return dao.getById(id);
