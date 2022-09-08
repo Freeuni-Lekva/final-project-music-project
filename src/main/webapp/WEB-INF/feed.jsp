@@ -25,12 +25,12 @@
 
     <% for(int i = logSize - 1; i >= 0; i--) { request.setAttribute("i", i); %>
 
-            <c:set var="currLog" value="${activity.getLogs().get(i)}"></c:set>
+            <c:set var="currLog" value="${activity.getLogs().get(i)}" scope="request"></c:set>
 
             <c:if test="${currLog.type() == newAlbum}">
                 <div class="feed_card">
-                    <c:set var="currAlbum" value="${albumService.getAlbum(currLog.id())}"></c:set>
-                    <c:set var="albumUploader" value="${userService.getProfileData(currAlbum.username())}"></c:set>
+                    <c:set var="currAlbum" value="${albumService.getAlbum(currLog.id())}" scope="request"></c:set>
+                    <c:set var="albumUploader" value="${userService.getProfileData(currAlbum.username())}" scope="request"></c:set>
                     <div class="feed_card_uploader_wrapper">
 
                         <input type="image" src="${imagePrefix}${albumUploader.profileImageBase64()}" class="feed_card_uploader_image">
@@ -40,9 +40,7 @@
                                 ${albumUploader.username()}
                         </a>
                         <%} else {%>
-                        <p class="feed_card_uploader">
-                                ${albumUploader.username()}
-                        </p>
+                        <label class="feed_card_uploader"> ${albumUploader.username()} </label>
                         <%}%>
 
                         <label class="feed_card_uploader_date"> Uploaded at: ${currAlbum.uploadDate()} </label>
