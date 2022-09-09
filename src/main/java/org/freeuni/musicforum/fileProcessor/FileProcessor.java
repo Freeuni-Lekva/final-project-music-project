@@ -16,7 +16,6 @@ public class FileProcessor {
 
     public static final String IMAGE_HTML_PREFIX_BASE64 = "data:image/*;base64,";
     public static final String AUDIO_HTML_PREFIX_BASE64 = "data:audio/mpeg;base64,";
-    private final String PATH_TO_WEB_FOLDER = "src/main/webapp/";
 
     private Part part;
     private String fileName;
@@ -31,10 +30,11 @@ public class FileProcessor {
         copyFileToNewPath();
     }
 
-    private String getFullPath(HttpServletRequest req, String pathFromWebFolder) {
+    public static String getFullPath(HttpServletRequest req, String pathFromWebFolder) {
         ServletContext context = req.getServletContext();
         String realPath = context.getRealPath("");
         String realPathWithoutTarget = realPath.substring(0, realPath.indexOf("target"));
+        String PATH_TO_WEB_FOLDER = "src/main/webapp/";
         String pathFromContextRoot = PATH_TO_WEB_FOLDER + pathFromWebFolder;
         return realPathWithoutTarget + pathFromContextRoot;
     }
@@ -67,6 +67,10 @@ public class FileProcessor {
 
     public String getBase64EncodedString() throws IOException {
         byte[] encodedBytes = Base64.getEncoder().encode(Files.readAllBytes(getFile().toPath()));
+        return new String(encodedBytes, StandardCharsets.UTF_8);
+    }
+    public static String getBase64EncodedString(File file) throws IOException {
+        byte[] encodedBytes = Base64.getEncoder().encode(Files.readAllBytes(file.toPath()));
         return new String(encodedBytes, StandardCharsets.UTF_8);
     }
 

@@ -138,10 +138,8 @@ public class UserService {
         return friendRequests.stream().map(currUsername->getProfileData(currUsername)).toList();
     }
 
-    public void updateProfilePicture(String username, String base64String, String filename){
+    public void updateProfilePicture(String username, String base64String){
         User u = getUserIfExists(username);
-
-        u.setFilename(filename);
         u.setProfileImageBase64(base64String);
     }
 

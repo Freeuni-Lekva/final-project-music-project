@@ -11,7 +11,6 @@ public class User {
     private String username;
     private Password password;
     private String profileImageBase64;
-    private String filename;
     private Badge badge;
     private Status status;
     private HashMap<String, FriendshipStatus> friends;
@@ -72,11 +71,6 @@ public class User {
         return friends;
     }
 
-
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
 
     public void setProfileImageBase64(String profileImageBase64){
         this.profileImageBase64 = profileImageBase64;

@@ -27,9 +27,8 @@ public class UploadProfileImageServlet extends HttpServlet {
             String nameForImage = username+"_image";
             String pathFromWebFolder = "images/profile-images";
             FileProcessor imageProcessor = new FileProcessor(part, nameForImage, req, pathFromWebFolder);
-            String fileName = imageProcessor.getFullName();
 
-            ServiceFactory.getUserService().updateProfilePicture(username, imageProcessor.getBase64EncodedString(), fileName);
+            ServiceFactory.getUserService().updateProfilePicture(username, imageProcessor.getBase64EncodedString());
             req.getSession().setAttribute("currentUser", ServiceFactory.getUserService().getProfileData(username)); //reset current user
         }
 

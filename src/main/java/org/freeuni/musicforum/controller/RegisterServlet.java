@@ -1,6 +1,7 @@
 package org.freeuni.musicforum.controller;
 
 import org.freeuni.musicforum.exception.UnsuccessfulSignupException;
+import org.freeuni.musicforum.fileProcessor.FileProcessor;
 import org.freeuni.musicforum.model.*;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.UserService;
@@ -9,12 +10,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegisterServlet extends HttpServlet {
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -45,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
                 firstName, lastName, birthDate, gender, username,
                 new Password(password), new Badge(Badge.BadgeEnum.NEWCOMER)
         );
-
+        setDefaultProfilePicture(req, newUser);
         UserService userService = ServiceFactory.getUserService();
         try {
             userService.signUp(newUser);
@@ -58,6 +61,13 @@ public class RegisterServlet extends HttpServlet {
             doGet(req, resp);
         }
 
+    }
+
+    private void setDefaultProfilePicture(HttpServletRequest req, User newUser) throws IOException {
+        String pathToDefault = "images/profile-images/default.jpg";
+        File defaultProfile = new File(FileProcessor.getFullPath(req, pathToDefault));
+        String profileImage = FileProcessor.getBase64EncodedString(defaultProfile);
+        newUser.setProfileImageBase64(profileImage);
     }
 
 }
