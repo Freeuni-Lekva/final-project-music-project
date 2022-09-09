@@ -35,6 +35,11 @@
                 <%}%>
             </div>
         </div>
+        <% if(currentUsersPage){%>
+        <div class="add_album_button_wrapper">
+            <a href="/addAlbum"><input type="button"  value="Add Album" class="add_album_button"></a>
+        </div>
+        <%}%>
         <div class = "profile_scroll">
             <% List<Album> albums = ServiceFactory.getAlbumService().getAllAlbumsUploadedBy(user.username()); %>
             <% for (Album alb : albums) { %>
@@ -50,10 +55,10 @@
                 <div class = "profile_scroll_member_infobox">
                     <% int stars = ServiceFactory.getAlbumService().getAverageStarFor(alb.id()); %>
                     <% for (int i = 0; i < stars; i++) { %>
-                        <img src="/images/star_sel.png" class="vote_box">
+                        <img src="/images/star_sel.png" class="profile_scroll_member_stars">
                     <% } %>
                     <% for (int i = stars; i < 5; i++) { %>
-                        <img src="/images/star_unsel.png" class="vote_box">
+                        <img src="/images/star_unsel.png" class="profile_scroll_member_stars">
                     <% } %>
                     <% List<Song> songs = alb.songs(); %>
                     <% for (Song song : songs) { %>
@@ -65,11 +70,7 @@
             </div>
             <% } %>
             <p class="big_space"></p>
-            <% if(currentUsersPage){%>
-            <div class="add_album_button_wrapper">
-                <a href="/addAlbum"><input type="button"  value="Add Album" class="add_album_button"></a>
-            </div>
-            <%}%>
+
         </div>
     </div>
 </body>

@@ -41,13 +41,13 @@
             <% List<Review> reviews = ServiceFactory.getReviewService().getAllReviewsBy(user.username()); %>
             <% for (Review rev : reviews) { %>
                 <%-- Later add href to the album page here and ask for actual album name instead of id --%>
-                <div class = "profile_scroll_member">
+                <div class = "profile_scroll_member_reviews">
                     <div class = "profile_scroll_member_photobox">
                         <% for (int i = 0; i < rev.getStarCount(); i++) { %>
-                            <img src="/images/star_sel.png" class="vote_box">
+                            <img src="/images/star_sel.png" class="profile_scroll_member_stars">
                         <% }
                             for (int i = rev.getStarCount(); i < 5; i++) { %>
-                            <img src="/images/star_unsel.png" class="vote_box">
+                            <img src="/images/star_unsel.png" class="profile_scroll_member_stars">
                         <% }
                          Album album = null;
                             try {
@@ -61,47 +61,52 @@
                             <img src ="${imagePrefix}<%=album.coverImageBase64()%>" width="100px" height="100px">
                         <%}%>
                     </div>
-                    <div class = "profile_scroll_member_infobox">
+                    <div class = "profile_scroll_member_reviews_infobox">
+                        <div class="review_album_textbox">
                         <p class="space"></p>
                         <p class="small_text"><%=rev.getText()%></p>
                         <p class="space"></p>
+                        </div>
                         <% VoteType vote = ServiceFactory.getVotingDataService().
                                 getUserVoteForReview(currUser.username(), rev.getId()); %>
                         <p class="text">
-                        <form action="/upvote" method="post">
+                        <div  class="review_album_vote_panel">
+                        <form action="/upvote" method="post" class="review_album_vote_form">
                             <input type="hidden" name="votingUser" value="<%=currUser.username()%>">
                             <input type="hidden" name="reviewId" value="<%=rev.getId()%>">
                             <input type="hidden" name="page" value="<%="profilereviews"%>">
                             <input type="hidden" name="username" value="<%=user.username()%>">
                             <% if (vote.equals(VoteType.UPVOTE)) { %>
-                            <input type="image" src="/images/up_sel.png" class="vote_box">
+                            <input type="image" src="/images/up_sel.png" class="review_album_vote">
                             <% } else { %>
-                            <input type="image" src="/images/up_unsel.png" class="vote_box">
+                            <input type="image" src="/images/up_unsel.png" class="review_album_vote">
                             <% } %>
                         </form>
 
                         <%=rev.getPrestige()%>
 
-                        <form action="/downvote" method="post">
+                        <form action="/downvote" method="post" class="review_album_vote_form">
                             <input type="hidden" name="votingUser" value="<%=currUser.username()%>">
                             <input type="hidden" name="reviewId" value="<%=rev.getId()%>">
                             <input type="hidden" name="page" value="<%="profilereviews"%>">
                             <input type="hidden" name="username" value="<%=user.username()%>">
                             <% if (vote.equals(VoteType.DOWNVOTE)) { %>
-                            <input type="image" src="/images/down_sel.png" class="vote_box">
+                            <input type="image" src="/images/down_sel.png" class="review_album_vote">
                             <% } else { %>
-                            <input type="image" src="/images/down_unsel.png" class="vote_box">
+                            <input type="image" src="/images/down_unsel.png" class="review_album_vote">
                             <% } %>
                         </form>
+                    </div>
                         </p>
-                        <% if (currUser != null && currUser.badge().isAdministrator()) { %>
+                        <% if (currUser != null &&
+                        (currUser.badge().isAdministrator() || currUser.username().equals(user.username()))) { %>
                         <p class = "space"></p>
                         <form action = "/deleteReview" method="post">
                             <input type="hidden" name="deleteReviewId" value="<%=rev.getId()%>">
+                            <input type="hidden" name="albumId" value="<%album.id();%>">
                             <input type="submit" id="deleteReviewButton" value="Delete Review" class="text" class="button">
                         </form>
                         <% } %>
-                    </div>
                 </div>
             <% } %>
         </div>

@@ -66,14 +66,14 @@
 
 .add_album_button{
     height: 100%;
-    width: 8%;
+    width: 100%;
     float: left;
     background-color: #0abab5;
 }
 
 .add_album_button_wrapper{
     height: 7%;
-    width: 100%;
+    width: 8%;
     padding-left: 44%;
 }
 
@@ -139,22 +139,77 @@
 }
 
 .profile_scroll_member {
+    margin-top: 20px;
     width: 99%;
     height: 150px;
 }
 
+.profile_scroll_member_reviews {
+    margin-top: 20px;
+    width: 99%;
+    height: auto;
+}
+
 .profile_scroll_member_photobox {
     width: 38%;
-    height: 90%;
+    height: 50%;
     float: left;
 }
 
 .profile_scroll_member_infobox {
+    margin-top: 50px;
     width: 61%;
     height: 90%;
     overflow: scroll;
     float: left;
 }
+.profile_scroll_member_reviews_infobox {
+    width: 61%;
+    height: 50%;
+    float: left;
+}
+
+.profile_scroll_member_stars {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+.review_album_textbox{
+    width: 60%;
+    height: auto;
+    margin: auto;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color:#c2f0ef;
+    overflow-wrap: break-word;
+    font-size: large;
+}
+
+.review_album_vote_panel{
+    width: 120px;
+    height: 50px;
+    margin: auto;
+    border-style: none solid none solid;
+    border-width: 2px;
+    border-color:#c2f0ef;
+    padding: 13px 3px 0px;
+}
+
+.review_album_vote{
+    width: 30px;
+    height: 30px;
+    margin: auto;
+}
+.review_album_vote_form{
+    width: 30px;
+    height: 30px;
+}
+form.review_album_vote_form{
+    display: inline;
+    margin: 5px 10px;
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------------
                                                     FRIENDS SCROLL
