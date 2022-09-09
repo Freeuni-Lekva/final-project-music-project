@@ -74,7 +74,7 @@
 
 .feed_card:hover .feed_card_album_information{
      display: block;
-     font-size: xx-large;
+     font-size: x-large;
      color: #01bdb7;
  }
 
@@ -143,6 +143,7 @@
     bottom: 50px;
     display: block;
     margin: auto;
+    overflow-wrap: break-word;
 }
 
 .feed_card_reviewer{

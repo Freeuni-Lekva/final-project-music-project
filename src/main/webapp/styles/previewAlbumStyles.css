@@ -8,24 +8,66 @@
     width: 99%;
     height: 32%;
     float: top;
-    overflow: scroll;
 }
 
 .left_album {
     width: 55%;
     height: 99%;
     float: left;
+    overflow-wrap: break-word;
 }
 
 .right_album {
-    width: 35%;
+    width: 45%;
     height: 99%;
     float: left;
     overflow: scroll;
 }
 
-.review_album{
-    width: 99%;
-    height: 120px;
-    overflow: scroll;
+.review_album_wrapper{
+    width: 40%;
+    height: auto;
+    margin: 15px 30% 30px;
+    background-color: white;
+    border-style: solid;
+    border-color: #01bdb7;
+    border-radius: 25px;
 }
+
+.review_album_textbox{
+    width: 80%;
+    height: auto;
+    margin: auto;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color:#c2f0ef;
+    overflow-wrap: break-word;
+    font-size: large;
+}
+
+.review_album_vote_panel{
+    width: 120px;
+    height: 50px;
+    margin: auto;
+    border-style: none solid none solid;
+    border-width: 2px;
+    border-color:#c2f0ef;
+    padding: 13px 3px 0px;
+}
+
+.review_album_vote{
+    width: 30px;
+    height: 30px;
+    margin: auto;
+}
+.review_album_vote_form{
+    width: 30px;
+    height: 30px;
+}
+form.review_album_vote_form{
+    display: inline;
+    margin: 5px 10px;
+}
+
+

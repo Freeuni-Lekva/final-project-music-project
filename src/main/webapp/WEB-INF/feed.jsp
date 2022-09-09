@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_styles.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/feedCardStyles.css" />
 </head>
-<body class = "background">
+<body class = "long_background">
     <%@include file="upper_strip.jsp"%>
     <p class="space"></p>
     <%@include file="searchbar.jsp"%>
@@ -50,7 +50,7 @@
         <c:set var="albumUploader" value="${userService.getProfileData(currAlbum.username())}" scope="request"></c:set>
         <div class="feed_card">
             <div class="feed_card_uploader_wrapper">
-                <input type="image" src="${imagePrefix}${albumUploader.profileImageBase64()}" class="feed_card_uploader_image">
+                <img src="${imagePrefix}${albumUploader.profileImageBase64()}" class="feed_card_uploader_image"/>
                 <% PublicUserData pdata = (PublicUserData) request.getAttribute("albumUploader");
                 if(ServiceFactory.getUserService().isActive(pdata.username())){%>
                     <a href="/profile?username=${albumUploader.username()}" class="feed_card_uploader">
@@ -62,12 +62,12 @@
                     <label class="feed_card_uploader_date"> Uploaded at: ${currAlbum.uploadDate()} </label>
             </div>
             <label class="feed_card_type"> New ${type} Posted! </label>
-            <input type="image" src="${imagePrefix}${currAlbum.coverImageBase64()}" class="feed_card_album_image">
+            <img src="${imagePrefix}${currAlbum.coverImageBase64()}" class="feed_card_album_image"/>
             <label class="feed_card_album_information"> Artist: ${currAlbum.artistName()} </label>
             <label class="feed_card_album_information"> Album: ${currAlbum.albumName()} </label>
             <c:if test="${!reviewer.equals(\"\")}">
                 <div class="feed_card_reviewer_wrapper">
-                    <input type="image" src="${imagePrefix}${reviewerImage}" class="feed_card_reviewer_image">
+                    <img src="${imagePrefix}${reviewerImage}" class="feed_card_reviewer_image"/>
                     <% String reviewerUsername = (String) request.getAttribute("reviewer");
                     if(ServiceFactory.getUserService().isActive(reviewerUsername)){%>
                         <a href="/profile?username=${reviewer}" class="feed_card_reviewer">

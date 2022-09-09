@@ -1,5 +1,6 @@
 package org.freeuni.musicforum.controller;
 
+import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.service.ServiceFactory;
 
@@ -16,10 +17,11 @@ public class DeleteReviewServlet extends HttpServlet {
 
         String id = req.getParameter("deleteReviewId");
         ServiceFactory.getReviewService().deleteReview(id);
-        PublicUserData currentUser = (PublicUserData) req.getSession().getAttribute("currentUser");
-        req.setAttribute("user", currentUser);
+        String albumId = req.getParameter("albumId");
+        Album reviewedAlbum = ServiceFactory.getAlbumService().getAlbum(albumId);
+        req.setAttribute("album", reviewedAlbum);
 
-        req.getRequestDispatcher("/WEB-INF/profile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
 
     }
 
