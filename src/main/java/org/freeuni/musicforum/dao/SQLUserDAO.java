@@ -257,9 +257,12 @@ public class SQLUserDAO implements UserDAO {
     private User makeUser(ResultSet rs){
         try{
             Blob b = rs.getBlob("profile_picture");
-            byte[] ba = b.getBytes(1L, (int) b.length());
-            byte[] image64 = Base64.getEncoder().encode(ba);
-            String image= new String(image64);
+            String image = null;
+            if(b != null) {
+                byte[] ba = b.getBytes(1L, (int) b.length());
+                byte[] image64 = Base64.getEncoder().encode(ba);
+                image = new String(image64);
+            }
             User user = new User(rs.getString(3), rs.getString(4), rs.getDate(9),
                     getGenderFromInt(rs.getInt(7)), image,  rs.getString(1),
                     new Password(rs.getString(2), rs.getInt(10)),
