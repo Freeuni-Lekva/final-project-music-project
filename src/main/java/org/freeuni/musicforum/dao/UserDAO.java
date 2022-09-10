@@ -19,8 +19,10 @@ public interface UserDAO {
     void updateBadgeAccordingTo(String username, int prestige);
     void delete(String username);
     void banUser(String username);
+    FriendshipStatus getFriendshipStatus(String fromUsername, String toUsername);
     List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs);
     boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs);
     boolean deleteFriendshipStatus(String fromUsername, String toUsername);
+    void setProfileImageBase64(String username,String base64String);
     List<User> getFiltered(Filter f);
 }
