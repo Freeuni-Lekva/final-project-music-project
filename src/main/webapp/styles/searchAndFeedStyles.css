@@ -46,6 +46,7 @@
 
 .feed_scroll{
     overflow: scroll;
+    width: 99%;
     height: 100%;
 }
 

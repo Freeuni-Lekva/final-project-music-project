@@ -3,11 +3,6 @@ CREATE TABLE genders(
     gender       VARCHAR(20)
 );
 
-CREATE TABLE statuses(
-    id          INT PRIMARY KEY,
-    status      VARCHAR(20)
-);
-
 CREATE TABLE badges(
     id          INT PRIMARY KEY,
     badge       VARCHAR(20)
@@ -32,10 +27,9 @@ CREATE TABLE users(
 CREATE TABLE friendship_data(
     first_username           VARCHAR(80),
     second_username          VARCHAR(80),
-    friendship_status        INT NOT NULL,
+    friendship_status        VARCHAR(25),
     FOREIGN KEY (first_username) REFERENCES users(username),
-    FOREIGN KEY (second_username) REFERENCES users(username),
-    FOREIGN KEY (friendship_status) REFERENCES statuses(id)
+    FOREIGN KEY (second_username) REFERENCES users(username)
 );
 
 CREATE TABLE  albums(
@@ -53,7 +47,7 @@ CREATE TABLE songs(
     name VARCHAR(30) NOT NULL,
     full_name VARCHAR(50) PRIMARY KEY,
     album_name VARCHAR(50) NOT NULL,
-    artist_name VARCHAR(50)
+    artist_name VARCHAR(50),
     FOREIGN KEY (album_id) REFERENCES albums(id)
 );
 
@@ -88,11 +82,6 @@ INSERT INTO genders VALUES
     (0, 'MAN'),
     (1, 'WOMAN'),
     (2, 'OTHER');
-
-INSERT INTO statuses VALUES
-    (0, 'REQUEST SENT'),
-    (1, 'ACCEPT REQUEST'),
-    (2, 'FRIENDS');
 
 INSERT INTO users VALUES
     ('guri', 'bc9c0fa5919718ebf8b576970b8a4335244bc81a8519991757f750dfba4700a8',

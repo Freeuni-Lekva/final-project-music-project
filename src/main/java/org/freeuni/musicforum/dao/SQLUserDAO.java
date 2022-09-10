@@ -52,7 +52,7 @@ public class SQLUserDAO implements UserDAO {
             getStatement.setString(1, username);
             ResultSet resultSet = getStatement.executeQuery();
             if(resultSet.next()){
-                Optional<User> userOptional = Optional.ofNullable(makeUser(resultSet));
+                Optional<User> userOptional = Optional.of(makeUser(resultSet));
                 resultSet.close();
                 getStatement.close();
                 return userOptional;
@@ -149,9 +149,8 @@ public class SQLUserDAO implements UserDAO {
         List<String> usernames = new ArrayList<>();
 
         try{
-            PreparedStatement getStatement = con.prepareStatement("SELECT fd.second_username FROM friendship_data fd "+
-                    "JOIN statuses s on fd.friendship_status = s.id "+
-                    "WHERE fd.first_username = ? AND s.status = ?;");
+            PreparedStatement getStatement = con.prepareStatement("SELECT second_username FROM friendship_data"+
+                    " WHERE first_username = ? AND friendship_status = ?;");
             getStatement.setString(1, username);
             getStatement.setString(2, fs.toString());
             ResultSet rs = getStatement.executeQuery();
@@ -165,24 +164,35 @@ public class SQLUserDAO implements UserDAO {
 
         return usernames;
     }
+
     @Override
     public boolean updateFriendshipStatus(String fromUsername, String toUsername, FriendshipStatus fs) {
         try{
-            PreparedStatement updateStatement = con.prepareStatement("UPDATE friendship_data SET friendship_status = ? "+
-                    "WHERE first_username = ? AND second_username = ?;");
-            int statusNum = -1;
-            if(fs.equals(FriendshipStatus.REQUEST_SENT)){
-                statusNum = 0;
-            } else if (fs.equals(FriendshipStatus.ACCEPT_REQUEST)) {
-                statusNum = 1;
-            } else if(fs.equals(FriendshipStatus.FRIENDS)){
-                statusNum = 2;
+            PreparedStatement checkStatement = con.prepareStatement("SELECT friendship_status " +
+                    "FROM friendship_data WHERE first_username = ? AND second_username = ?;");
+            checkStatement.setString(1, fromUsername);
+            checkStatement.setString(2, toUsername);
+            ResultSet rs = checkStatement.executeQuery();
+            int num;
+            if (rs.next()) {
+                PreparedStatement updateStatement = con.prepareStatement("UPDATE friendship_data SET friendship_status = ? "+
+                        "WHERE first_username = ? AND second_username = ?;");
+                updateStatement.setString(1, fs.toString());
+                updateStatement.setString(2, fromUsername);
+                updateStatement.setString(3, toUsername);
+                num = updateStatement.executeUpdate();
+                updateStatement.close();
+            } else {
+                PreparedStatement insertStatement = con.prepareStatement("INSERT INTO friendship_data(" +
+                        "first_username, second_username, friendship_status) VALUES(?, ?, ?);");
+                insertStatement.setString(1, fromUsername);
+                insertStatement.setString(2, toUsername);
+                insertStatement.setString(3, fs.toString());
+                num = insertStatement.executeUpdate();
+                insertStatement.close();
             }
-            updateStatement.setInt(1, statusNum);
-            updateStatement.setString(2, fromUsername);
-            updateStatement.setString(3, toUsername);
-            int num = updateStatement.executeUpdate();
-            updateStatement.close();
+            rs.close();
+            checkStatement.close();
             return num!=0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -193,7 +203,7 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public boolean deleteFriendshipStatus(String fromUsername, String toUsername) {
         try{
-            PreparedStatement updateStatement = con.prepareStatement("DELETE  FROM friendship_data " +
+            PreparedStatement updateStatement = con.prepareStatement("DELETE FROM friendship_data " +
                     "WHERE first_username = ? AND second_username = ?;");
             updateStatement.setString(1, fromUsername);
             updateStatement.setString(2, toUsername);
@@ -209,9 +219,8 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public FriendshipStatus getFriendshipStatus(String fromUsername, String toUsername) {
         try{
-            PreparedStatement getStatement = con.prepareStatement("SELECT s.status FROM friendship_data fd JOIN statuses s ON " +
-                    "fd.friendship_status = s.id " +
-                    "WHERE fd.first_username = ? AND fd.second_username = ?;");
+            PreparedStatement getStatement = con.prepareStatement("SELECT friendship_status FROM friendship_data " +
+                    "WHERE first_username = ? AND second_username = ?;");
             getStatement.setString(1, fromUsername);
             getStatement.setString(2, toUsername);
             ResultSet rs = getStatement.executeQuery();

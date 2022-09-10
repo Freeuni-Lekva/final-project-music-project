@@ -61,7 +61,7 @@ public class ReviewService {
     public List<Review> filter(Filter f){ return dao.getFiltered(f); }
 
     public void deleteReview(String id) {
-        dao.deleteReview(id);
         ServiceFactory.getVotingDataService().deleteAllVotingDataFor(id);
+        dao.deleteReview(id);
     }
 }
