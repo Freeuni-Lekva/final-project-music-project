@@ -171,11 +171,11 @@ public class SQLUserDAO implements UserDAO {
                     "WHERE first_username = ? AND second_username = ?;");
             int statusNum = -1;
             if(fs.equals(FriendshipStatus.REQUEST_SENT)){
-                statusNum = 1;
+                statusNum = 0;
             } else if (fs.equals(FriendshipStatus.ACCEPT_REQUEST)) {
-                statusNum = 2;
+                statusNum = 1;
             } else if(fs.equals(FriendshipStatus.FRIENDS)){
-                statusNum = 3;
+                statusNum = 2;
             }
             updateStatement.setInt(1, statusNum);
             updateStatement.setString(2, fromUsername);
