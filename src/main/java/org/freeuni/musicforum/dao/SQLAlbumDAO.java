@@ -1,15 +1,13 @@
 package org.freeuni.musicforum.dao;
 
-import jdk.jshell.execution.Util;
+
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
+import org.freeuni.musicforum.model.SearchRequest;
 import org.freeuni.musicforum.model.Song;
-import org.freeuni.musicforum.util.Utils;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,17 +56,52 @@ public class SQLAlbumDAO implements AlbumDAO {
 
     @Override
     public Album getById(String id) {
-        return null;
+        Album alb = null;
+        ArrayList<Song> songs = new ArrayList<>();
+        try{
+            PreparedStatement songStm = con.prepareStatement(
+                "SELECT * FROM songs WHERE album_id=?;");
+            songStm.setString(1, id);
+            ResultSet songRs = songStm.executeQuery();
+            while(songRs.next()) {
+                Song song = new Song(songRs.getString(2), songRs.getString(3), songRs.getString(4),
+                        songRs.getString(5), songRs.getString(6));
+                songs.add(song);
+
+            }
+            songRs.close();
+            songStm.close();
+            PreparedStatement albStm = con.prepareStatement(
+                    "SELECT * FROM albums WHERE id=?;");
+            albStm.setString(1, id);
+            ResultSet rs = albStm.executeQuery();
+            if(rs.next()) {
+                alb = new Album(rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), songs, rs.getString(1), rs.getDate(6));
+            }
+            rs.close();
+            albStm.close();
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return alb;
     }
 
     @Override
     public List<Album> getAllByUser(String username) {
-        return null;
-    }
-
-    @Override
-    public int getAverageStar(String id) {
-        return 0;
+        List<Album> albums = new ArrayList<>();
+        try{
+            PreparedStatement getIDs = con.prepareStatement(
+                    "SELECT id FROM albums WHERE username=?;");
+            getIDs.setString(1, username);
+            ResultSet rs = getIDs.executeQuery();
+            albums = makeListById(rs);
+            rs.close();
+            getIDs.close();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return albums;
     }
 
     @Override
@@ -90,29 +123,56 @@ public class SQLAlbumDAO implements AlbumDAO {
     }
 
     @Override
-    public int calculatePrestigeFor(String id) { return 0; }
-
-    @Override
     public void delete(String id) {
+        try{
+            PreparedStatement removeSongs = con.prepareStatement(
+                    "DELETE FROM songs WHERE album_id=?;");
+            removeSongs.setString(1, id);
+            removeSongs.executeUpdate();
+            removeSongs.close();
 
+            PreparedStatement remove = con.prepareStatement(
+                    "DELETE FROM albums WHERE id=?;");
+            remove.setString(1, id);
+            remove.executeUpdate();
+            remove.close();
+        }catch(Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public List<Album> getFiltered(Filter f) {
-        return null;
+        List<Album> list = new ArrayList<>();
+        try {
+            Statement getStm = con.createStatement();
+            ResultSet rs = getStm.executeQuery("SELECT id " +
+                    "FROM albums;");
+            list = makeListById(rs);
+            rs.close();
+            getStm.close();
+            return list.stream().filter(album ->
+                    f.doFilter(new SearchRequest(album))).toList();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 
-    public static void main(String[] args) {
-        ArrayList<Song> songs = new ArrayList<>();
-        songs.add(new Song("1", "1111", "alb1", "art1", "111"));
-        songs.add(new Song("2", "2222", "alb1", "art1", "222"));
-        Album someting = new Album("us1", "alb1", "art1",
-        "1", songs, Utils.hashText("alb1234" + "art1"), new java.util.Date());
 
-        SQLAlbumDAO dao = new SQLAlbumDAO();
-        dao.add(someting);
-        System.out.println(dao.exists(Utils.hashText("alb1234" + "art1")));
+    private List<Album> makeListById(ResultSet rs) {
+        List<Album> list = new ArrayList<>();
+        try {
+        while (rs.next()) {
+            list.add(getById(rs.getString(1)));
+        }
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
 
     }
+
 
 }
