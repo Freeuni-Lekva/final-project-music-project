@@ -1,6 +1,5 @@
 package service;
 
-import junit.framework.TestCase;
 import org.freeuni.musicforum.dao.AlbumDAO;
 import org.freeuni.musicforum.dao.InMemoryAlbumDAO;
 import org.freeuni.musicforum.exception.AlbumExistsException;
@@ -18,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AlbumServiceTest  extends TestCase {
+public class AlbumServiceTest   {
 
     @Test
     void TestAddAlbum() {

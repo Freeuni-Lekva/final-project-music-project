@@ -20,9 +20,7 @@ public class InMemoryUserDAO implements UserDAO {
                 new User("evangelina", "smith", null, Gender.WOMAN,
                         "eva", new Password("2000"), new Badge(Badge.BadgeEnum.NEWCOMER)),
                 new User("melanie", "dorkus", null, Gender.WOMAN,
-                        "melanie1996", new Password("A_B_C*"), new Badge(Badge.BadgeEnum.NEWCOMER)),
-                new User("ushi", "hagayana", null, Gender.OTHER,
-                        "u#700", new Password("ushi"), new Badge(Badge.BadgeEnum.NEWCOMER))));
+                        "melanie1996", new Password("A_B_C*"), new Badge(Badge.BadgeEnum.NEWCOMER))));
 
         users.get(0).getFriends().put("eva", FriendshipStatus.FRIENDS);
         users.get(1).getFriends().put("guri", FriendshipStatus.FRIENDS);

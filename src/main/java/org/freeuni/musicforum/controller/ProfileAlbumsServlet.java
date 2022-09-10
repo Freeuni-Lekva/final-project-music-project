@@ -16,13 +16,18 @@ public class ProfileAlbumsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String username = req.getParameter("username");
-        PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
-        if(userData.status().equals(Status.BANNED)){
-            throw new NoSuchUserExistsException("User with username "+ username+" does not exist.");
+        PublicUserData currUser = (PublicUserData) req.getSession().getAttribute("currentUser");
+        if (currUser == null || currUser.status().equals(Status.BANNED)) {
+            req.getRequestDispatcher("").forward(req, resp);
+        } else {
+            String username = req.getParameter("username");
+            PublicUserData userData = ServiceFactory.getUserService().getProfileData(username);
+            if (userData.status().equals(Status.BANNED)) {
+                throw new NoSuchUserExistsException("User with username " + username + " does not exist.");
+            }
+            req.setAttribute("user", userData);
+            req.getRequestDispatcher("WEB-INF/profile.jsp").forward(req, resp);
         }
-        req.setAttribute("user", userData);
-        req.getRequestDispatcher("WEB-INF/profile.jsp").forward(req, resp);
 
     }
 

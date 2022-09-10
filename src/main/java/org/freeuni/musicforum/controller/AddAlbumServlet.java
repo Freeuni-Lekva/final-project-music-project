@@ -4,6 +4,7 @@ import org.freeuni.musicforum.fileProcessor.FileProcessor;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.PublicUserData;
 import org.freeuni.musicforum.model.Song;
+import org.freeuni.musicforum.model.Status;
 import org.freeuni.musicforum.service.AlbumService;
 import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.util.Utils;
@@ -25,7 +26,7 @@ public class AddAlbumServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         PublicUserData user = (PublicUserData) req.getSession().getAttribute("currentUser");
-        if (user == null) {
+        if (user == null || user.status().equals(Status.BANNED)) {
             req.getRequestDispatcher("").forward(req, resp);
         } else {
             req.getSession().setAttribute("uploader", user.username());
