@@ -169,7 +169,15 @@ public class SQLUserDAO implements UserDAO {
         try{
             PreparedStatement updateStatement = con.prepareStatement("UPDATE friendship_data SET friendship_status = ? "+
                     "WHERE first_username = ? AND second_username = ?;");
-            updateStatement.setString(1, fs.toString());
+            int statusNum = -1;
+            if(fs.equals(FriendshipStatus.REQUEST_SENT)){
+                statusNum = 1;
+            } else if (fs.equals(FriendshipStatus.ACCEPT_REQUEST)) {
+                statusNum = 2;
+            } else if(fs.equals(FriendshipStatus.FRIENDS)){
+                statusNum = 3;
+            }
+            updateStatement.setInt(1, statusNum);
             updateStatement.setString(2, fromUsername);
             updateStatement.setString(3, toUsername);
             int num = updateStatement.executeUpdate();
