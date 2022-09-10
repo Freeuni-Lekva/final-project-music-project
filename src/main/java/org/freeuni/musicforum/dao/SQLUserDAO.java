@@ -24,7 +24,7 @@ public class SQLUserDAO implements UserDAO {
 
         try{
             PreparedStatement addStatement = con.prepareStatement("INSERT INTO users"+
-                    "(username, password, first_name, last_name, status, badge, gender, profile_picture, birth_date) "+
+                    "(username, password, first_name, last_name, status, badge, gender, profile_picture, birth_date, password_length) "+
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             addStatement.setString(1, user.getUsername());
             addStatement.setString(2, user.getPassword().hashed());
@@ -36,7 +36,7 @@ public class SQLUserDAO implements UserDAO {
             addStatement.setString(8, user.getProfileImageBase64());
             addStatement.setDate(9, new java.sql.Date(user.getBirthDate().getTime()));
             addStatement.setInt(10, user.getPassword().getPasswordSize());
-            addStatement.executeQuery();
+            addStatement.executeUpdate();
             addStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,10 +47,10 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public Optional<User> getByUsername(String username) {
         try{
-            PreparedStatement getStatement = con.prepareStatement("SELECT username FROM users WHERE username = ?;");
+            PreparedStatement getStatement = con.prepareStatement("SELECT * FROM users WHERE username = ?;");
             getStatement.setString(1, username);
             ResultSet resultSet = getStatement.executeQuery();
-            if(!resultSet.next()){
+            if(resultSet.next()){
                 Optional<User> userOptional = Optional.of(makeUser(resultSet));
                 resultSet.close();
                 getStatement.close();
@@ -150,7 +150,7 @@ public class SQLUserDAO implements UserDAO {
         try{
             PreparedStatement getStatement = con.prepareStatement("SELECT fd.second_username FROM friendship_data fd "+
                     "JOIN statuses s on fd.friendship_status = s.id "+
-                    "WHERE fd.first_username = ? AND s.status = ?");
+                    "WHERE fd.first_username = ? AND s.status = ?;");
             getStatement.setString(1, username);
             getStatement.setString(2, fs.toString());
             ResultSet rs = getStatement.executeQuery();
@@ -202,7 +202,7 @@ public class SQLUserDAO implements UserDAO {
         try{
             PreparedStatement getStatement = con.prepareStatement("SELECT s.status FROM friendship_data fd JOIN statuses s ON " +
                     "fd.friendship_status = s.id " +
-                    "WHERE first_username = ? AND second_username = ?;");
+                    "WHERE fd.first_username = ? AND fd.second_username = ?;");
             getStatement.setString(1, fromUsername);
             getStatement.setString(2, toUsername);
             ResultSet rs = getStatement.executeQuery();
@@ -226,7 +226,7 @@ public class SQLUserDAO implements UserDAO {
         List<User> users = new ArrayList<>();
 
         try{
-            PreparedStatement getStatement = con.prepareStatement("SELECT* FROM users;");
+            PreparedStatement getStatement = con.prepareStatement("SELECT * FROM users;");
             ResultSet rs = getStatement.executeQuery();
 
             while(rs.next()){
@@ -251,7 +251,6 @@ public class SQLUserDAO implements UserDAO {
                     getGenderFromInt(rs.getInt(7)), rs.getString(1),
                     new Password(rs.getString(2), rs.getInt(10)),
                     getBadgeFromInt(rs.getInt(6)));
-
             return user;
 
         }catch (SQLException e){
