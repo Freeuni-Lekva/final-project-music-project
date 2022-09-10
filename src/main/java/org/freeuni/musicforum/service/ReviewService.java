@@ -51,15 +51,11 @@ public class ReviewService {
     }
 
     public void upvoteReview(String reviewId) {
-        if (!dao.upvoteReview(reviewId)) {
-            throw new UnsuccessfulReviewException("No such review exists");
-        }
+        dao.upvoteReview(reviewId);
     }
 
     public void downvoteReview(String reviewId) {
-        if (!dao.downvoteReview(reviewId)) {
-            throw new UnsuccessfulReviewException("No such review exists");
-        }
+        dao.downvoteReview(reviewId);
     }
 
     public List<Review> filter(Filter f){ return dao.getFiltered(f); }

@@ -109,18 +109,6 @@ public class ReviewServiceTest {
     }
 
     @Test
-    void testIncorrectVoting() {
-        String r1Id = "Random_Nothing1";
-        String r2Id = "Random_Nothing2";
-        String expectedErrorMessage = "No such review exists";
-
-        Exception ex1 = assertThrows(UnsuccessfulReviewException.class, (()-> service.upvoteReview(r1Id)));
-        assertEquals(expectedErrorMessage, ex1.getMessage());
-        Exception ex2 = assertThrows(UnsuccessfulReviewException.class, (()-> service.downvoteReview(r2Id)));
-        assertEquals(expectedErrorMessage, ex2.getMessage());
-    }
-
-    @Test
     void testCorrectVoting() {
         Review r1 = new Review("0", "0", "norm", 3);
         Review r2 = new Review("4", "11", "meh", 2);
@@ -130,8 +118,9 @@ public class ReviewServiceTest {
         service.postReview(r1);
         service.postReview(r2);
 
-        assertDoesNotThrow(() -> service.upvoteReview(r1Id));
-        assertDoesNotThrow(() -> service.downvoteReview(r2Id));
+        service.upvoteReview(r1Id);
+        service.downvoteReview(r2Id);
+
         assertEquals(2, r1.getPrestige());
         assertEquals(0, r2.getPrestige());
     }
