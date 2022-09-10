@@ -1,8 +1,8 @@
 package service;
 
+import org.freeuni.musicforum.dao.InMemoryReviewDAO;
 import org.freeuni.musicforum.exception.UnsuccessfulReviewException;
 import org.freeuni.musicforum.model.Review;
-import org.freeuni.musicforum.service.ServiceFactory;
 import org.freeuni.musicforum.service.ReviewService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ReviewServiceTest {
 
-    private static final ReviewService service = ServiceFactory.getReviewService();
+    private static final ReviewService service = new ReviewService(new InMemoryReviewDAO());
 
     @BeforeAll
     static void init() {

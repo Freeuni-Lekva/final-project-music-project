@@ -12,7 +12,7 @@ import java.util.List;
 public class ReviewService {
     private final ReviewDAO dao;
 
-    ReviewService(ReviewDAO dao) {
+    public ReviewService(ReviewDAO dao) {
         this.dao = dao;
     }
 
