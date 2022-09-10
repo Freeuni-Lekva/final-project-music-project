@@ -3,11 +3,10 @@ package org.freeuni.musicforum.dao;
 import org.freeuni.musicforum.model.*;
 import org.freeuni.musicforum.filter.Filter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,9 @@ public class SQLUserDAO implements UserDAO {
             addStatement.setInt(5, 1);
             addStatement.setInt(6, user.getBadge().getBadgeIntValue());
             addStatement.setInt(7, user.getGenderIntValue());
-            addStatement.setString(8, user.getProfileImageBase64());
+            byte[] decodedByte = Base64.getDecoder().decode(user.getProfileImageBase64());
+            Blob image = new SerialBlob(decodedByte);
+            addStatement.setBlob(8, image);
             addStatement.setDate(9, new java.sql.Date(user.getBirthDate().getTime()));
             addStatement.setInt(10, user.getPassword().getPasswordSize());
             addStatement.executeUpdate();
@@ -51,7 +52,7 @@ public class SQLUserDAO implements UserDAO {
             getStatement.setString(1, username);
             ResultSet resultSet = getStatement.executeQuery();
             if(resultSet.next()){
-                Optional<User> userOptional = Optional.of(makeUser(resultSet));
+                Optional<User> userOptional = Optional.ofNullable(makeUser(resultSet));
                 resultSet.close();
                 getStatement.close();
                 return userOptional;
@@ -247,8 +248,12 @@ public class SQLUserDAO implements UserDAO {
 
     private User makeUser(ResultSet rs){
         try{
+            Blob b = rs.getBlob("profile_picture");
+            byte[] ba = b.getBytes(1L, (int) b.length());
+            byte[] image64 = Base64.getEncoder().encode(ba);
+            String image= new String(image64);
             User user = new User(rs.getString(3), rs.getString(4), rs.getDate(9),
-                    getGenderFromInt(rs.getInt(7)), rs.getString(1),
+                    getGenderFromInt(rs.getInt(7)), image,  rs.getString(1),
                     new Password(rs.getString(2), rs.getInt(10)),
                     getBadgeFromInt(rs.getInt(6)));
             return user;
@@ -265,7 +270,9 @@ public class SQLUserDAO implements UserDAO {
         try{
             PreparedStatement updateStatement = con.prepareStatement("UPDATE users SET profile_picture = ? "+
                     "WHERE username = ?;");
-            updateStatement.setString(1, base64String);
+            byte[] decodedByte = Base64.getDecoder().decode(base64String);
+            Blob image = new SerialBlob(decodedByte);
+            updateStatement.setBlob(1, image);
             updateStatement.setString(2, username);
             updateStatement.executeUpdate();
             updateStatement.close();

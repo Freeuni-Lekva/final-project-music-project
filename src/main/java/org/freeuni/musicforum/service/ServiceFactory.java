@@ -13,13 +13,13 @@ public final class ServiceFactory {
 
     private static VotingDataService votingDataService;
 
-    private static final UserDAO USER_DAO = new InMemoryUserDAO();
+    private static final UserDAO USER_DAO = new SQLUserDAO();
 
-    private static final AlbumDAO ALBUM_DAO = new InMemoryAlbumDAO();
+    private static final AlbumDAO ALBUM_DAO = new SQLAlbumDAO();
 
-    private static final ReviewDAO REVIEW_DAO = new InMemoryReviewDAO();
+    private static final ReviewDAO REVIEW_DAO = new SQLReviewDAO();
 
-    private static final VotingDataDAO VOTING_DATA_DAO = new InMemoryVotingDataDAO();
+    private static final VotingDataDAO VOTING_DATA_DAO = new SQLVotingDataDAO();
 
     public static UserService getUserService() {
         if(userService != null) return userService;

@@ -45,10 +45,9 @@ public class RegisterServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         User newUser = new User(
-                firstName, lastName, birthDate, gender, username,
+                firstName, lastName, birthDate, gender, setDefaultProfilePicture(req), username,
                 new Password(password), new Badge(Badge.BadgeEnum.NEWCOMER)
         );
-        setDefaultProfilePicture(req, newUser);
         UserService userService = ServiceFactory.getUserService();
         try {
             userService.signUp(newUser);
@@ -63,11 +62,10 @@ public class RegisterServlet extends HttpServlet {
 
     }
 
-    private void setDefaultProfilePicture(HttpServletRequest req, User newUser) throws IOException {
+    private String setDefaultProfilePicture(HttpServletRequest req) throws IOException {
         String pathToDefault = "images/profile-images/default.jpg";
         File defaultProfile = new File(FileProcessor.getFullPath(req, pathToDefault));
-        String profileImage = FileProcessor.getBase64EncodedString(defaultProfile);
-        newUser.setProfileImageBase64(profileImage);
+        return FileProcessor.getBase64EncodedString(defaultProfile);
     }
 
 }

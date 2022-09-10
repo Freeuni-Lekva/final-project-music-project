@@ -21,10 +21,22 @@ public class User {
                 String username,
                 Password password,
                 Badge badge) {
+        new User(firstName, lastName, birthDate, gender, null, username, password, badge);
+
+    }
+    public User(String firstName,
+                String lastName,
+                Date birthDate,
+                Gender gender,
+                String profileImageBase64,
+                String username,
+                Password password,
+                Badge badge) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
+        this.profileImageBase64 = profileImageBase64;
         this.username = username;
         this.password = password;
         this.badge = badge;

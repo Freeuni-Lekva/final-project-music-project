@@ -7,8 +7,10 @@ import org.freeuni.musicforum.model.SearchRequest;
 import org.freeuni.musicforum.model.Song;
 
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class SQLAlbumDAO implements AlbumDAO {
@@ -28,7 +30,9 @@ public class SQLAlbumDAO implements AlbumDAO {
             add.setString(2, album.username());
             add.setString(3, album.albumName());
             add.setString(4, album.artistName());
-            add.setString(5, album.coverImageBase64());
+            byte[] decodedByte = Base64.getDecoder().decode(album.coverImageBase64());
+            Blob image = new SerialBlob(decodedByte);
+            add.setBlob(5, image);
             add.setDate(6, new java.sql.Date(album.uploadDate().getTime()));
             add.executeUpdate();
 
@@ -43,7 +47,9 @@ public class SQLAlbumDAO implements AlbumDAO {
                 addSongs.setString(3, song.songName());
                 addSongs.setString(4, album.albumName());
                 addSongs.setString(5, album.artistName());
-                addSongs.setString(6, song.songBase64());
+                byte[] decodedByteS = Base64.getDecoder().decode(song.songBase64());
+                Blob songBlob = new SerialBlob(decodedByteS);
+                addSongs.setBlob(6, songBlob);
                 addSongs.executeUpdate();
 
             }
@@ -64,8 +70,12 @@ public class SQLAlbumDAO implements AlbumDAO {
             songStm.setString(1, id);
             ResultSet songRs = songStm.executeQuery();
             while(songRs.next()) {
+                Blob b = songRs.getBlob("song_content");
+                byte[] ba = b.getBytes(1L, (int) b.length());
+                byte[] song64 = Base64.getEncoder().encode(ba);
+                String songStr= new String(song64);
                 Song song = new Song(songRs.getString(2), songRs.getString(3), songRs.getString(4),
-                        songRs.getString(5), songRs.getString(6));
+                        songRs.getString(5), songStr);
                 songs.add(song);
 
             }
@@ -76,8 +86,12 @@ public class SQLAlbumDAO implements AlbumDAO {
             albStm.setString(1, id);
             ResultSet rs = albStm.executeQuery();
             if(rs.next()) {
+                Blob b = rs.getBlob("cover_image");
+                byte[] ba = b.getBytes(1L, (int) b.length());
+                byte[] img64 = Base64.getEncoder().encode(ba);
+                String photo64 = new String(img64);
                 alb = new Album(rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), songs, rs.getString(1), rs.getDate(6));
+                        photo64, songs, rs.getString(1), rs.getDate(6));
             }
             rs.close();
             albStm.close();

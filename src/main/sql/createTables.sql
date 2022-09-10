@@ -22,7 +22,7 @@ CREATE TABLE users(
     status           INT,  /* 0 - banned, 1-active */
     badge            INT  NOT NULL,
     gender           INT  NOT NULL,
-    profile_picture  TEXT,
+    profile_picture  LONGBLOB,
     birth_date       DATE,
     password_length  INT,
     FOREIGN KEY (badge) REFERENCES badges(id),
@@ -43,7 +43,7 @@ CREATE TABLE  albums(
     username VARCHAR(80) NOT NULL,
     album_name VARCHAR(80) NOT NULL,
     artist_name VARCHAR(80) NOT NULL,
-    cover_image TEXT NOT NULL,
+    cover_image LONGBLOB NOT NULL,
     upload_date DATE NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
 );
@@ -54,7 +54,7 @@ CREATE TABLE songs(
     full_name VARCHAR(50) PRIMARY KEY,
     album_name VARCHAR(50) NOT NULL,
     artist_name VARCHAR(50),
-    song_content TEXT NOT NULL,
+    song_content LONGBLOB NOT NULL,
     FOREIGN KEY (album_id) REFERENCES albums(id)
 );
 
