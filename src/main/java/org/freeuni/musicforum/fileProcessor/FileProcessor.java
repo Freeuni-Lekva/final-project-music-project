@@ -15,7 +15,6 @@ import java.util.Base64;
 public class FileProcessor {
 
     public static final String IMAGE_HTML_PREFIX_BASE64 = "data:image/*;base64,";
-    public static final String AUDIO_HTML_PREFIX_BASE64 = "data:audio/mpeg;base64,";
 
     private Part part;
     private String fileName;

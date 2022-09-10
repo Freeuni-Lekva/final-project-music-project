@@ -56,12 +56,13 @@
         </form>
         <p class = "space"></p>
         </c:if>
+        <ol>
         <c:forEach var="song" items="${album.songs()}">
             <p class="space"></p>
-            <p class="text">${song.name()}</p>
-            <audio src="${audioPrefix}<c:out value="${song.songBase64()}"/>" controls></audio>
+            <li><p class="text">${song.name()}</p></li>
             <br/>
         </c:forEach>
+        </ol>
     </div>
 </div>
 

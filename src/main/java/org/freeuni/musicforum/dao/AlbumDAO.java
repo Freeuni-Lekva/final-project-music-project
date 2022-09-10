@@ -3,12 +3,16 @@ package org.freeuni.musicforum.dao;
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.Review;
+import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.service.ServiceFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface AlbumDAO {
     void add(Album album);
+
+    void addSongs(String id, ArrayList<Song> songs);
 
     Album getById(String id);
 

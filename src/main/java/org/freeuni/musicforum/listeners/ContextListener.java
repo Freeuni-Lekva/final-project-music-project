@@ -20,7 +20,6 @@ public class ContextListener implements ServletContextListener {
         context.setAttribute("reviewService", ServiceFactory.getReviewService());
         context.setAttribute("userService", ServiceFactory.getUserService());
         context.setAttribute("imagePrefix", FileProcessor.IMAGE_HTML_PREFIX_BASE64);
-        context.setAttribute("audioPrefix", FileProcessor.AUDIO_HTML_PREFIX_BASE64);
         context.setAttribute("activity", Activity.getActivityLog());
     }
 

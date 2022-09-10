@@ -205,9 +205,9 @@ public class AlbumServiceTest   {
                 null, new ArrayList<>(), id1, new Date());
         service.addNewAlbum(firstAlb);
 
-        Song song1 = new Song("song1", "song1FullName", albumName, artistName, null);
-        Song song2 = new Song("song2", "song2FullName", albumName, artistName, null);
-        Song song3 = new Song("song3", "song3FullName", albumName, artistName, null);
+        Song song1 = new Song("song1", "song1FullName", albumName, artistName);
+        Song song2 = new Song("song2", "song2FullName", albumName, artistName);
+        Song song3 = new Song("song3", "song3FullName", albumName, artistName);
         ArrayList<Song> songs = new ArrayList<>();
         songs.add(song1);
         songs.add(song2);

@@ -3,6 +3,7 @@ package org.freeuni.musicforum.dao;
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.SearchRequest;
+import org.freeuni.musicforum.model.Song;
 import org.freeuni.musicforum.util.Utils;
 
 import java.util.*;
@@ -21,6 +22,12 @@ public class InMemoryAlbumDAO implements AlbumDAO{
     @Override
     public void add(Album album) {
         albums.put(album.id(), album);
+    }
+
+    @Override
+    public void addSongs(String id, ArrayList<Song> songs) {
+        Album album = getById(id);
+        album.songs().addAll(songs);
     }
 
     @Override

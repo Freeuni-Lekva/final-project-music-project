@@ -38,11 +38,8 @@
                     <label for="name" class="text"> Name of The Song </label>
                     <input minlength="1" type="text" id="name" name="name${num}" class="textbox" required/>
                     <p class="space"></p>
-                    <input type="file" id="song" name="song${num}" accept="audio/mpeg" class="browse_files" required>
-                    <p class="big_space"></p>
                 </li>
             </c:forEach>
-
             </ol>
             <input type="submit" value="Add Songs" class="text" class="button"/>
             <p class="big_space"></p>

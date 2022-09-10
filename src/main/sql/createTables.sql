@@ -53,8 +53,7 @@ CREATE TABLE songs(
     name VARCHAR(30) NOT NULL,
     full_name VARCHAR(50) PRIMARY KEY,
     album_name VARCHAR(50) NOT NULL,
-    artist_name VARCHAR(50),
-    song_content LONGBLOB NOT NULL,
+    artist_name VARCHAR(50)
     FOREIGN KEY (album_id) REFERENCES albums(id)
 );
 

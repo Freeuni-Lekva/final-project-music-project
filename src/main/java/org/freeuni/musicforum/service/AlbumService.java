@@ -8,6 +8,8 @@ import org.freeuni.musicforum.exception.NonexistentAlbumException;
 import org.freeuni.musicforum.filter.Filter;
 import org.freeuni.musicforum.model.Album;
 import org.freeuni.musicforum.model.Song;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumService {
@@ -24,10 +26,9 @@ public class AlbumService {
         Activity.getActivityLog().addLog(ActivityLog.ActivityType.NEW_ALBUM, album.id());
     }
 
-    public void addSongs(String id, List<Song> songs) {
+    public void addSongs(String id, ArrayList<Song> songs) {
         if(!dao.exists(id)) throw new NonexistentAlbumException();
-        Album album = dao.getById(id);
-        album.songs().addAll(songs);
+        dao.addSongs(id,songs);
     }
 
     public boolean exists(String id) {

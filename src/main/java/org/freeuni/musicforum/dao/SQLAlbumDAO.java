@@ -38,8 +38,8 @@ public class SQLAlbumDAO implements AlbumDAO {
 
 
             PreparedStatement addSongs = con.prepareStatement(
-                    "INSERT INTO songs (album_id, name, full_name, album_name, artist_name, song_content)" +
-                            "VALUES (?, ?, ?, ?, ?, ?);");
+                    "INSERT INTO songs (album_id, name, full_name, album_name, artist_name)" +
+                            "VALUES (?, ?, ?, ?, ?);");
             ArrayList<Song> songs = album.songs();
             for (Song song:songs) {
                 addSongs.setString(1, album.id());
@@ -47,15 +47,34 @@ public class SQLAlbumDAO implements AlbumDAO {
                 addSongs.setString(3, song.songName());
                 addSongs.setString(4, album.albumName());
                 addSongs.setString(5, album.artistName());
-                byte[] decodedByteS = Base64.getDecoder().decode(song.songBase64());
-                Blob songBlob = new SerialBlob(decodedByteS);
-                addSongs.setBlob(6, songBlob);
                 addSongs.executeUpdate();
 
             }
             addSongs.close();
             add.close();
         } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addSongs(String id, ArrayList<Song> songs) {
+        try{
+            PreparedStatement addSongs = con.prepareStatement(
+                    "INSERT INTO songs (album_id, name, full_name, album_name, artist_name)" +
+                            "VALUES (?, ?, ?, ?, ?);");
+            Album alb = getById(id);
+            for (Song song:songs) {
+                addSongs.setString(1, alb.id());
+                addSongs.setString(2, song.name());
+                addSongs.setString(3, song.songName());
+                addSongs.setString(4, alb.albumName());
+                addSongs.setString(5, alb.artistName());
+                addSongs.executeUpdate();
+            }
+            addSongs.close();
+
+        }catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -70,12 +89,8 @@ public class SQLAlbumDAO implements AlbumDAO {
             songStm.setString(1, id);
             ResultSet songRs = songStm.executeQuery();
             while(songRs.next()) {
-                Blob b = songRs.getBlob("song_content");
-                byte[] ba = b.getBytes(1L, (int) b.length());
-                byte[] song64 = Base64.getEncoder().encode(ba);
-                String songStr= new String(song64);
                 Song song = new Song(songRs.getString(2), songRs.getString(3), songRs.getString(4),
-                        songRs.getString(5), songStr);
+                        songRs.getString(5));
                 songs.add(song);
 
             }

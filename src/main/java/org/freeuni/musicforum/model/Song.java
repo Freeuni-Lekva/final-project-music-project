@@ -4,6 +4,5 @@ public record Song(
         String name,
         String songName,
         String albumName,
-        String artistName,
-        String songBase64
+        String artistName
 ) {}
