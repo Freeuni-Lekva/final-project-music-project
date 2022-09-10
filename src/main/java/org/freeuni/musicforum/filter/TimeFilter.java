@@ -2,14 +2,13 @@ package org.freeuni.musicforum.filter;
 
 import org.freeuni.musicforum.model.SearchRequest;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-public class timeFilter implements Filter{
+public class TimeFilter implements Filter{
 
     private Date dateToCompare;
 
-    public timeFilter(Date dateToCompare){
+    public TimeFilter(Date dateToCompare){
         this.dateToCompare = dateToCompare;
     }
 

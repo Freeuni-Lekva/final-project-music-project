@@ -2,11 +2,11 @@ package org.freeuni.musicforum.filter;
 
 import org.freeuni.musicforum.model.SearchRequest;
 
-public class searchBarFilter implements Filter{
+public class SearchBarFilter implements Filter{
 
     private String key;
 
-    public searchBarFilter(String key){
+    public SearchBarFilter(String key){
         this.key = key.toLowerCase();
     }
     @Override

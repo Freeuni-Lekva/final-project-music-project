@@ -16,7 +16,7 @@ public class SearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String searchBy = request.getParameter("searchBy");
-        filterManager fm = customFilterManager(request);
+        FilterManager fm = customFilterManager(request);
 
 
         if(searchBy.equals("Users")){
@@ -31,34 +31,34 @@ public class SearchServlet extends HttpServlet {
 
     }
 
-    public filterManager customFilterManager(HttpServletRequest request){
+    public FilterManager customFilterManager(HttpServletRequest request){
         String scope = request.getParameter("scope");
         String time = request.getParameter("time");
         String key = request.getParameter("search-bar");
         PublicUserData currUser = (PublicUserData)request.getSession().getAttribute("currentUser");
 
 
-        filterManager fm = new filterManager();
+        FilterManager fm = new FilterManager();
 
         if(scope.equals("Friends")){
-            fm.add(new scopeFilter(currUser.username()));
+            fm.add(new ScopeFilter(currUser.username()));
         }
 
         Calendar calendar = Calendar.getInstance();
 
         if(time.equals("Last Week")){
             calendar.add(Calendar.DAY_OF_MONTH, -7);
-            fm.add(new timeFilter(calendar.getTime()));
+            fm.add(new TimeFilter(calendar.getTime()));
         } else if(time.equals("Last Month")){
             calendar.add(Calendar.MONTH, -1);
-            fm.add(new timeFilter(calendar.getTime()));
+            fm.add(new TimeFilter(calendar.getTime()));
         }
 
         if(!key.equals("")){
-            fm.add(new searchBarFilter(key));
+            fm.add(new SearchBarFilter(key));
         }
 
-        fm.add(new bannedUserFilter());
+        fm.add(new BannedUserFilter());
 
         return fm;
     }

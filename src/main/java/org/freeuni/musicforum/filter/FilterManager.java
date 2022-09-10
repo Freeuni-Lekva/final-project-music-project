@@ -5,11 +5,11 @@ import org.freeuni.musicforum.model.SearchRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class filterManager implements Filter{
+public class FilterManager implements Filter{
 
     private List<Filter> filters;
 
-    public filterManager() {
+    public FilterManager() {
         filters = new ArrayList<>();
     }
 

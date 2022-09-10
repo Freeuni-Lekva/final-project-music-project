@@ -4,11 +4,11 @@ package org.freeuni.musicforum.filter;
 import org.freeuni.musicforum.model.FriendshipStatus;
 import org.freeuni.musicforum.model.SearchRequest;
 
-public class scopeFilter implements Filter{
+public class ScopeFilter implements Filter{
 
     private String username;
 
-    public scopeFilter(String username){
+    public ScopeFilter(String username){
         this.username = username;
     }
 
