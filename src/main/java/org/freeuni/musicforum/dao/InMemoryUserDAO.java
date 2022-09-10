@@ -26,6 +26,7 @@ public class InMemoryUserDAO implements UserDAO {
 
         users.get(0).getFriends().put("eva", FriendshipStatus.FRIENDS);
         users.get(1).getFriends().put("guri", FriendshipStatus.FRIENDS);
+
     }
 
     @Override
@@ -72,6 +73,17 @@ public class InMemoryUserDAO implements UserDAO {
     }
 
     @Override
+    public FriendshipStatus getFriendshipStatus(String fromUsername, String toUsername) {
+        Optional<User> user = getByUsername(fromUsername);
+
+        if(user.isPresent()){
+            return user.get().getFriends().get(toUsername);
+        }
+        return null;
+
+    }
+
+    @Override
     public List<String> getUsersByFriendshipStatus(String username, FriendshipStatus fs) {
         Optional<User> user = getByUsername(username);
         if(user.isPresent()){
@@ -101,6 +113,14 @@ public class InMemoryUserDAO implements UserDAO {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setProfileImageBase64(String username, String base64String) {
+        Optional<User> user = getByUsername(username);
+        if(user.isPresent()){
+            user.get().setProfileImageBase64(base64String);
+        }
     }
 
     public List<User> getFiltered(Filter f){

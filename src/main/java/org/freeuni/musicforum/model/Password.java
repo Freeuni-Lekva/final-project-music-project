@@ -11,6 +11,11 @@ public class Password {
         this.hashed = Utils.hashText(clearText);
     }
 
+    public Password(String hashed, int cleartextLen){
+        this.hashed = hashed;
+        this.clearTextLen = cleartextLen;
+    }
+
     public String hashed() {
         return hashed;
     }

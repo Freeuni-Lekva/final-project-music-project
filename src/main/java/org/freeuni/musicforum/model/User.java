@@ -71,6 +71,16 @@ public class User {
         return friends;
     }
 
+    public int getGenderIntValue(){
+        if(gender==Gender.MAN){
+            return 0;
+        } else if(gender==Gender.WOMAN){
+            return 1;
+        } else if(gender==Gender.OTHER){
+            return 2;
+        }
+        return -1;
+    }
 
     public void setProfileImageBase64(String profileImageBase64){
         this.profileImageBase64 = profileImageBase64;

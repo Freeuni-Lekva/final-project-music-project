@@ -32,17 +32,31 @@ public class Badge {
 
     private void makeContributor() {
         if (this.badge.compareTo(BadgeEnum.CONTRIBUTOR) < 0)
-        this.badge = BadgeEnum.CONTRIBUTOR;
+            this.badge = BadgeEnum.CONTRIBUTOR;
     }
 
     private void makeEnthusiast() {
         if (this.badge.compareTo(BadgeEnum.ENTHUSIAST) < 0)
-        this.badge = BadgeEnum.ENTHUSIAST;
+            this.badge = BadgeEnum.ENTHUSIAST;
+    }
+
+    public int getBadgeIntValue(){
+        if(badge==BadgeEnum.ADMINISTRATOR){
+            return 0;
+        } else if(badge==BadgeEnum.NEWCOMER){
+            return 1;
+        } else if(badge==BadgeEnum.CONTRIBUTOR){
+            return 2;
+        } else if(badge==Badge.BadgeEnum.ENTHUSIAST){
+            return 3;
+        }
+        return -1;
     }
 
     @Override
     public String toString() {
         return this.badge.name();
     }
+
 
 }

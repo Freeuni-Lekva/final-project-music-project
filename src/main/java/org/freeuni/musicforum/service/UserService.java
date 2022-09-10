@@ -77,15 +77,17 @@ public class UserService {
 
 
     public FriendshipStatus getFriendshipStatus(String fromUsername, String toUsername){
-        User user = getUserIfExists(fromUsername);
         if(!dao.doesExist(toUsername)){
             throw new NoSuchUserExistsException("" +
                     "User with provided username " +  toUsername + " does not exist");
         }
-        if (!user.getFriends().containsKey(toUsername)) {
-            return null;
+
+        if(dao.doesExist(fromUsername)){
+            throw new NoSuchUserExistsException("" +
+                    "User with provided username " +  toUsername + " does not exist");
         }
-        return user.getFriends().get(toUsername);
+
+        return dao.getFriendshipStatus(fromUsername, toUsername);
     }
 
     public void sendFriendRequest(String fromUsername, String toUsername){
@@ -139,18 +141,15 @@ public class UserService {
     }
 
     public void updateProfilePicture(String username, String base64String){
-        User u = getUserIfExists(username);
-        u.setProfileImageBase64(base64String);
+        if(dao.doesExist(username)){
+            dao.setProfileImageBase64(username, base64String);
+        }
+
+        throw new NoSuchUserExistsException("" +
+                "User with provided username " +  username + " does not exist");
     }
 
-    private User getUserIfExists(String username) {
-        Optional<User> userOptional = dao.getByUsername(username);
-        if (userOptional.isPresent()) {
-            return userOptional.get();
-        }
-        throw new NoSuchUserExistsException("" +
-                "User with provided username " + username + " does not exist");
-    }
+
 
     public List<User> filter(Filter f){
         return dao.getFiltered(f);
