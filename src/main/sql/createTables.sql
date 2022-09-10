@@ -22,7 +22,7 @@ CREATE TABLE users(
     status           INT,  /* 0 - banned, 1-active */
     badge            INT  NOT NULL,
     gender           INT  NOT NULL,
-    profile_picture  VARCHAR(20),
+    profile_picture  TEXT,
     birth_date       DATE,
     password_length  INT,
     FOREIGN KEY (badge) REFERENCES badges(id),
@@ -41,12 +41,13 @@ CREATE TABLE friendship_data(
 CREATE TABLE reviews(
     id VARCHAR(160) PRIMARY KEY,
     review_text VARCHAR(1000),
-    album_id VARCHAR(160) NOT NULL, /* add reference */
+    album_id VARCHAR(160) NOT NULL,
     username VARCHAR(80) NOT NULL,
     stars INT NOT NULL,
     prestige INT NOT NULL,
     upload_date DATE,
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (album_id) REFERENCES albums(id)
 );
 
 CREATE TABLE voting_data(
@@ -56,6 +57,26 @@ CREATE TABLE voting_data(
     /* -1: downvote, 1: upvote, 0: neither */
     FOREIGN KEY (review_id) REFERENCES reviews(id),
     FOREIGN KEY (username) REFERENCES users(username)
+);
+
+CREATE TABLE  albums(
+    id VARCHAR(160) PRIMARY KEY,
+    username VARCHAR(80) NOT NULL,
+    album_name VARCHAR(80) NOT NULL,
+    artist_name VARCHAR(80) NOT NULL,
+    cover_image TEXT NOT NULL,
+    upload_date DATE NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username)
+);
+
+CREATE TABLE songs(
+    album_id VARCHAR(160) NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    full_name VARCHAR(50) PRIMARY KEY,
+    album_name VARCHAR(50) NOT NULL,
+    artist_name VARCHAR(50),
+    song_content TEXT NOT NULL,
+    FOREIGN KEY (album_id) REFERENCES albums(id)
 );
 
 INSERT INTO badges VALUES

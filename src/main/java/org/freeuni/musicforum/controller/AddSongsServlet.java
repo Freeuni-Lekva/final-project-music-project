@@ -27,22 +27,23 @@ public class AddSongsServlet extends HttpServlet {
         Album album = service.getAlbum(id);
         int songAmount = Integer.parseInt(req.getParameter("songAmount"));
 
-        List<Song> songs = new ArrayList<>();
 
         for(int i = 1; i <= songAmount; i++) {
             String name = req.getParameter("name"+i);
             String fullName = album.artistName() + "_" + album.albumName() + "_" + name;
-            if(service.doesSongExist(id, name)) continue;
+            if(service.doesSongExist(id, fullName)) continue;
 
             Part part = req.getPart("song"+i);
             String pathFromWebFolder =  "songs";
             FileProcessor songProcessor = new FileProcessor(part, name, req, pathFromWebFolder);
 
             Song song = new Song(name, fullName, album.albumName(), album.artistName(), songProcessor.getBase64EncodedString());
+            List<Song> songs = new ArrayList<>();
             songs.add(song);
+            service.addSongs(id, songs);
         }
 
-        service.addSongs(id, songs);
+
 
         req.setAttribute("album", album);
         req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
