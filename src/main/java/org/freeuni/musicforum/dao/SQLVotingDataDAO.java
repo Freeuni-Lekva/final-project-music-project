@@ -27,15 +27,16 @@ public class SQLVotingDataDAO implements VotingDataDAO {
                 if (prevVote != 0 && prevVote != vote.voteType().ordinal() - 1) {
                     removeVote(vote);
                 }
-            } else {
-                PreparedStatement addVoteStm = con.prepareStatement("INSERT INTO " +
-                        "voting_data(username, review_id, vote) VALUES(?, ?, ?);");
-                addVoteStm.setString(1, vote.username());
-                addVoteStm.setString(2, vote.reviewId());
-                addVoteStm.setInt(3, vote.voteType().ordinal() - 1);
-                addVoteStm.executeUpdate();
-                addVoteStm.close();
             }
+
+            PreparedStatement addVoteStm = con.prepareStatement("INSERT INTO " +
+                    "voting_data(username, review_id, vote) VALUES(?, ?, ?);");
+            addVoteStm.setString(1, vote.username());
+            addVoteStm.setString(2, vote.reviewId());
+            addVoteStm.setInt(3, vote.voteType().ordinal() - 1);
+            addVoteStm.executeUpdate();
+            addVoteStm.close();
+
             rs.close();
             getVoteStm.close();
         } catch (SQLException exc) {

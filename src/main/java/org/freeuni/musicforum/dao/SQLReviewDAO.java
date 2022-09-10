@@ -22,7 +22,7 @@ public class SQLReviewDAO implements ReviewDAO {
                     "SELECT id FROM reviews WHERE id = ?;");
             checkExistStm.setString(1, review.getId());
             ResultSet rs = checkExistStm.executeQuery();
-            if (!rs.next()) return false;
+            if (rs.next()) return false;
             rs.close();
             checkExistStm.close();
 
