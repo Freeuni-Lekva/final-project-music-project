@@ -41,7 +41,7 @@ public class AddSongsServlet extends HttpServlet {
 
 
 
-        req.setAttribute("album", album);
+        req.setAttribute("album", service.getAlbum(id));
         req.getRequestDispatcher("/WEB-INF/previewAlbum.jsp").forward(req, resp);
 
     }
