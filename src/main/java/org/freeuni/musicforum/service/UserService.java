@@ -82,7 +82,7 @@ public class UserService {
                     "User with provided username " +  toUsername + " does not exist");
         }
 
-        if(dao.doesExist(fromUsername)){
+        if(!dao.doesExist(fromUsername)){
             throw new NoSuchUserExistsException("" +
                     "User with provided username " +  toUsername + " does not exist");
         }
@@ -143,6 +143,7 @@ public class UserService {
     public void updateProfilePicture(String username, String base64String){
         if(dao.doesExist(username)){
             dao.setProfileImageBase64(username, base64String);
+            return;
         }
 
         throw new NoSuchUserExistsException("" +
