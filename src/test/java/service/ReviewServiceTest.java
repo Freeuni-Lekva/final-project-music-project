@@ -6,7 +6,6 @@ import org.freeuni.musicforum.model.Review;
 import org.freeuni.musicforum.service.ReviewService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

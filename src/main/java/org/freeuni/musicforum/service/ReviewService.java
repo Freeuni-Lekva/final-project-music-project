@@ -42,6 +42,10 @@ public class ReviewService {
         return dao.getAllByAlbum(albumId);
     }
 
+    public boolean userHasReviewForAlbum(String username, String albumId) {
+        return dao.hasReviewFor(username, albumId);
+    }
+
     public void deleteAllReviewsFor(String albumId) {
         dao.deleteAllByAlbum(albumId);
     }
