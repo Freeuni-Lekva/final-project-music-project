@@ -43,9 +43,10 @@ public class InMemoryAlbumDAO implements AlbumDAO{
         if (allReviews.size() == 0) return 0;
         int totalStars = allReviews.stream().map(rev -> rev.getStarCount()).
                 reduce(0, (sum, elem) -> sum + elem);
-        double result = totalStars / allReviews.size();
+        double result = (double)totalStars / allReviews.size();
         return (int) Math.round(result);
     }
+
 
     @Override
     public boolean exists(String id) { return albums.containsKey(id); }
