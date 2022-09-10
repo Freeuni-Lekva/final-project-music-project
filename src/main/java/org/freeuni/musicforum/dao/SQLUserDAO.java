@@ -30,7 +30,7 @@ public class SQLUserDAO implements UserDAO {
             addStatement.setString(2, user.getPassword().hashed());
             addStatement.setString(3, user.getFirstName());
             addStatement.setString(4, user.getLastName());
-            addStatement.setInt(5, 0);
+            addStatement.setInt(5, 1);
             addStatement.setInt(6, user.getBadge().getBadgeIntValue());
             addStatement.setInt(7, user.getGenderIntValue());
             addStatement.setString(8, user.getProfileImageBase64());
