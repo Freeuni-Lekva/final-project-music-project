@@ -18,7 +18,7 @@ public class UserService {
 
     private final UserDAO dao;
 
-    UserService(UserDAO dao) {
+    public UserService(UserDAO dao) {
         this.dao = dao;
     }
 
@@ -84,7 +84,7 @@ public class UserService {
 
         if(!dao.doesExist(fromUsername)){
             throw new NoSuchUserExistsException("" +
-                    "User with provided username " +  toUsername + " does not exist");
+                    "User with provided username " +  fromUsername + " does not exist");
         }
 
         return dao.getFriendshipStatus(fromUsername, toUsername);
