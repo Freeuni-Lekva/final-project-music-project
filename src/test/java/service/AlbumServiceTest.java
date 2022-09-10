@@ -1,6 +1,8 @@
 package service;
 
 import junit.framework.TestCase;
+import org.freeuni.musicforum.dao.AlbumDAO;
+import org.freeuni.musicforum.dao.InMemoryAlbumDAO;
 import org.freeuni.musicforum.exception.AlbumExistsException;
 import org.freeuni.musicforum.exception.NonexistentAlbumException;
 import org.freeuni.musicforum.model.Album;
@@ -18,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AlbumServiceTest  extends TestCase {
 
-    private AlbumService service = ServiceFactory.getAlbumService();
-
     @Test
     void TestAddAlbum() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "firstAlbum";
         String artistName = "firstArtist";
@@ -51,6 +53,8 @@ public class AlbumServiceTest  extends TestCase {
 
     @Test
     void TestAddDuplicateAlbum() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "firstAlbum";
         String artistName = "firstArtist";
@@ -74,6 +78,8 @@ public class AlbumServiceTest  extends TestCase {
 
     @Test
     void TestGetAlbum() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "addedAlbum";
         String artistName = "addedArtist";
@@ -109,12 +115,16 @@ public class AlbumServiceTest  extends TestCase {
 
     @Test
     void TestGetNonexistentAlbum() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         assertThrows(NonexistentAlbumException.class, (()-> service.getAlbum("nonId1")));
         assertThrows(NonexistentAlbumException.class, (()-> service.getAlbum("nonId2")));
     }
 
     @Test
     void TestGetAlbumsUploadedBy() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "addedAlbum";
         String artistName = "addedArtist";
@@ -153,6 +163,8 @@ public class AlbumServiceTest  extends TestCase {
 
     @Test
     void TestExists() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "addedAlbum";
         String artistName = "addedArtist";
@@ -184,6 +196,8 @@ public class AlbumServiceTest  extends TestCase {
 
     @Test
     void TestAddAndExistsSongs() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "addedAlbum";
         String artistName = "addedArtist";
@@ -211,6 +225,8 @@ public class AlbumServiceTest  extends TestCase {
 
     @Test
     void TestAverageStar() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "addedAlbum";
         String artistName = "addedArtist";
@@ -251,6 +267,8 @@ public class AlbumServiceTest  extends TestCase {
 
     @Test
     void TestDeleteAlbum() {
+        AlbumDAO dao = new InMemoryAlbumDAO();
+        AlbumService service = new AlbumService(dao);
         String username = "eva";
         String albumName = "addedAlbum";
         String artistName = "addedArtist";
